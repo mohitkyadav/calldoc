@@ -6,9 +6,9 @@ verify_ssl = true
 
 [packages]
 
-django = "*"
-gunicorn = "*"
-django-heroku = "*"
+django = "2.0.6"
+gunicorn = "19.8.1"
+django-heroku = "0.3.1"
 
 
 [requires]
