@@ -8,4 +8,5 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^$', landing.views.land, name='land'),
     path('admin/', admin.site.urls),
+    path('', include('pwa.urls')),
 ]
