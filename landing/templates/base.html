@@ -2,8 +2,6 @@
 <html lang="en">
 {% load pwa %}
 {% load static %}
-
-
     <head>
         {% progressive_web_app_meta %}
         <meta charset="UTF-8">
@@ -26,6 +24,50 @@
     <script type="text/javascript" src="{% static 'js/uikit.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/uikit-icons.min.js' %}"></script>
     <body>
-        <h1>yo</h1>
+        <header>
+            <div uk-sticky="show-on-up: true; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar; animation: uk-animation-slide-top;">
+                <nav class="uk-navbar-container uk-navbar-transparent uk-box-shadow-hover-small" uk-navbar style="position: relative; z-index: 980;">
+                    <div class="uk-navbar-left">
+
+                        <ul class="uk-navbar-nav">
+                            <li class="uk-active"><a href="#">Transparent navbar</a></li>
+                            <li>
+                                <a href="#">this time scroll on up like</a>
+                                <div class="uk-navbar-dropdown">
+                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <div class="site-content">
+            {% block body %}
+                <h1>what up?</h1>
+            {% endblock %}
+        </div>
+        <footer>
+            <div align="center" class="footer-wrapper uk-box-shadow-small uk-box-shadow-hover-xlarge">
+                <div class="uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-padding-small uk-padding-remove-left uk-padding-remove-right">
+                    <span style="font-size: 12px;">
+                        <span class="uk-text-bold">
+                            Disclaimer: This is sticky
+                            <hr>
+                            😘💕❤😍😜
+                        </span>
+                        <hr>
+                        😎
+                        Ab ye karke dikhao!
+                    </span>
+                </div>
+            </div>
+    </footer>
     </body>
 </html>
