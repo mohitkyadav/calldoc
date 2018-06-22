@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>{% block title %}Welcome{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'icons/icon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/uikit.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/uikit-rtl.min.css' %}">
 </head>
+<script type="text/javascript" src="{% static 'js/uikit.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/uikit-icons.min.js' %}"></script>
 <body>
 <h1>yo</h1>
 </body>
