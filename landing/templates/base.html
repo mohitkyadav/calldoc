@@ -32,15 +32,21 @@
     <body>
         <header>
             <div uk-sticky="show-on-up: true; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar; animation: uk-animation-slide-top;">
-                <nav class="uk-navbar-container uk-text-bold uk-box-shadow-medium" uk-navbar style="position: relative; z-index: 980;">
+                <nav class="uk-navbar-container uk-box-shadow-medium" uk-navbar style="position: relative; z-index: 980;">
                     <div class="uk-navbar-left">
-                        <a class="uk-navbar-item uk-logo" href="{% url 'land' %}">
+                        <a class="uk-text-bold uk-navbar-item uk-logo" href="{% url 'home' %}">
                             <img src="{% static 'icons/bone.png' %}" width="50px" style="margin-right: 10px;">
                             MedTour
                         </a>
+                        <div class="uk-navbar-item hidden-on-small-display">
+                            <form class="uk-search uk-search-navbar">
+                                <span uk-search-icon></span>
+                                <input class="uk-search-input" type="search" placeholder="Search...">
+                            </form>
+                        </div>
                     </div>
 
-                    <div class="uk-navbar-right hidden-on-small-display uk-margin-right">
+                    <div class="uk-navbar-right hidden-on-small-display uk-text-bold uk-text-large uk-margin-right">
                         <ul class="uk-navbar-nav">
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
                             {% if user.is_authenticated %}
@@ -73,10 +79,16 @@
             <div id="hamburger" uk-offcanvas="mode: reveal; overlay: false; flip: true; overlay: false; esc-close: true;">
                 <div class="uk-offcanvas-bar uk-flex uk-flex-column">
                     <ul class="uk-nav uk-nav-primary uk-nav-center uk-text-left uk-margin-auto-vertical">
+                        <div class="uk-navbar-item uk-nav">
+                            <form class="uk-search uk-search-navbar">
+                                <span uk-search-icon></span>
+                                <input class="uk-search-input" type="search" placeholder="Search...">
+                            </form>
+                        </div>
                         <li><a href="{% url 'home' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Home</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'settings' %}"><span class="uk-margin-small-right" uk-icon="icon: cog;"></span> Settings</a></li>
-                            <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Change Password</a></li>
+                            <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Set Password</a></li>
                             <li><a href="{% url 'logout' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-out;"></span> Logout</a></li>
                         {% else %}
                             <li class="uk-active"><a href="{% url 'login' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-in;"></span> Login</a></li>
