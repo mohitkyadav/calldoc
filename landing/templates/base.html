@@ -48,11 +48,11 @@
                                     <a href="#"><span uk-icon="icon: user;"></span><span uk-icon="icon: triangle-down;"></span></a>
                                     <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; duration: 300">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <li>{{ user.username }}</li>
+                                            <li class="uk-text-center uk-padding-remove-bottom">{{ user.username }}</li>
                                             <hr>
-                                            <li><a class="" href="{% url 'settings' %}"><span uk-icon="icon: cog;"></span> Settings</a></li>
-                                            <li><a class="" href="{% url 'password' %}"><span uk-icon="icon: pencil;"></span> Change Password</a></li>
-                                            <li><a class="" href="{% url 'logout' %}"><span uk-icon="icon: sign-out;"></span> Logout</a></li>
+                                            <li><a href="{% url 'settings' %}"><span uk-icon="icon: cog;"></span> Settings</a></li>
+                                            <li><a href="{% url 'password' %}"><span uk-icon="icon: pencil;"></span> Change Password</a></li>
+                                            <li><a href="{% url 'logout' %}"><span uk-icon="icon: sign-out;"></span> Logout</a></li>
                                         </ul>
                                     </div>
                                  </li>
@@ -63,31 +63,25 @@
                             {% endif %}
                         </ul>
                     </div>
-                    <button class="hidden-on-large-display uk-icon-button uk-button-default uk-margin-small-top" type="button" uk-toggle="target: #hamburger" uk-icon="menu"></button>
+                    <button class="hidden-on-large-display uk-icon-button uk-button-default uk-margin-small-top uk-margin-right" type="button" uk-toggle="target: #hamburger" uk-icon="menu"></button>
 
                 </nav>
             </div>
         </header>
+
         <div class="uk-offcanvas-content uk-padding-remove">
             <div id="hamburger" uk-offcanvas="mode: reveal; overlay: false; flip: true;">
                 <div class="uk-offcanvas-bar uk-flex uk-flex-column">
-
                     <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-                        <li class="uk-active"><a href="{% url 'home' %}"><span class="uk-icon hamburger-icon-color" uk-icon="home" ratio="1.5"></span> Home</a></li>
-                        <li class="uk-parent">
-                            <a href="#">Parent</a>
-                            <ul class="uk-nav-sub">
-                                <li><a href="#">Sub item</a></li>
-                                <li><a href="#">Sub item</a></li>
-                            </ul>
-                        </li>
-                        <li class="uk-nav-header">Header</li>
-                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                        <li class="uk-active"><a href="{% url 'home' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Home</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'settings' %}"><span class="uk-margin-small-right" uk-icon="icon: cog;"></span> Settings</a></li>
+                            <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Change Password</a></li>
+                            <li><a href="{% url 'logout' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-out;"></span> Logout</a></li>
+                        {% else %}
+                            <li class="uk-active"><a href="{% url 'login' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-in;"></span> Login</a></li>
+                        {% endif %}
                     </ul>
-
                 </div>
             </div>
         </div>
