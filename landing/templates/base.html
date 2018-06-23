@@ -47,16 +47,16 @@
                                 <a href="#">{{ user.first_name }} ({{ user.username }}) <span uk-icon="icon: triangle-down;"></span></a>
                                 <div class="uk-navbar-dropdown">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        <li><a class="uk-text-success" href="{% url 'settings' %}">Settings</a></li>
+                                        <li><a class="uk-text-success" href="{% url 'settings' %}">Settings <span uk-icon="icon: cog;"></span></a></li>
                                         <li><a class="uk-text-primary" href="{% url 'password' %}">Set/Change Password</a></li>
-                                        <li><a class="uk-text-danger" href="{% url 'logout' %}">Logout</a></li>
+                                        <li><a class="uk-text-danger" href="{% url 'logout' %}">Logout <span uk-icon="icon: sign-out;"></span></a></li>
                                     </ul>
                                 </div>
                             </li>
                             {% endif %}
 
                             {% if not user.is_authenticated %}
-                                <li><a href="{% url 'login' %}">Login</a></li>
+                                <li><a href="{% url 'login' %}">Login <span uk-icon="icon: sign-in;"></span></a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -74,7 +74,7 @@
                 <div class="uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-padding-small uk-padding-remove-left uk-padding-remove-right">
                     <span class="uk-text-bold uk-text-small">
                         <hr>
-                        Developed by 2AM Developers
+                        <span uk-icon="icon: code;"></span> by 2AM Developers
                     </span>
                 </div>
             </div>
