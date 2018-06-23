@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'landing',
     'pwa',
 ]
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'medtour.urls'
@@ -66,10 +68,20 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'medtour.wsgi.application'
 
@@ -121,6 +133,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -144,3 +161,16 @@ PWA_APP_ICONS = [
 ]
 
 django_heroku.settings(locals())
+
+SOCIAL_AUTH_GITHUB_KEY = '3947970e84e211e40cb3'
+SOCIAL_AUTH_GITHUB_SECRET  = '0e30388e5f9ea476b5623b9dd1dc839057b4f93d'
+SOCIAL_AUTH_TWITTER_KEY = '9UpbOewcq5oGl3OZ6FwYwRicl'
+SOCIAL_AUTH_TWITTER_SECRET = '40qHmFnBYnsmLXyTXeYTIpf1ftZaMUJ1BnsL4Dn2ipcWGKajv5'
+SOCIAL_AUTH_FACEBOOK_KEY = '2158724891078638'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'df7d300541abc3c38c755fbcd2ee2291'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
