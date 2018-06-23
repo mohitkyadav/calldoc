@@ -1,6 +1,5 @@
 * {
     font-family: 'Sunflower', sans-serif !important;
-    color: black;
 }
 
 body {
@@ -15,6 +14,10 @@ body {
 
 .hidden-on-large-display {
     display: none !important;
+}
+
+.uk-offcanvas-bar {
+    background: black !important;
 }
 
 @media only screen and (max-width: 960px) {

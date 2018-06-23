@@ -44,7 +44,7 @@
                         <ul class="uk-navbar-nav">
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
                             {% if user.is_authenticated %}
-                                <li>
+                                <li class="uk-active">
                                     <a href="#"><span uk-icon="icon: user;"></span><span uk-icon="icon: triangle-down;"></span></a>
                                     <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; duration: 300">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -63,17 +63,17 @@
                             {% endif %}
                         </ul>
                     </div>
-                    <button class="hidden-on-large-display uk-icon-button uk-button-default uk-margin-small-top uk-margin-right" type="button" uk-toggle="target: #hamburger" uk-icon="menu"></button>
+                    <button class="hidden-on-large-display uk-active uk-icon-button uk-button-default uk-margin-small-top uk-margin-right" type="button" uk-toggle="target: #hamburger" uk-icon="menu"></button>
 
                 </nav>
             </div>
         </header>
 
         <div class="uk-offcanvas-content uk-padding-remove">
-            <div id="hamburger" uk-offcanvas="mode: reveal; overlay: false; flip: true;">
+            <div id="hamburger" uk-offcanvas="mode: reveal; overlay: false; flip: true; overlay: false; esc-close: true;">
                 <div class="uk-offcanvas-bar uk-flex uk-flex-column">
-                    <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-                        <li class="uk-active"><a href="{% url 'home' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Home</a></li>
+                    <ul class="uk-nav uk-nav-primary uk-nav-center uk-text-left uk-margin-auto-vertical">
+                        <li><a href="{% url 'home' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Home</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'settings' %}"><span class="uk-margin-small-right" uk-icon="icon: cog;"></span> Settings</a></li>
                             <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Change Password</a></li>
