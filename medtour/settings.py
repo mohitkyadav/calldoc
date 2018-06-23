@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import django_heroku
+from decouple import config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,9 +26,9 @@ PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'medtour/static/js', 'servicewo
 SECRET_KEY = 'CHANGE_ME!!!! (P.S. the SECRET_KEY environment variable will be used, if set, instead).'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 
 # Application definition
@@ -92,11 +93,11 @@ WSGI_APPLICATION = 'medtour.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'deo7oo18qa585c',
-        'USER': 'qhtgzodftgycry',
-        'PASSWORD': '9de77520618db42b4959ee3120c147622be406b39aec506d2845ad5fbae50796',
-        'HOST': 'ec2-50-19-86-139.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
@@ -162,12 +163,12 @@ PWA_APP_ICONS = [
 
 django_heroku.settings(locals())
 
-SOCIAL_AUTH_GITHUB_KEY = '3947970e84e211e40cb3'
-SOCIAL_AUTH_GITHUB_SECRET = '0e30388e5f9ea476b5623b9dd1dc839057b4f93d'
-SOCIAL_AUTH_TWITTER_KEY = '9UpbOewcq5oGl3OZ6FwYwRicl'
-SOCIAL_AUTH_TWITTER_SECRET = '40qHmFnBYnsmLXyTXeYTIpf1ftZaMUJ1BnsL4Dn2ipcWGKajv5'
-SOCIAL_AUTH_FACEBOOK_KEY = '2158724891078638'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'df7d300541abc3c38c755fbcd2ee2291'
+SOCIAL_AUTH_GITHUB_KEY = config('GH_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = config('GH_SKEY')
+SOCIAL_AUTH_TWITTER_KEY = config('TW_KEY')
+SOCIAL_AUTH_TWITTER_SECRET = config('TW_SKEY')
+SOCIAL_AUTH_FACEBOOK_KEY = config('FB_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = config('FB_SKEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 
