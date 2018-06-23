@@ -44,12 +44,12 @@
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
                             {% if user.is_authenticated %}
                                 <li>
-                                <a href="#">{{ user.first_name }}</a>
+                                <a href="#">{{ user.first_name }} ({{ user.username }})</a>
                                 <div class="uk-navbar-dropdown">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        <li><a href="{% url 'settings' %}">Settings</a></li>
-                                        <li><a href="{% url 'password' %}">Set/Change Password</a></li>
-                                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                                        <li><a class="uk-text-success" href="{% url 'settings' %}">Settings</a></li>
+                                        <li><a class="uk-text-primary" href="{% url 'password' %}">Set/Change Password</a></li>
+                                        <li><a class="uk-text-danger" href="{% url 'logout' %}">Logout</a></li>
                                     </ul>
                                 </div>
                             </li>

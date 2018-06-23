@@ -31,11 +31,16 @@
             <button class="uk-button uk-button-secondary uk-text-bold" type="submit">Login</button>
         </form>
 
-
         <div class="uk-align-center uk-text-center">
-            <a class="uk-button uk-button-primary uk-margin-small uk-text-bold" href="{% url 'social:begin' 'twitter' %}">Login using Twitter</a><br>
-            <a class="uk-button uk-button-secondary uk-margin-small uk-text-bold" href="{% url 'social:begin' 'facebook' %}">Login using Facebook</a><br>
-            <a class="uk-button uk-button-danger uk-margin-small uk-text-bold" href="{% url 'social:begin' 'google-oauth2' %}">Login using Google</a><br>
+            <p class="uk-text-bold uk-text-capitalize"> Or login with </p>
+            {#            <a class="uk-button uk-button-primary uk-margin-small uk-text-bold" href="{% url 'social:begin' 'twitter' %}">Login using Twitter</a><br>#}
+{#            <a class="uk-button uk-button-secondary uk-margin-small uk-text-bold" href="{% url 'social:begin' 'facebook' %}">Login using Facebook</a><br>#}
+{#            <a class="uk-button uk-button-danger uk-margin-small uk-text-bold" href="{% url 'social:begin' 'google-oauth2' %}">Login using Google</a><br>#}
+{#            <a class="uk-button uk-button-secondary uk-margin-small uk-text-bold" href="{% url 'social:begin' 'github' %}">Login using GitHub</a><br>#}
+            <a href="{% url 'social:begin' 'twitter' %}" class="uk-icon-button uk-button-default uk-margin-small-right" uk-icon="twitter"></a>
+            <a href="{% url 'social:begin' 'facebook' %}" class="uk-icon-button uk-button-default uk-margin-small-right" uk-icon="facebook"></a>
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="uk-icon-button uk-button-default uk-margin-small-right" uk-icon="google"></a>
+            <a href="{% url 'social:begin' 'github' %}" class="uk-icon-button uk-button-default uk-margin-small-right" uk-icon="github"></a>
         </div>
     </div>
 {% endblock %}
