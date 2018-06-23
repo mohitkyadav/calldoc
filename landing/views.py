@@ -53,12 +53,12 @@ def settings(request):
 @login_required
 def password(request):
     if request.user.has_usable_password():
-        PasswordForm = PasswordChangeForm
+        password_form = PasswordChangeForm
     else:
-        PasswordForm = AdminPasswordChangeForm
+        password_form = AdminPasswordChangeForm
 
     if request.method == 'POST':
-        form = PasswordForm(request.user, request.POST)
+        form = password_form(request.user, request.POST)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
@@ -67,5 +67,5 @@ def password(request):
         else:
             messages.error(request, 'Please correct the error below.')
     else:
-        form = PasswordForm(request.user)
+        form = password_form(request.user)
     return render(request, 'password.html', {'form': form})
