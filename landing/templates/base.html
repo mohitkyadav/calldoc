@@ -44,7 +44,7 @@
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
                             {% if user.is_authenticated %}
                                 <li>
-                                <a href="#">{{ user.first_name }} ({{ user.username }})</a>
+                                <a href="#">{{ user.first_name }} ({{ user.username }}) <span uk-icon="icon: triangle-down;"></span></a>
                                 <div class="uk-navbar-dropdown">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
                                         <li><a class="uk-text-success" href="{% url 'settings' %}">Settings</a></li>
