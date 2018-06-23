@@ -32,27 +32,30 @@
     <body>
         <header>
             <div uk-sticky="show-on-up: true; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar; animation: uk-animation-slide-top;">
-                <nav class="uk-navbar-container uk-text-bold uk-navbar-transparent uk-box-shadow-hover-small" uk-navbar style="position: relative; z-index: 980;">
+                <nav class="uk-navbar-container uk-text-bold uk-box-shadow-medium" uk-navbar style="position: relative; z-index: 980;">
                     <div class="uk-navbar-left">
                         <a class="uk-navbar-item uk-logo" href="{% url 'land' %}">
-                            <img src="{% static 'icons/bone.png' %}" width="58px" style="margin-right: 10px;">
-                            MedTour</a>
+                            <img src="{% static 'icons/bone.png' %}" width="50px" style="margin-right: 10px;">
+                            MedTour
+                        </a>
                     </div>
 
-                    <div class="uk-navbar-right uk-margin-right">
+                    <div class="uk-navbar-right hidden-on-small-display uk-margin-right">
                         <ul class="uk-navbar-nav">
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
                             {% if user.is_authenticated %}
                                 <li>
-                                <a href="#">{{ user.first_name }} ({{ user.username }}) <span uk-icon="icon: triangle-down;"></span></a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        <li><a class="uk-text-success" href="{% url 'settings' %}">Settings <span uk-icon="icon: cog;"></span></a></li>
-                                        <li><a class="uk-text-primary" href="{% url 'password' %}">Set/Change Password</a></li>
-                                        <li><a class="uk-text-danger" href="{% url 'logout' %}">Logout <span uk-icon="icon: sign-out;"></span></a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                                    <a href="#"><span uk-icon="icon: user;"></span><span uk-icon="icon: triangle-down;"></span></a>
+                                    <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; duration: 300">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li>{{ user.username }}</li>
+                                            <hr>
+                                            <li><a class="" href="{% url 'settings' %}"><span uk-icon="icon: cog;"></span> Settings</a></li>
+                                            <li><a class="" href="{% url 'password' %}"><span uk-icon="icon: pencil;"></span> Change Password</a></li>
+                                            <li><a class="" href="{% url 'logout' %}"><span uk-icon="icon: sign-out;"></span> Logout</a></li>
+                                        </ul>
+                                    </div>
+                                 </li>
                             {% endif %}
 
                             {% if not user.is_authenticated %}
@@ -60,10 +63,35 @@
                             {% endif %}
                         </ul>
                     </div>
+                    <button class="hidden-on-large-display uk-icon-button uk-button-default uk-margin-small-top" type="button" uk-toggle="target: #hamburger" uk-icon="menu"></button>
 
                 </nav>
             </div>
         </header>
+        <div class="uk-offcanvas-content uk-padding-remove">
+            <div id="hamburger" uk-offcanvas="mode: reveal; overlay: false; flip: true;">
+                <div class="uk-offcanvas-bar uk-flex uk-flex-column">
+
+                    <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
+                        <li class="uk-active"><a href="{% url 'home' %}"><span class="uk-icon hamburger-icon-color" uk-icon="home" ratio="1.5"></span> Home</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
         <div class="site-content">
             {% block body %}
 

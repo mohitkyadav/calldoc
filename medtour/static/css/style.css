@@ -12,3 +12,21 @@ body {
 .site-content {
     flex: 1;
 }
+
+.hidden-on-large-display {
+    display: none !important;
+}
+
+@media only screen and (max-width: 960px) {
+    .hidden-on-large-display {
+        display: block !important;
+    }
+
+    nav {
+        height: 60px;
+    }
+
+    .hidden-on-small-display {
+        display: none !important;
+    }
+}
