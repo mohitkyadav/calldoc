@@ -1,3 +1,8 @@
 from django.test import TestCase
+from . import views
 
-# Create your tests here.
+
+class TestViewTest(TestCase):
+
+    def test_test_view(self):
+        self.assertEqual(views.TestView.as_view(), True)

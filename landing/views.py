@@ -16,6 +16,12 @@ class HomeView(View):
         return render(request, 'home.html')
 
 
+# only4 testing
+class TestView(View):
+    def get(self, request):
+        return True
+
+
 class AccountOverview(View):
     def get(self, request):
         user = request.user
