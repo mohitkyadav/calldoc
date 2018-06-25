@@ -5,4 +5,4 @@ from . import views
 class TestViewTest(TestCase):
 
     def test_test_view(self):
-        self.assertEqual(views.TestView.as_view(), True)
+        self.assertEqual(views.test_func(), True)

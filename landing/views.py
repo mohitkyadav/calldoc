@@ -17,9 +17,8 @@ class HomeView(View):
 
 
 # only4 testing
-class TestView(View):
-    def get(self, request):
-        return True
+def test_func():
+    return True
 
 
 class AccountOverview(View):

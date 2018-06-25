@@ -1,0 +1,28 @@
+language: python
+python:
+  - 3.6
+services:
+  - postgresql
+env:
+  -DJANGO=2.0.6
+  -DB=postgresql
+  -DEBUG=True
+  -DB_NAME=medtour_db
+  -DB_USER=medtour
+  -DB_PASSWORD=medtour
+  -DB_HOST=127.0.0.1
+  -DB_PORT=5432
+  -ALLOWED_HOSTS=*
+
+install:
+  - pip install -r requirements.txt
+before_script:
+  - psql -c "CREATE USER medtour WITH CREATEUSER PASSWORD 'medtour';" -U postgres
+  - psql -c "ALTER USER medtour CREATEDB;" -U postgres
+  - psql -c "CREATE DATABASE medtour_db;" -U postgres
+  - psql -c "GRANT ALL ON DATABASE medtour_db TO medtour;" -U postgres
+
+script:
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - python manage.py test
