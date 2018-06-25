@@ -35,7 +35,7 @@
             <div uk-sticky="show-on-up: true; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar; animation: uk-animation-slide-top;">
                 <nav class="uk-navbar-container uk-box-shadow-medium" uk-navbar style="position: relative; z-index: 980;">
                     <div class="uk-navbar-left">
-                        <a class="uk-text-bold uk-navbar-item uk-logo" href="{% url 'home' %}">
+                        <a class="uk-text-bold uk-text-middle uk-navbar-item uk-logo" href="{% url 'home' %}">
                             <img src="{% static 'icons/bone.png' %}" width="50px" style="margin-right: 10px;">
                             MedTour
                         </a>
@@ -52,10 +52,10 @@
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
                             {% if user.is_authenticated %}
                                 <li class="uk-active">
-                                    <a href="#"><img class="uk-border-circle uk-card-hover" width="40" height="40" src="{% static 'images/anon.png' %}"></span><span uk-icon="icon: triangle-down;"></span></a>
+                                    <a href="#"><img class="uk-border-circle" width="40" height="40" src="{% static 'images/anon.png' %}"></span><span uk-icon="icon: triangle-down;"></span></a>
                                     <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; duration: 300">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <li class="uk-text-lead uk-text-center uk-margin-remove-bottom">{{ user.first_name }}</li>
+                                            <li class="uk-text-bold uk-text-center uk-margin-remove-bottom">{{ user.first_name }}</li>
                                             <hr>
                                             <li><a href="{% url 'overview' %}"><span uk-icon="icon: happy;"></span> Profile</a></li>
                                             <li><a href="{% url 'settings' %}"><span uk-icon="icon: cog;"></span> Settings</a></li>
@@ -83,7 +83,7 @@
                     <ul class="uk-nav uk-nav-primary uk-nav-center uk-text-left uk-margin-auto-vertical">
                     {% if user.is_authenticated %}
                         <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{% static 'images/anon.png' %}">
-                        <span class="uk-text-lead">{{ user.first_name }}</span>
+                        <span class="uk-text-lead uk-text-middle">{{ user.first_name }}</span>
                         <hr>
                     {% endif %}
                         <div class="uk-navbar-item uk-nav">
