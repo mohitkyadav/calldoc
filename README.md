@@ -2,6 +2,7 @@
 
 [<img src="medtour/static/icons/bone.png" align="right" width="100">](https://arcane-shore-58046.herokuapp.com)
 
+[![Build Status](https://travis-ci.com/mohitkyadav/calldoc.svg?token=pLJkWav1wbnbGfoLfZtG&branch=master)](https://travis-ci.com/mohitkyadav/calldoc)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/makes-people-smile.svg)](http://forthebadge.com)
 
