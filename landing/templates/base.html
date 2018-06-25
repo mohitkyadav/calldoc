@@ -76,7 +76,7 @@
                 </nav>
             </div>
         </header>
-
+        <div id="spinner"></div>
         <div class="uk-offcanvas-content uk-padding-remove">
             <div id="hamburger" uk-offcanvas="mode: reveal; overlay: false; flip: true; overlay: false; esc-close: true;">
                 <div class="uk-offcanvas-bar uk-flex uk-flex-column">
@@ -106,12 +106,12 @@
             </div>
         </div>
 
-        <div class="site-content">
+        <div class="site-content" style="display: none"  uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > div, div > .uk-card; delay: 200; repeat: false">
             {% block body %}
 
             {% endblock %}
         </div>
-        <footer>
+        <footer style="display: none">
             <div align="center" class="footer-wrapper uk-box-shadow-small uk-box-shadow-hover-xlarge">
                 <div class="uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-padding-small uk-padding-remove-left uk-padding-remove-right">
                     <span class="uk-text-bold uk-text-small">
@@ -120,6 +120,22 @@
                     </span>
                 </div>
             </div>
-    </footer>
+        </footer>
     </body>
+<script>
+    var spinner = document.getElementById("spinner");
+    var footer = document.getElementsByTagName("footer")[0];
+    var site_content = document.getElementsByClassName("site-content")[0];
+    footer.style.display = "none";
+    site_content.style.display = "none";
+
+    document.onreadystatechange = () => {
+      if (document.readyState === 'complete') {
+        // document ready
+        spinner.style.display = "none";
+        footer.style.display = "block";
+        site_content.style.display = "block";
+      }
+    };
+</script>
 </html>
