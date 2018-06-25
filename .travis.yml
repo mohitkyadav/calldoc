@@ -13,6 +13,14 @@ env:
   -DB_HOST=127.0.0.1
   -DB_PORT=5432
   -ALLOWED_HOSTS=*
+  -GH_KEY=123456test
+  -GH_SKEY=123456test
+  -TW_KEY=123456test
+  -TW_SKEY=123456test
+  -FB_KEY=123456test
+  -FB_SKEY=123456test
+  -G_KEY=123456test
+  -G_SKEY=123456test
 
 install:
   - pip install -r requirements.txt
