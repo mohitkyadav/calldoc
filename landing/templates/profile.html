@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Account overview - MedTour
@@ -6,4 +7,25 @@
 
 {% block body %}
   <h2 class="uk-text-bold uk-text-center uk-padding-small">Account overview</h2>
+    <div class="uk-card uk-card-default uk-card-hover uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+        <div class="uk-width-auto uk-align-center">
+            <img class="uk-border-circle uk-card-hover" width="160" height="160" src="{% static 'images/anon.png' %}">
+        </div>
+        <span class="uk-text-lead uk-text-bold">{{ user.first_name }} {{ user.last_name }}</span><br>
+        <span><strong>Username:</strong> {{ user.username }}</span><br>
+        <span><strong>Joined</strong> {{ user.date_joined|timesince }} ago</span><br>
+        <span><strong>Last active</strong> {{ user.last_login|timesince }} ago</span><br><hr class="uk-hr">
+        {% if twitter_login %}
+            <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank" class="uk-card-hover uk-icon-button uk-button-default uk-margin-small-right" uk-icon="twitter"></a>
+        {% endif %}
+        {% if facebook_login %}
+            <a href=href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank" class="uk-icon-button uk-button-default uk-card-hover uk-margin-small-right" uk-icon="facebook"></a>
+        {% endif %}
+        {% if google_login %}
+            <a href="mailto: {{ google_login }}@gmail.com" target="_blank" class="uk-icon-button uk-button-default uk-card-hover uk-margin-small-right" uk-icon="google"></a>
+        {% endif %}
+        {% if twitter_login or facebook_login or google_login %}
+        <hr>
+        {% endif %}
+    </div>
 {% endblock %}

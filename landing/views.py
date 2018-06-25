@@ -19,7 +19,34 @@ class HomeView(View):
 class AccountOverview(View):
     def get(self, request):
         user = request.user
-        return render(request, 'profile.html', {'user': user})
+
+        try:
+            google_login = user.social_auth.get(provider='google-oauth2')
+        except UserSocialAuth.DoesNotExist:
+            google_login = None
+
+        try:
+            github_login = user.social_auth.get(provider='github')
+        except UserSocialAuth.DoesNotExist:
+            github_login = None
+
+        try:
+            twitter_login = user.social_auth.get(provider='twitter')
+        except UserSocialAuth.DoesNotExist:
+            twitter_login = None
+
+        try:
+            facebook_login = user.social_auth.get(provider='facebook')
+        except UserSocialAuth.DoesNotExist:
+            facebook_login = None
+
+        return render(request, 'profile.html', {
+            'github_login': github_login,
+            'twitter_login': twitter_login,
+            'facebook_login': facebook_login,
+            'google_login': google_login,
+            'user': user
+        })
 
 
 @login_required
