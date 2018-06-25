@@ -4,4 +4,29 @@
 {% endblock %}
 {% block body %}
     <p class="uk-text-bold uk-text-lead uk-text-center uk-padding-small">Hello {{ user.username }}!</p>
+    <hr class="hidden-on-small-display">
+    <p class="hidden-on-small-display uk-text-bold uk-text-center">We will be live in</p>
+    <div class="hidden-on-small-display uk-card uk-card-default uk-card-hover uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+        <div class="uk-grid-small uk-child-width-auto" uk-grid uk-countdown="date: 2018-07-15T00:00:00+05:30">
+        <div>
+            <div class="uk-countdown-number uk-countdown-days"></div>
+            <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div>
+        </div>
+        <div class="uk-countdown-separator">:</div>
+        <div>
+            <div class="uk-countdown-number uk-countdown-hours"></div>
+            <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours</div>
+        </div>
+        <div class="uk-countdown-separator">:</div>
+        <div>
+            <div class="uk-countdown-number uk-countdown-minutes"></div>
+            <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Minutes</div>
+        </div>
+        <div class="uk-countdown-separator">:</div>
+        <div>
+            <div class="uk-countdown-number uk-countdown-seconds"></div>
+            <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds</div>
+        </div>
+    </div>
+    </div>
 {% endblock %}

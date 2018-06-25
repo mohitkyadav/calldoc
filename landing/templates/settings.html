@@ -6,77 +6,109 @@
 
 {% block body %}
   <h2 class="uk-text-bold uk-text-center uk-padding-small">Settings</h2>
-
-    <div class="uk-card uk-card-default uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
-        <h3>Google <span uk-icon="icon: google; ratio: 1.5"></span></h3>
+    {% if facebook_login or twitter_login or google_login or github_login %}
+    <span class="uk-text-lead uk-padding-remove uk-margin-remove uk-text-bold uk-text-center uk-align-center">Connected Services</span>
+    <div class="uk-child-width-1-2@s uk-grid-match" uk-sortable="handle: .uk-card" uk-grid>
         {% if google_login %}
-          <p>Connected as <a href="https://google.com/{{ google_login.extra_data.id }}/" target="_blank">{{ google_login.extra_data.id }}</a></p>
-          {% if can_disconnect %}
-            <form method="post" action="{% url 'social:disconnect' 'google-oauth2' %}">
-              {% csrf_token %}
-              <button class="uk-button uk-button-danger" type="submit">Disconnect from Google</button>
-            </form>
-          {% else %}
-            <button class="uk-button uk-button-danger" type="button" disabled>Disconnect from Google</button>
-            <p class="uk-text-danger">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Google.</p>
-          {% endif %}
-        {% else %}
-          <a class="uk-button uk-button-primary" href="{% url 'social:begin' 'google-oauth2' %}">Connect to Google</a>
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+            <h3>Google <span uk-icon="icon: google; ratio: 1.5"></span></h3>
+            <p>Connected as <a href="#">{{ google_login }}@gmail.com</a></p>
+            {% if can_disconnect %}
+                <form method="post" action="{% url 'social:disconnect' 'google-oauth2' %}">
+                    {% csrf_token %}
+                    <button class="uk-button uk-button-danger uk-border-rounded" type="submit">Disconnect from Google</button>
+                </form>
+            {% else %}
+                <button class="uk-button uk-button-danger uk-border-rounded" type="button" disabled>Disconnect from Google</button>
+                <p class="uk-text-danger">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Google.</p>
+            {% endif %}
+            </div>
         {% endif %}
-    </div>
 
-    <div class="uk-card uk-card-default uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
-        <h3>Twitter <span uk-icon="icon: twitter; ratio: 1.5"></span></h3>
-          {% if twitter_login %}
+        {% if twitter_login %}
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+            <h3>Twitter <span uk-icon="icon: twitter; ratio: 1.5"></span></h3>
             <p>Connected as <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank">@{{ twitter_login.extra_data.access_token.screen_name }}</a></p>
             {% if can_disconnect %}
-              <form method="post" action="{% url 'social:disconnect' 'twitter' %}">
-                {% csrf_token %}
-                <button class="uk-button uk-button-danger" type="submit">Disconnect from Twitter</button>
-              </form>
+                <form method="post" action="{% url 'social:disconnect' 'twitter' %}">
+                    {% csrf_token %}
+                    <button class="uk-button uk-button-danger uk-border-rounded" type="submit">Disconnect from Twitter</button>
+                </form>
             {% else %}
-              <button class="uk-button uk-button-danger" type="button" disabled>Disconnect from Twitter</button>
-              <p class="uk-text-danger">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Twitter.</p>
+                <button class="uk-button uk-button-danger uk-border-rounded" type="button" disabled>Disconnect from Twitter</button>
+                <p style="word-wrap: break-word;" class="uk-text-danger uk-flex-wrap">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Twitter.</p>
             {% endif %}
-          {% else %}
-            <a class="uk-button uk-button-primary" href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
-          {% endif %}
-    </div>
-
-    <div class="uk-card uk-card-default uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
-        <h3>Facebook <span uk-icon="icon: facebook; ratio: 1.5"></span></h3>
-        {% if facebook_login %}
-          <p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
-          {% if can_disconnect %}
-            <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
-              {% csrf_token %}
-              <button class="uk-button uk-button-danger" type="submit">Disconnect from Facebook</button>
-            </form>
-          {% else %}
-            <button class="uk-button uk-button-danger" type="button" disabled>Disconnect from Facebook</button>
-            <p class="uk-text-danger">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
-          {% endif %}
-        {% else %}
-          <a class="uk-button uk-button-primary" href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
+            </div>
         {% endif %}
-    </div>
 
-    <div class="uk-card uk-card-default uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
-        <h3>GitHub <span uk-icon="icon: github; ratio: 1.5"></span></h3>
+        {% if facebook_login %}
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+            <h3>Facebook <span uk-icon="icon: facebook; ratio: 1.5"></span></h3>
+            <p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
+            {% if can_disconnect %}
+                <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
+                    {% csrf_token %}
+                    <button class="uk-button uk-button-danger uk-border-rounded" type="submit">Disconnect from Facebook</button>
+                </form>
+            {% else %}
+                <button class="uk-button uk-button-danger uk-border-rounded" type="button" disabled>Disconnect from Facebook</button>
+                <p class="uk-text-danger">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
+            {% endif %}
+            </div>
+        {% endif %}
+
         {% if github_login %}
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+            <h3>GitHub <span uk-icon="icon: github; ratio: 1.5"></span></h3>
             <p>Connected as <a href="https://github.com/{{ github_login.extra_data.login }}/" target="_blank">{{ github_login.extra_data.login }}</a></p>
             {% if can_disconnect %}
-              <form method="post" action="{% url 'social:disconnect' 'github' %}">
-                {% csrf_token %}
-                <button class="uk-button uk-button-danger" type="submit">Disconnect from GitHub</button>
-              </form>
+                <form method="post" action="{% url 'social:disconnect' 'github' %}">
+                    {% csrf_token %}
+                    <button class="uk-button uk-button-danger uk-border-rounded" type="submit">Disconnect from GitHub</button>
+                </form>
             {% else %}
-              <button class="uk-button uk-button-danger" type="button" disabled>Disconnect from GitHub</button>
-              <p class="uk-text-danger">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Github.</p>
+                <button class="uk-button uk-button-danger uk-border-rounded" type="button" disabled>Disconnect from GitHub</button>
+                <p class="uk-text-danger">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Github.</p>
             {% endif %}
-        {% else %}
-            <a class="uk-button uk-button-primary" href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
+            </div>
         {% endif %}
     </div>
+    {% else %}
+        <span class="uk-text-danger uk-text-bold uk-text-center uk-align-center">You don't have any connected accounts, connect few from below.</span>
+    {% endif %}
+    <hr>
+
+    <span class="uk-text-lead uk-padding-remove uk-margin-remove uk-text-bold uk-text-center uk-align-center">More Services</span>
+    {% if not google_login or not twitter_login or not facebook_login or not github_login %}
+    <div class="uk-child-width-1-2@s uk-grid-match" uk-sortable="handle: .uk-card" uk-grid>
+        {% if not google_login %}
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                <h3>Google <span uk-icon="icon: google; ratio: 1.5"></span></h3>
+                  <a class="uk-button uk-button-primary uk-border-rounded" href="{% url 'social:begin' 'google-oauth2' %}">Connect to Google</a>
+            </div>
+        {% endif %}
+
+        {% if not twitter_login %}
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                <h3>Twitter <span uk-icon="icon: twitter; ratio: 1.5"></span></h3>
+                    <a class="uk-button uk-button-primary uk-border-rounded" href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
+            </div>
+        {% endif %}
+
+        {% if not facebook_login %}
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                <h3>Facebook <span uk-icon="icon: facebook; ratio: 1.5"></span></h3>
+                  <a class="uk-button uk-button-primary uk-border-rounded" href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
+            </div>
+        {% endif %}
+
+        {% if not github_login %}
+            <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                <h3>GitHub <span uk-icon="icon: github; ratio: 1.5"></span></h3>
+                    <a class="uk-button uk-button-primary uk-card-hover uk-border-rounded" href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
 
 {% endblock %}
