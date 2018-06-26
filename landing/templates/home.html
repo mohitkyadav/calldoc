@@ -6,7 +6,7 @@
     <p class="uk-text-bold uk-text-lead uk-text-center uk-padding-small">Hello {{ user.username }}!</p>
     <hr class="hidden-on-small-display">
     <p class="hidden-on-small-display uk-text-bold uk-text-center">We will be live in</p>
-    <div class="hidden-on-small-display uk-card uk-card-default uk-card-hover uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+    <div uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > div; delay: 50; repeat: false" class="hidden-on-small-display uk-card uk-card-default uk-card-hover uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
         <div class="uk-grid-small uk-child-width-auto" uk-grid uk-countdown="date: 2018-07-15T00:00:00+05:30">
         <div>
             <div class="uk-countdown-number uk-countdown-days"></div>

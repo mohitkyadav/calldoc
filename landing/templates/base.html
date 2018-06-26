@@ -106,7 +106,7 @@
             </div>
         </div>
 
-        <div class="site-content" style="display: none"  uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > div, div > .uk-card; delay: 200; repeat: false">
+        <div class="site-content" style="display: none"  uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > .uk-card; delay: 200; repeat: false">
             {% block body %}
 
             {% endblock %}
@@ -122,20 +122,20 @@
             </div>
         </footer>
     </body>
-<script>
-    var spinner = document.getElementById("spinner");
-    var footer = document.getElementsByTagName("footer")[0];
-    var site_content = document.getElementsByClassName("site-content")[0];
-    footer.style.display = "none";
-    site_content.style.display = "none";
+    <script>
+        var spinner = document.getElementById("spinner");
+        var footer = document.getElementsByTagName("footer")[0];
+        var site_content = document.getElementsByClassName("site-content")[0];
+        footer.style.display = "none";
+        site_content.style.display = "none";
 
-    document.onreadystatechange = () => {
-      if (document.readyState === 'complete') {
-        // document ready
-        spinner.style.display = "none";
-        footer.style.display = "block";
-        site_content.style.display = "block";
-      }
-    };
-</script>
+        document.onreadystatechange = () => {
+          if (document.readyState === 'complete') {
+            // document ready
+            spinner.style.display = "none";
+            footer.style.display = "block";
+            site_content.style.display = "block";
+          }
+        };
+    </script>
 </html>
