@@ -10,7 +10,7 @@
     <h2 class="uk-text-bold uk-text-center uk-padding-small">Settings</h2>
     {% if facebook_login or twitter_login or google_login or github_login %}
         <span class="uk-text-lead uk-padding-remove uk-margin-remove uk-text-bold uk-text-center uk-align-center">Connected Services</span>
-        <div class="uk-child-width-1-2@s uk-grid-match" uk-sortable="handle: .uk-card" uk-grid>
+        <div class="uk-child-width-1-2@s uk-grid-match uk-margin-remove" uk-sortable="handle: .uk-card" uk-grid>
             {% if google_login %}
                 <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
                     <h3>Google <span uk-icon="icon: google; ratio: 1.5"></span></h3>
@@ -82,7 +82,7 @@
 
     <span class="uk-text-lead uk-padding-remove uk-margin-remove uk-text-bold uk-text-center uk-align-center">More Services</span>
     {% if not google_login or not twitter_login or not facebook_login or not github_login %}
-        <div class="uk-child-width-1-2@s uk-grid-match" uk-sortable="handle: .uk-card" uk-grid>
+        <div class="uk-child-width-1-2@s uk-grid-match uk-margin-remove" uk-sortable="handle: .uk-card" uk-grid>
             {% if not google_login %}
                 <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
                     <h3>Google <span uk-icon="icon: google; ratio: 1.5"></span></h3>
