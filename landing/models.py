@@ -13,7 +13,8 @@ class Profile(models.Model):
     GENDER_CHOICES = (
         ('m', 'Male'),
         ('f', 'Female'),
-        ('o', 'Other')
+        ('o', 'Other'),
+        ('n', 'Not Specified')
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -22,8 +23,10 @@ class Profile(models.Model):
     mail_notifications_allowed = models.BooleanField(default=True,
                                                      help_text='Get all your notifications via mail')
     newsletter = models.BooleanField(default=True, help_text='Get notifications our new services and features')
-    use_gravtar = models.BooleanField(default=False, help_text='One avtar to rule them all!')
+    use_gravtar = models.BooleanField(default=False, help_text='One avatar to rule them all!')
     beta_user = models.BooleanField(default=False, help_text='Test and help us find bugs in our unreleased features')
+    avatar = models.URLField(null=True, help_text='Profile picture URL')
+    avatar_small = models.URLField(null=True, help_text='Profile picture smaller URL')
 
     def __str__(self):
         return self.user.first_name

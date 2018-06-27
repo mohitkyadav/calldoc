@@ -50,9 +50,22 @@
                     <div class="uk-navbar-right hidden-on-small-display uk-text-bold uk-text-large uk-margin-right">
                         <ul class="uk-navbar-nav">
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
+                            {% if user.is_superuser %}
+                                <li class="uk-active"><a href="/admin">Admin</a></li>
+                            {% endif %}
                             {% if user.is_authenticated %}
                                 <li class="uk-active">
-                                    <a href="#"><img class="uk-border-circle" width="40" height="40" src="{% static 'images/anon.png' %}"></span><span uk-icon="icon: triangle-down;"></span></a>
+                                    <a href="#">
+                                        {% if user.profile.avatar %}
+                                            <img src="{{ user.profile.avatar_small }}" class="uk-border-circle" width="40" height="40">
+                                        {% else %}
+                                            {% if user.profile.gender == 'f' %}
+                                                <img src="{% static 'images/female.png' %}" class="uk-border-circle" width="40" height="40">
+                                            {% else %}
+                                                <img src="{% static 'images/anon.png' %}" class="uk-border-circle" width="40" height="40">
+                                            {% endif %}
+                                        {% endif %}
+                                    </span><span uk-icon="icon: triangle-down;"></span></a>
                                     <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; duration: 300">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-text-bold uk-text-center uk-margin-remove-bottom">{{ user.first_name }}</li>
@@ -82,7 +95,15 @@
                 <div class="uk-offcanvas-bar uk-flex uk-flex-column">
                     <ul class="uk-nav uk-nav-primary uk-nav-center uk-text-left uk-margin-auto-vertical">
                     {% if user.is_authenticated %}
-                        <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{% static 'images/anon.png' %}">
+                        {% if user.profile.avatar %}
+                            <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{{ user.profile.avatar_small }}">
+                        {% else %}
+                            {% if user.profile.gender == 'f' %}
+                                <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{% static 'images/female.png' %}">
+                            {% else %}
+                                <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{% static 'images/anon.png' %}">
+                            {% endif %}
+                        {% endif %}
                         <span class="uk-text-lead uk-text-middle">{{ user.first_name }}</span>
                         <hr>
                     {% endif %}

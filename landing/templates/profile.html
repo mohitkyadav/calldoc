@@ -9,10 +9,21 @@
   <h2 class="uk-text-bold uk-text-center uk-padding-small">Account overview</h2>
     <div class="uk-card uk-card-default uk-card-hover uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
         <div class="uk-width-auto uk-align-center">
-            <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/anon.png' %}">
+            {% if not user.profile.avatar %}
+                {% if user.profile.gender == 'f' %}
+                    <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/female.png' %}">
+                {% else %}
+                    <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/anon.png' %}">
+                {% endif %}
+            {% else %}
+                <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{{ user.profile.avatar }}">
+            {% endif %}
         </div>
-        <span class="uk-text-lead uk-text-bold">{{ user.first_name }} {{ user.last_name }}</span><br>
+        <span class="uk-text-lead uk-text-bold">{{ user.get_fullname }}</span><br>
         <span><strong>Username:</strong> {{ user.username }}</span><br>
+        {% if user.profile.gender != 'n' and user.profile.gender %}
+            <span><strong>Gender:</strong> {{ user.profile.get_gender_display }}</span><br>
+        {% endif %}
         <span><strong>Joined</strong> {{ user.date_joined|timesince }} ago</span><br>
         <span><strong>Last active</strong> {{ user.last_login|timesince }} ago</span><br><hr class="uk-hr">
         {% if twitter_login %}
@@ -24,10 +35,7 @@
         {% if google_login %}
             <a href="mailto:{{ google_login }}@gmail.com" target="_blank" class="uk-icon-button uk-button-default uk-card-hover uk-margin-small-right" uk-icon="google"></a>
         {% endif %}
-        {% if github_login %}
-            <a href="https://github.com/{{ github_login.extra_data.login }}" target="_blank" class="uk-icon-button uk-button-default uk-card-hover uk-margin-small-right" uk-icon="github"></a>
-        {% endif %}
-        {% if twitter_login or facebook_login or google_login or github_login %}
+        {% if twitter_login or facebook_login or google_login %}
         <hr>
         {% endif %}
     </div>

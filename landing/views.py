@@ -31,11 +31,6 @@ class AccountOverview(View):
             google_login = None
 
         try:
-            github_login = user.social_auth.get(provider='github')
-        except UserSocialAuth.DoesNotExist:
-            github_login = None
-
-        try:
             twitter_login = user.social_auth.get(provider='twitter')
         except UserSocialAuth.DoesNotExist:
             twitter_login = None
@@ -46,7 +41,6 @@ class AccountOverview(View):
             facebook_login = None
 
         return render(request, 'profile.html', {
-            'github_login': github_login,
             'twitter_login': twitter_login,
             'facebook_login': facebook_login,
             'google_login': google_login,
@@ -64,11 +58,6 @@ def settings(request):
         google_login = None
 
     try:
-        github_login = user.social_auth.get(provider='github')
-    except UserSocialAuth.DoesNotExist:
-        github_login = None
-
-    try:
         twitter_login = user.social_auth.get(provider='twitter')
     except UserSocialAuth.DoesNotExist:
         twitter_login = None
@@ -81,7 +70,6 @@ def settings(request):
     can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
 
     return render(request, 'settings.html', {
-        'github_login': github_login,
         'twitter_login': twitter_login,
         'facebook_login': facebook_login,
         'google_login': google_login,
