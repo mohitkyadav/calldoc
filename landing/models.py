@@ -10,7 +10,20 @@ class Profile(models.Model):
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
 
+    GENDER_CHOICES = (
+        ('m', 'Male'),
+        ('f', 'Female'),
+        ('o', 'Other')
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    dob = models.DateField(blank=True, null=True, help_text='Your date of birth')
+    gender = models.CharField(max_length=9, choices=GENDER_CHOICES, blank=True, null=True)
+    mail_notifications_allowed = models.BooleanField(default=True,
+                                                     help_text='Get all your notifications via mail')
+    newsletter = models.BooleanField(default=True, help_text='Get notifications our new services and features')
+    use_gravtar = models.BooleanField(default=False, help_text='One avtar to rule them all!')
+    beta_user = models.BooleanField(default=False, help_text='Test and help us find bugs in our unreleased features')
 
     def __str__(self):
         return self.user.first_name
