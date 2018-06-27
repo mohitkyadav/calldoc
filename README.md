@@ -28,8 +28,8 @@ $ python manage.py runserver
 
 Admin Credentials are:
 ```
-Username: admin
-Password: 2amdevroxx
+Username: test
+Password: test1234
 ```
 
 ## Deployment
