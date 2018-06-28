@@ -6,37 +6,76 @@
 {% endblock %}
 
 {% block body %}
-  <h2 class="uk-text-bold uk-text-center uk-padding-small">Account overview</h2>
-    <div class="uk-card uk-card-default uk-card-hover uk-width-1-2@m uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
-        <div class="uk-width-auto uk-align-center">
-            {% if not user.profile.avatar %}
-                {% if user.profile.gender == 'f' %}
-                    <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/female.png' %}">
-                {% else %}
-                    <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/anon.png' %}">
-                {% endif %}
-            {% else %}
-                <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{{ user.profile.avatar }}">
-            {% endif %}
+    <div class="uk-container">
+        <div class="uk-margin-remove" uk-grid>
+            <div class="uk-width-1-3@m">
+                <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                    <div class="uk-width-auto uk-margin-remove uk-align-center">
+                        {% if not user.profile.avatar %}
+                            {% if user.profile.gender == 'f' %}
+                                <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/female.png' %}">
+                            {% else %}
+                                <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/anon.png' %}">
+                            {% endif %}
+                        {% else %}
+                            <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{{ user.profile.avatar }}">
+                        {% endif %}
+                    </div>
+                    <br>
+                    <span class="uk-text-lead uk-text-bold">{{ user.get_full_name }}</span><br>
+                    <span class="uk-text-left"><strong>Last active</strong> {{ user.last_login|timesince }} ago</span><br><hr>
+                    {% if twitter_login %}
+                        <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank" class=" uk-icon-button uk-button-default uk-margin-small-right" uk-icon="twitter"></a>
+                    {% endif %}
+                    {% if facebook_login %}
+                        <a href=href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank" class="uk-icon-button uk-button-default  uk-margin-small-right" uk-icon="facebook"></a>
+                    {% endif %}
+                    {% if google_login %}
+                        <a href="mailto:{{ google_login }}@gmail.com" target="_blank" class="uk-icon-button uk-button-default uk-margin-small-right" uk-icon="google"></a>
+                    {% endif %}
+                    {% if twitter_login or facebook_login or google_login %}
+                    <hr>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="uk-width-2-3@m">
+                <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                    <ul class="uk-list uk-text-left">
+                        <li class="uk-text-meta">Username</li>
+                        <li>{{ user.username }}</li>
+                        {% if user.profile.dob %}
+                            <li class="uk-text-meta">Date of birth</li>
+                            <li>{{ user.profile.dob }}</li>
+                        {% endif %}
+                        {% if user.profile.gender != 'n' and user.profile.gender %}
+                            <li class="uk-text-meta">Gender</li>
+                            <li>{{ user.profile.get_gender_display }}</li>
+                        {% endif %}
+                        <li class="uk-text-meta">Joined</li>
+                        <li>{{ user.date_joined|timesince }} ago</li>
+
+                        <li class="uk-text-meta">Country</li>
+                        <li>Somewhere in Asia</li>
+                        <a class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top uk-button-secondary" href="#">Edit Profile</a>
+                    </ul>
+                    <hr>
+                    {% if user.profile.mail_notifications_allowed %}
+                        <span class="uk-badge uk-margin-small uk-label-success uk-padding-small" uk-icon="check">Mail notifications</span>
+                    {% else %}
+                        <span class="uk-badge uk-margin-small uk-label-danger uk-padding-small" uk-icon="close">Mail notifications</span>
+                    {% endif %}
+                    {% if user.profile.newsletter %}
+                        <span class="uk-badge uk-margin-small uk-label-success uk-padding-small" uk-icon="check">Newsletter</span>
+                    {% else %}
+                        <span class="uk-badge uk-margin-small uk-label-danger uk-padding-small" uk-icon="close">Newsletter</span>
+                    {% endif %}
+                    {% if user.profile.use_gravtar %}
+                        <span class="uk-badge uk-margin-small uk-label-success uk-padding-small" uk-icon="check">Gravtar</span>
+                    {% else %}
+                        <span class="uk-badge uk-margin-small uk-label-danger uk-padding-small" uk-icon="close">Use gravtar</span>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <span class="uk-text-lead uk-text-bold">{{ user.get_fullname }}</span><br>
-        <span><strong>Username:</strong> {{ user.username }}</span><br>
-        {% if user.profile.gender != 'n' and user.profile.gender %}
-            <span><strong>Gender:</strong> {{ user.profile.get_gender_display }}</span><br>
-        {% endif %}
-        <span><strong>Joined</strong> {{ user.date_joined|timesince }} ago</span><br>
-        <span><strong>Last active</strong> {{ user.last_login|timesince }} ago</span><br><hr class="uk-hr">
-        {% if twitter_login %}
-            <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank" class="uk-card-hover uk-icon-button uk-button-default uk-margin-small-right" uk-icon="twitter"></a>
-        {% endif %}
-        {% if facebook_login %}
-            <a href=href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank" class="uk-icon-button uk-button-default uk-card-hover uk-margin-small-right" uk-icon="facebook"></a>
-        {% endif %}
-        {% if google_login %}
-            <a href="mailto:{{ google_login }}@gmail.com" target="_blank" class="uk-icon-button uk-button-default uk-card-hover uk-margin-small-right" uk-icon="google"></a>
-        {% endif %}
-        {% if twitter_login or facebook_login or google_login %}
-        <hr>
-        {% endif %}
     </div>
 {% endblock %}
