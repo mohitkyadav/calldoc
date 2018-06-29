@@ -52,7 +52,7 @@ class AccountOverview(View):
         })
 
     def post(self, request):
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your profile was successfully updated!')
