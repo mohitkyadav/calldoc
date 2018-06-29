@@ -5,3 +5,4 @@ psycopg2
 django-progressive-web-app
 python-social-auth[django]
 python-decouple
+django-widget-tweaks

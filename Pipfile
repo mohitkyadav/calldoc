@@ -9,6 +9,7 @@ django-heroku = "*"
 django-progressive-web-app = "*"
 social-auth-app-django = '*'
 python-decouple = '*'
+django-widget-tweaks = '*'
 
 [requires]
 python_version = "3.6"
