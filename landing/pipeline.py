@@ -9,7 +9,8 @@ def get_profile(backend, user, response, details, *args, **kwargs):
         print(response)
         url = 'http://graph.facebook.com/{0}/picture?type=large'.format(response['id'])
         small_url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
-        profile.gender = 'n'
+        if not profile.gender:
+            profile.gender = 'n'
     elif backend.name == "twitter":
         # print(response)
         if response['profile_image_url'] != '':
@@ -18,16 +19,18 @@ def get_profile(backend, user, response, details, *args, **kwargs):
                 small_url = response.get('profile_image_url_https')
                 if url:
                     url = url.replace('_normal.', '.')
-                profile.gender = 'n'
+                if not profile.gender:
+                    profile.gender = 'n'
     elif backend.name == "google-oauth2":
         # print(response)
         if response['image'].get('url'):
             small_url = response['image'].get('url')
             url = small_url.replace("sz=50", "sz=160")
-        if response.get('gender'):
-            profile.gender = response.get('gender')[0]
-        else:
-            profile.gender = 'n'
+        if not profile.gender:
+            if response.get('gender'):
+                profile.gender = response.get('gender')[0]
+            else:
+                profile.gender = 'n'
     profile.avatar_small = small_url
     profile.avatar = url
     profile.save()
