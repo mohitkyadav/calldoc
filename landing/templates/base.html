@@ -26,11 +26,11 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/uikit.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/uikit-rtl.min.css' %}">
         <link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
-
     </head>
     <script type="text/javascript" src="{% static 'js/uikit.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/uikit-icons.min.js' %}"></script>
     <body>
+        <div id="spinner"></div>
         <header>
             <div uk-sticky="show-on-up: true; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar; animation: uk-animation-slide-top;">
                 <nav class="uk-navbar-container uk-box-shadow-medium" uk-navbar style="position: relative; z-index: 980;">
@@ -89,7 +89,6 @@
                 </nav>
             </div>
         </header>
-        <div id="spinner"></div>
         <div class="uk-offcanvas-content uk-padding-remove">
             <div id="hamburger" uk-offcanvas="mode: reveal; overlay: false; flip: true; overlay: false; esc-close: true;">
                 <div class="uk-offcanvas-bar uk-flex uk-flex-column">
@@ -126,8 +125,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="site-content" style="display: none"  uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > .uk-card; delay: 200; repeat: false">
+{#uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > .uk-card; delay: 200; repeat: false"#}
+        <div class="site-content" style="display: none">
             {% block body %}
 
             {% endblock %}

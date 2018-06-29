@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'social_django',
     'landing',
     'pwa',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

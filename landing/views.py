@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from social_django.models import UserSocialAuth
 
+from  .forms import ProfileForm
+
 
 def land(request):
     return render(request, 'base.html')
@@ -40,12 +42,23 @@ class AccountOverview(View):
         except UserSocialAuth.DoesNotExist:
             facebook_login = None
 
+        form = ProfileForm(instance=request.user.profile)
         return render(request, 'profile.html', {
             'twitter_login': twitter_login,
             'facebook_login': facebook_login,
             'google_login': google_login,
-            'user': user
+            'user': user,
+            'form': form
         })
+
+    def post(self, request):
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect('overview')
+        else:
+            messages.error(request, 'Please correct the error below.')
 
 
 @login_required

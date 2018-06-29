@@ -25,8 +25,8 @@ class Profile(models.Model):
     newsletter = models.BooleanField(default=True, help_text='Get notifications our new services and features')
     use_gravtar = models.BooleanField(default=False, help_text='One avatar to rule them all!')
     beta_user = models.BooleanField(default=False, help_text='Test and help us find bugs in our unreleased features')
-    avatar = models.URLField(null=True, help_text='Profile picture URL')
-    avatar_small = models.URLField(null=True, help_text='Profile picture smaller URL')
+    avatar = models.URLField(null=True, blank=True, help_text='Profile picture URL')
+    avatar_small = models.URLField(null=True, blank=True, help_text='Profile picture smaller URL')
 
     def __str__(self):
         return self.user.first_name
