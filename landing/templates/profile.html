@@ -40,6 +40,12 @@
             </div>
             <div class="uk-width-2-3@m">
                 <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="uk-text-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                        <hr>
+                    {% endif %}
                     <ul class="uk-list uk-text-left">
                         <li class="uk-text-meta">Username</li>
                         <li>{{ user.username }}</li>
@@ -73,6 +79,9 @@
                         <span class="uk-badge uk-label-success uk-padding-small" uk-icon="check">Gravtar</span>
                     {% else %}
                         <span class="uk-badge uk-label-danger uk-padding-small" uk-icon="close">Use gravtar</span>
+                    {% endif %}
+                    {% if user.profile.beta_user %}
+                        <span class="uk-badge uk-label-warning uk-padding-small" uk-icon="check">Beta</span>
                     {% endif %}
                 </div>
             </div>
@@ -110,8 +119,13 @@
                             <td>{{ form.beta_user.label }}</td>
                             <td>{{ form.beta_user }}</td>
                         </tr>
+                        <tr>
+                            <td>{{ form.use_gravtar.label }}</td>
+                            <td>{{ form.use_gravtar }}</td>
+                        </tr>
                     </tbody>
                 </table>
+                <input class="uk-width-1-1 uk-button uk-button-secondary uk-margin-small-bottom" type="reset" value="Clear all changes"/>
                 <input class="uk-width-1-1 uk-button uk-button-primary" type="submit" value="Submit" />
             </form>
         </div>
