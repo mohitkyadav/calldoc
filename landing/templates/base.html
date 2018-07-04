@@ -71,7 +71,6 @@
                                             <li class="uk-text-bold uk-text-center uk-margin-remove-bottom">{{ user.first_name }}</li>
                                             <hr>
                                             <li><a href="{% url 'overview' %}"><span uk-icon="icon: happy;"></span> Profile</a></li>
-                                            <li><a href="{% url 'settings' %}"><span uk-icon="icon: cog;"></span> Settings</a></li>
                                             <li><a href="{% url 'password' %}"><span uk-icon="icon: pencil;"></span> Change Password</a></li>
                                             <li><a href="{% url 'logout' %}"><span uk-icon="icon: sign-out;"></span> Logout</a></li>
                                         </ul>
@@ -115,7 +114,6 @@
                         <li><a href="{% url 'home' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Home</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'overview' %}"><span class="uk-margin-small-right" uk-icon="icon: happy;"></span> Profile</a></li>
-                            <li><a href="{% url 'settings' %}"><span class="uk-margin-small-right" uk-icon="icon: cog;"></span> Settings</a></li>
                             <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Set Password</a></li>
                             <li><a href="{% url 'logout' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-out;"></span> Logout</a></li>
                         {% else %}
