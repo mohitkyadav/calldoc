@@ -42,13 +42,15 @@ class AccountOverview(View):
         except UserSocialAuth.DoesNotExist:
             facebook_login = None
 
+        can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
         form = ProfileForm(instance=request.user.profile)
         return render(request, 'profile.html', {
             'twitter_login': twitter_login,
             'facebook_login': facebook_login,
             'google_login': google_login,
             'user': user,
-            'form': form
+            'form': form,
+            'can_disconnect': can_disconnect
         })
 
     def post(self, request):

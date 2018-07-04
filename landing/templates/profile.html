@@ -38,52 +38,148 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="uk-width-2-3@m">
-                <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <li{% if message.tags %} class="uk-text-{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                        <hr>
-                    {% endif %}
-                    <ul class="uk-list uk-text-left">
-                        <li class="uk-text-meta">Username</li>
-                        <li>{{ user.username }}</li>
-                        {% if user.profile.dob %}
-                            <li class="uk-text-meta">Date of birth</li>
-                            <li>{{ user.profile.dob }}</li>
-                        {% endif %}
-                        {% if user.profile.gender != 'n' and user.profile.gender %}
-                            <li class="uk-text-meta">Gender</li>
-                            <li>{{ user.profile.get_gender_display }}</li>
-                        {% endif %}
-                        <li class="uk-text-meta">Joined</li>
-                        <li>{{ user.date_joined|timesince }} ago</li>
+            <div class="uk-width-2-3@m uk-margin-medium-top">
+                <ul class="uk-child-width-expand uk-width-1-1@l uk-subnav uk-subnav-pill uk-margin-auto" uk-switcher="animation: uk-animation-slide-top-small, uk-animation-slide-top-medium; duration: 200;">
+                    <li class="uk-active uk-padding-remove-left"><a href="#">Profile Overview</a></li>
+                    <li class="uk-padding-remove-right"><a href="#">Connected Social Accounts</a></li>
+                </ul>
+                <ul class="uk-switcher uk-width-1-1@l">
+                    <li class="uk-active uk-width-1-1@l uk-padding-remove">
+                        <div class="uk-width-1-1">
+                            <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-text-center uk-card-body uk-align-center">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <h3{% if message.tags %} class="uk-text-{{ message.tags }}"{% endif %}>{{ message }}</h3>
+                                    {% endfor %}
+                                    <hr>
+                                {% endif %}
+                                <ul class="uk-list uk-text-left">
+                                    <li class="uk-text-meta">Username</li>
+                                    <li>{{ user.username }}</li>
+                                    {% if user.profile.dob %}
+                                        <li class="uk-text-meta">Date of birth</li>
+                                        <li>{{ user.profile.dob }}</li>
+                                    {% endif %}
+                                    {% if user.profile.gender != 'n' and user.profile.gender %}
+                                        <li class="uk-text-meta">Gender</li>
+                                        <li>{{ user.profile.get_gender_display }}</li>
+                                    {% endif %}
+                                    <li class="uk-text-meta">Joined</li>
+                                    <li>{{ user.date_joined|timesince }} ago</li>
 
-                        <li class="uk-text-meta">Country</li>
-                        <li>Somewhere in Asia</li>
-                        <a class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top uk-button-secondary" href="#profile-edit-form" uk-toggle>Edit Profile</a>
-                    </ul>
-                    <hr>
-                    {% if user.profile.mail_notifications_allowed %}
-                        <span class="uk-badge uk-margin-small uk-label-success uk-padding-small" uk-icon="check">Mail notifications</span>
-                    {% else %}
-                        <span class="uk-badge uk-margin-small uk-label-danger uk-padding-small" uk-icon="close">Mail notifications</span>
-                    {% endif %}
-                    {% if user.profile.newsletter %}
-                        <span class="uk-badge uk-margin-small uk-label-success uk-padding-small" uk-icon="check">Newsletter</span>
-                    {% else %}
-                        <span class="uk-badge uk-margin-small uk-label-danger uk-padding-small" uk-icon="close">Newsletter</span>
-                    {% endif %}
-                    {% if user.profile.use_gravtar %}
-                        <span class="uk-badge uk-label-success uk-padding-small" uk-icon="check">Gravtar</span>
-                    {% else %}
-                        <span class="uk-badge uk-label-danger uk-padding-small" uk-icon="close">Use gravtar</span>
-                    {% endif %}
-                    {% if user.profile.beta_user %}
-                        <span class="uk-badge uk-label-warning uk-padding-small" uk-icon="check">Beta</span>
-                    {% endif %}
-                </div>
+                                    <li class="uk-text-meta">Country</li>
+                                    <li>Somewhere in Asia</li>
+                                    <a class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top uk-button-secondary" href="#profile-edit-form" uk-toggle>Edit Profile</a>
+                                </ul>
+                                <hr>
+                                {% if user.profile.mail_notifications_allowed %}
+                                    <span class="uk-badge uk-margin-small uk-label-success uk-padding-small" uk-icon="check">Mail notifications</span>
+                                {% else %}
+                                    <span class="uk-badge uk-margin-small uk-label-danger uk-padding-small" uk-icon="close">Mail notifications</span>
+                                {% endif %}
+                                {% if user.profile.newsletter %}
+                                    <span class="uk-badge uk-margin-small uk-label-success uk-padding-small" uk-icon="check">Newsletter</span>
+                                {% else %}
+                                    <span class="uk-badge uk-margin-small uk-label-danger uk-padding-small" uk-icon="close">Newsletter</span>
+                                {% endif %}
+                                {% if user.profile.use_gravtar %}
+                                    <span class="uk-badge uk-label-success uk-padding-small" uk-icon="check">Gravtar</span>
+                                {% else %}
+                                    <span class="uk-badge uk-label-danger uk-padding-small" uk-icon="close">Use gravtar</span>
+                                {% endif %}
+                                {% if user.profile.beta_user %}
+                                    <span class="uk-badge uk-label-warning uk-padding-small" uk-icon="check">Beta</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="uk-width-1-1@l uk-padding-remove">
+                        <div class="uk-width-1-1 uk-card-default uk-card-hover uk-padding-small">
+                           {% if facebook_login or twitter_login or google_login%}
+                                <span class="uk-text-lead uk-padding-remove uk-margin-remove uk-text-bold uk-text-center uk-align-center">Connected Services</span>
+                                <div class="uk-child-width-1-3@s uk-grid-match uk-margin-remove" uk-grid>
+                                    {% if google_login %}
+                                        <div class="uk-card uk-padding-remove-bottom uk-padding-remove-right uk-padding-remove-left uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                                            <h3>Google <span uk-icon="icon: google; ratio: 1.5"></span></h3>
+                                            <p>Connected as <a href="mailto:{{ google_login }}@gmail.com">{{ google_login }}@gmail.com</a></p>
+                                            {% if can_disconnect %}
+                                                <form method="post" action="{% url 'social:disconnect' 'google-oauth2' %}">
+                                                    {% csrf_token %}
+                                                    <button class="uk-button uk-button-danger" type="submit">Disconnect from Google</button>
+                                                </form>
+                                            {% else %}
+                                                <button class="uk-button uk-button-danger" type="button" disabled>Disconnect from Google</button>
+                                                <p class="uk-text-danger uk-padding-small">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Google.</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+
+                                    {% if twitter_login %}
+                                        <div class="uk-card uk-card-default uk-padding-remove-bottom uk-padding-remove-right uk-padding-remove-left uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                                            <h3>Twitter <span uk-icon="icon: twitter; ratio: 1.5"></span></h3>
+                                            <p>Connected as <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank">@{{ twitter_login.extra_data.access_token.screen_name }}</a></p>
+                                            {% if can_disconnect %}
+                                                <form method="post" action="{% url 'social:disconnect' 'twitter' %}">
+                                                    {% csrf_token %}
+                                                    <button class="uk-button uk-button-danger" type="submit">Disconnect from Twitter</button>
+                                                </form>
+                                            {% else %}
+                                                <button class="uk-button uk-button-danger" type="button" disabled>Disconnect from Twitter</button>
+                                                <p style="word-wrap: break-word;" class="uk-text-danger uk-flex-wrap uk-padding-small">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Twitter.</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+
+                                    {% if facebook_login %}
+                                        <div class="uk-card uk-card-default uk-padding-remove-bottom uk-padding-remove-right uk-padding-remove-left uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                                        <h3>Facebook <span uk-icon="icon: facebook; ratio: 1.5"></span></h3>
+                                        <p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
+                                        {% if can_disconnect %}
+                                            <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
+                                                {% csrf_token %}
+                                                <button class="uk-button uk-button-danger" type="submit">Disconnect from Facebook</button>
+                                            </form>
+                                        {% else %}
+                                            <button class="uk-button uk-button-danger" type="button" disabled>Disconnect from Facebook</button>
+                                            <p class="uk-text-danger uk-padding-small">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
+                                        {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <span class="uk-text-danger uk-text-bold uk-text-center uk-align-center">You don't have any connected accounts, connect few from below.</span>
+                            {% endif %}
+                            <hr>
+
+                            <span class="uk-text-lead uk-padding-remove uk-margin-remove uk-text-bold uk-text-center uk-align-center">More Services</span>
+                            {% if not google_login or not twitter_login or not facebook_login %}
+                                <div class="uk-child-width-1-3@m uk-grid-match uk-margin-remove" uk-grid>
+                                    {% if not google_login %}
+                                        <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-padding-remove-bottom uk-padding-remove-right uk-padding-remove-left uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                                            <h3>Google <span uk-icon="icon: google; ratio: 1.5"></span></h3>
+                                            <a class="uk-button uk-button-primary" href="{% url 'social:begin' 'google-oauth2' %}">Connect to Google</a>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if not twitter_login %}
+                                        <div class="uk-card uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-padding-remove-bottom uk-padding-remove-right uk-padding-remove-left uk-margin-auto-bottom">
+                                            <h3>Twitter <span uk-icon="icon: twitter; ratio: 1.5"></span></h3>
+                                            <a class="uk-button uk-button-primary" href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if not facebook_login %}
+                                        <div class="uk-card uk-padding-remove-bottom uk-padding-remove-right uk-padding-remove-left uk-card-default uk-card-hover uk-width-auto uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                                            <h3>Facebook <span uk-icon="icon: facebook; ratio: 1.5"></span></h3>
+                                              <a class="uk-button uk-button-primary" href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </li>
+
+                </ul>
             </div>
         </div>
     </div>
