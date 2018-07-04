@@ -42,13 +42,15 @@ class AccountOverview(View):
         except UserSocialAuth.DoesNotExist:
             facebook_login = None
 
+        can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
         form = ProfileForm(instance=request.user.profile)
         return render(request, 'profile.html', {
             'twitter_login': twitter_login,
             'facebook_login': facebook_login,
             'google_login': google_login,
             'user': user,
-            'form': form
+            'form': form,
+            'can_disconnect': can_disconnect
         })
 
     def post(self, request):
@@ -59,35 +61,6 @@ class AccountOverview(View):
             return redirect('overview')
         else:
             messages.error(request, 'Please correct the error below.')
-
-
-@login_required
-def settings(request):
-    user = request.user
-
-    try:
-        google_login = user.social_auth.get(provider='google-oauth2')
-    except UserSocialAuth.DoesNotExist:
-        google_login = None
-
-    try:
-        twitter_login = user.social_auth.get(provider='twitter')
-    except UserSocialAuth.DoesNotExist:
-        twitter_login = None
-
-    try:
-        facebook_login = user.social_auth.get(provider='facebook')
-    except UserSocialAuth.DoesNotExist:
-        facebook_login = None
-
-    can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
-
-    return render(request, 'settings.html', {
-        'twitter_login': twitter_login,
-        'facebook_login': facebook_login,
-        'google_login': google_login,
-        'can_disconnect': can_disconnect
-    })
 
 
 class PasswordChangeView(View):
