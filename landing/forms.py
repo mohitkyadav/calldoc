@@ -3,6 +3,10 @@ from django import forms
 from .models import Profile
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -34,3 +38,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = {'dob', 'gender', 'mail_notifications_allowed', 'newsletter', 'beta_user','use_gravtar'}
+        widgets = {
+            'dob': DateInput(),
+        }
