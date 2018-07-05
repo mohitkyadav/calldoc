@@ -2,6 +2,29 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from cities_light.abstract_models import (AbstractCity, AbstractRegion, AbstractCountry)
+from cities_light.receivers import connect_default_signals
+
+
+class Country(AbstractCountry):
+    pass
+
+
+connect_default_signals(Country)
+
+
+class Region(AbstractRegion):
+    pass
+
+
+connect_default_signals(Region)
+
+
+class City(AbstractCity):
+    timezone = models.CharField(max_length=40)
+
+
+connect_default_signals(City)
 
 
 class Profile(models.Model):
