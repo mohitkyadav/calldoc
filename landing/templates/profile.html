@@ -66,9 +66,10 @@
                                     {% endif %}
                                     <li class="uk-text-meta">Joined</li>
                                     <li>{{ user.date_joined|timesince }} ago</li>
-
-                                    <li class="uk-text-meta">Country</li>
-                                    <li>Somewhere in Asia</li>
+                                    {% if user.profile.country %}
+                                        <li class="uk-text-meta">Country</li>
+                                        <li>{{ user.profile.country }}</li>
+                                    {% endif %}
                                     <a class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top uk-border-rounded uk-button-secondary" href="#profile-edit-form" uk-toggle>Edit Profile</a>
                                 </ul>
                                 <hr>
@@ -202,6 +203,10 @@
                         <tr>
                             <td class="uk-text-bold">{{ form.gender.label }}</td>
                             <td>{{ form.gender }}</td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-bold">{{ form.country.label }}</td>
+                            <td>{{ form.country }}</td>
                         </tr>
                         <tr>
                             <td class="uk-text-bold">{{ form.mail_notifications_allowed.label }}</td>
