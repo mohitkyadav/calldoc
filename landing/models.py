@@ -50,6 +50,9 @@ class Profile(models.Model):
     beta_user = models.BooleanField(default=False, help_text='Test and help us find bugs in our unreleased features')
     avatar = models.URLField(null=True, blank=True, help_text='Profile picture URL')
     avatar_small = models.URLField(null=True, blank=True, help_text='Profile picture smaller URL')
+    country = models.ForeignKey(Country, null=True, blank=True, on_delete=models.PROTECT)
+    state = models.ForeignKey(Region, null=True, blank=True, on_delete=models.PROTECT)
+    city = models.ForeignKey(City, null=True, blank=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.user.first_name
