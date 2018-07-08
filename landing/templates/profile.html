@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Account overview - MedTour
+    Account overview | MedTour
 {% endblock %}
 
 {% block body %}
@@ -66,9 +66,15 @@
                                     {% endif %}
                                     <li class="uk-text-meta">Joined</li>
                                     <li>{{ user.date_joined|timesince }} ago</li>
-                                    {% if user.profile.country %}
-                                        <li class="uk-text-meta">Country</li>
-                                        <li>{{ user.profile.country }}</li>
+                                    {% if user.profile.city %}
+                                        <li class="uk-text-meta">Address</li>
+                                        <li>{{ user.profile.city }}</li>
+                                    {% elif user.profile.state %}
+                                        <li class="uk-text-meta">Address</li>
+                                        <li>{{ user.profile.state }}</li>
+                                    {% elif user.profile.city %}
+                                        <li class="uk-text-meta">Address</li>
+                                        <li>{{ user.profile.city }}</li>
                                     {% endif %}
                                     <a class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top uk-border-rounded uk-button-secondary" href="#profile-edit-form" uk-toggle>Edit Profile</a>
                                 </ul>
@@ -188,7 +194,7 @@
         <div class="uk-modal-dialog uk-modal-body">
             <button class="uk-modal-close uk-align-right" type="button" uk-close></button>
             <h2 class="uk-modal-title uk-margin-small-top">Edit personal details</h2>
-            <form enctype="multipart/form-data" class="uk-table-responsive entry-input-form" action="#" method="post">
+            <form enctype="multipart/form-data" id="editForm" class="uk-table-responsive entry-input-form" action="#" method="post" data-states-url="{% url 'ajax_load_states' %}" data-city-url="{% url 'ajax_load_cities' %}" novalidate>
                 {% csrf_token %}
                 <table class="uk-table">
                     <thead>
@@ -208,10 +214,22 @@
                             <td class="uk-text-bold">{{ form.country.label }}</td>
                             <td>{{ form.country }}</td>
                         </tr>
+
+                        <tr>
+                            <td class="uk-text-bold">{{ form.state.label }}</td>
+                            <td>{{ form.state }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="uk-text-bold">{{ form.city.label }}</td>
+                            <td>{{ form.city }}</td>
+                        </tr>
+
                         <tr>
                             <td class="uk-text-bold">{{ form.mail_notifications_allowed.label }}</td>
                             <td>{{ form.mail_notifications_allowed }}</td>
                         </tr>
+
                         <tr>
                             <td class="uk-text-bold">{{ form.newsletter.label }}</td>
                             <td>{{ form.newsletter }}</td>
@@ -231,4 +249,39 @@
             </form>
         </div>
     </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_country").change(function () {
+      var url = $("#editForm").attr("data-states-url");
+      var country = $(this).innerText;
+
+      $.ajax({
+        url: url,
+        data: {
+          'country': country
+        },
+        success: function (data) {
+          $("#id_state").html(data);
+        }
+      });
+    });
+  </script>
+
+    <script>
+    $("#id_state").change(function () {
+      var url = $("#editForm").attr("data-city-url");
+      var regionID = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'state': regionID
+        },
+        success: function (data) {
+          $("#id_city").html(data);
+        }
+      });
+    });
+  </script>
 {% endblock %}

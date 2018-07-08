@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from social_django.models import UserSocialAuth
 
+from landing.models import Region, City
 from  .forms import ProfileForm
 
 
@@ -90,3 +91,14 @@ class PasswordChangeView(View):
         else:
             form = password_form(request.user)
         return render(request, 'password.html', {'form': form})
+
+
+def load_state(request):
+    regions = Region.objects.all().order_by('name')
+    return render(request, 'hr/region_list.html', {'regions': regions})
+
+
+def load_city(request):
+    region = request.GET.get('state')
+    cities = City.objects.filter(region__id=region).order_by('name')
+    return render(request, 'hr/city_list.html', {'cities': cities})
