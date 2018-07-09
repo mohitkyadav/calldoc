@@ -53,7 +53,8 @@ body {
 }
 
 .uk-offcanvas-bar {
-    background: black !important;
+    background: linear-gradient(to right, rgb(59, 57, 59) 0%, rgba(13, 19, 13, 0.66) 100%) !important;
+    box-shadow: 0 0 15px gray;
 }
 
 @media only screen and (max-width: 960px) {
