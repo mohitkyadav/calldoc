@@ -65,7 +65,10 @@ class ProfileForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
-            self.fields['city'].queryset = self.instance.state.city_set.order_by('name')
+            if self.instance.state:
+                self.fields['city'].queryset = self.instance.state.city_set.order_by('name')
+            else:
+                self.fields['city'].queryset = City.objects.none()
 
     class Meta:
         model = Profile
