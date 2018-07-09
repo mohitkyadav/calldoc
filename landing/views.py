@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from social_django.models import UserSocialAuth
@@ -102,3 +103,18 @@ def load_city(request):
     region = request.GET.get('state')
     cities = City.objects.filter(region__id=region).order_by('name')
     return render(request, 'hr/city_list.html', {'cities': cities})
+
+
+def autocomplete(request):
+    if request.is_ajax():
+        query = request.GET.get('search')
+        queryset = City.objects.filter(name__istartswith=query)
+        suggestions = []
+        for i in queryset:
+            if len(suggestions) < 10:
+                suggestions.append(i.display_name)
+        print(suggestions)
+        data = {
+            'list': suggestions,
+        }
+        return JsonResponse(data)

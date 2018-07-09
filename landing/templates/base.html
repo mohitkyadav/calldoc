@@ -25,23 +25,26 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/uikit.min.css' %}">
         <link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
     </head>
     <script type="text/javascript" src="{% static 'js/uikit.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/uikit-icons.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <body>
         <div id="spinner"></div>
         <header>
             <div uk-sticky="show-on-up: true; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar; animation: uk-animation-slide-top;">
-                <nav class="uk-navbar-container uk-box-shadow-medium" uk-navbar style="position: relative; z-index: 980;">
+                <nav class="uk-navbar-container uk-box-shadow-medium" uk-navbar style="position: relative;">
                     <div class="uk-navbar-left">
                         <a class="uk-text-bold uk-text-middle uk-navbar-item uk-logo" href="{% url 'home' %}">
                             <img src="{% static 'icons/bone.png' %}" width="50px" style="margin-right: 10px;">
                             MedTour
                         </a>
                         <div class="uk-navbar-item hidden-on-small-display">
-                            <form class="uk-search uk-search-navbar">
-                                <span uk-search-icon></span>
-                                <input class="uk-search-input" type="search" placeholder="Search...">
+                            <form class="uk-search uk-search-navbar uk-flex" id="search-form">
+                                <span uk-icon="icon: location; ratio: 1.5"></span>
+                                <input class="uk-search-input" id="search-box-large" type="search" placeholder="Enter your Location.." data-suggest-url="{% url 'ajax_autocomplete' %}">
                             </form>
                         </div>
                     </div>
@@ -122,7 +125,7 @@
                 </div>
             </div>
         </div>
-{#uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > .uk-card; delay: 200; repeat: false"#}
+        {#uk-scrollspy="cls:  uk-animation-slide-bottom-small; target: > div, div > .uk-card; delay: 200; repeat: false"#}
         <div class="site-content" style="display: none">
             {% block body %}
 
@@ -154,5 +157,26 @@
             site_content.style.display = "block";
           }
         };
+    </script>
+    <script>
+        $("#search-box-large").on('keyup', function(){
+            let value = $(this).val();
+            let url = $("#search-box-large").attr("data-suggest-url");
+            $.ajax({
+                url: url,
+                data: {
+                  'search': value
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var list = data.list;
+                    $("#search-box-large").autocomplete({
+                        autoFocus: true,
+                        source: list,
+                        minLength: 1
+                    });
+                }
+            });
+        });
     </script>
 </html>

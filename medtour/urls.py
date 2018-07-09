@@ -17,5 +17,6 @@ urlpatterns = [
     path('', include('pwa.urls')),
     path('ajax/load-states/', landing.views.load_state, name='ajax_load_states'),
     path('ajax/load-cities/', landing.views.load_city, name='ajax_load_cities'),
+    path('ajax/autocomplete/', landing.views.autocomplete, name='ajax_autocomplete'),
     url(r'^$', landing.views.land, name='land'),
 ]
