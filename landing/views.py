@@ -11,12 +11,12 @@ from .forms import ProfileForm
 
 
 def land(request):
-    return render(request, 'base.html')
+    return render(request, 'landing/base.html')
 
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'home.html')
+        return render(request, 'landing/home.html')
 
 
 # only4 testing
@@ -45,7 +45,7 @@ class AccountOverview(View):
 
         can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
         form = ProfileForm(instance=request.user.profile)
-        return render(request, 'profile.html', {
+        return render(request, 'landing/profile.html', {
             'twitter_login': twitter_login,
             'facebook_login': facebook_login,
             'google_login': google_login,
@@ -71,7 +71,7 @@ class PasswordChangeView(View):
         else:
             password_form = AdminPasswordChangeForm
         form = password_form(request.user)
-        return render(request, 'password.html', {'form': form})
+        return render(request, 'landing/password.html', {'form': form})
 
     def post(self, request):
         if request.user.has_usable_password():
@@ -90,7 +90,7 @@ class PasswordChangeView(View):
                 messages.error(request, 'Please correct the error below.')
         else:
             form = password_form(request.user)
-        return render(request, 'password.html', {'form': form})
+        return render(request, 'landing/password.html', {'form': form})
 
 
 def load_state(request):

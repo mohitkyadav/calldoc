@@ -6,4 +6,4 @@ from django.views import View
 
 class HospitalHome(View):
     def get(self, request):
-        return render(request, 'profile.html')
+        return render(request, 'hospital/profile.html')

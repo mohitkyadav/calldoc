@@ -7,7 +7,7 @@ import landing.views
 admin.autodiscover()
 
 urlpatterns = [
-    url('home', login_required(landing.views.HomeView.as_view()), name='home'),
+    url(r'^home$', login_required(landing.views.HomeView.as_view()), name='home'),
     url(r'^account/overview/$', login_required(landing.views.AccountOverview.as_view()), name='overview'),
     url(r'^settings/password/$', login_required(landing.views.PasswordChangeView.as_view()), name='password'),
     path('admin/', admin.site.urls),
