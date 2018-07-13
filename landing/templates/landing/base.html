@@ -73,6 +73,7 @@
                                             <li class="uk-text-bold uk-text-center uk-margin-remove-bottom">{{ user.first_name }}</li>
                                             <hr>
                                             <li><a href="{% url 'overview' %}"><span uk-icon="icon: happy;"></span> Profile</a></li>
+                                            <li><a href="#"><span uk-icon="icon: plus;"></span> Hospital Profile</a></li>
                                             <li><a href="{% url 'password' %}"><span uk-icon="icon: pencil;"></span> Change Password</a></li>
                                             <li><a href="{% url 'logout' %}"><span uk-icon="icon: sign-out;"></span> Logout</a></li>
                                         </ul>
@@ -82,6 +83,7 @@
 
                             {% if not user.is_authenticated %}
                                 <li><a href="{% url 'login' %}">Login <span uk-icon="icon: sign-in;"></span></a></li>
+                                <li><a href="#">Hospital sign up<span uk-icon="icon: sign-in;"></span></a></li>
                             {% endif %}
                         </ul>
                     </div>

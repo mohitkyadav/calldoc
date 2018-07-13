@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'landing',
+    'hospital',
     'pwa',
     'widget_tweaks',
     'cities_light',
