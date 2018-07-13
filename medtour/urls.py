@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^hospital/', include(('hospital.urls', 'hospital'), namespace='hospital')),
     path('', include('pwa.urls')),
     path('ajax/load-states/', landing.views.load_state, name='ajax_load_states'),
     path('ajax/load-cities/', landing.views.load_city, name='ajax_load_cities'),

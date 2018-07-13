@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
@@ -8,7 +7,7 @@ from django.views import View
 from social_django.models import UserSocialAuth
 
 from landing.models import Region, City
-from  .forms import ProfileForm
+from .forms import ProfileForm
 
 
 def land(request):
