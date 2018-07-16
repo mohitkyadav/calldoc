@@ -7,8 +7,32 @@
 
 {% block body %}
     <div class="uk-container">
-        <div class="uk-margin-remove" uk-grid>
-            <h1>wassup!</h1>
+    <div class="uk-inline">
+        <img src="https://images8.alphacoders.com/617/617304.jpg" alt="">
+        <div class="uk-position-bottom uk-overlay uk-overlay-default uk-text-left">
+
+            <div class="uk-margin-remove" uk-grid>
+                <div class="uk-width-1-1">
+                    <div class="uk-width-1-1 uk-text-left uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
+                        {% if not hospital.user.profile.avatar %}
+                            {% if hospital.user.profile.gender == 'f' %}
+                                <img class="uk-border-circle uk-box-shadow-large" width="120" height="120" src="{% static 'images/female.png' %}">
+                            {% else %}
+                                <img class="uk-border-circle uk-box-shadow-large" width="120" height="120" src="{% static 'images/anon.png' %}">
+                            {% endif %}
+                        {% else %}
+                            <img class="uk-border-circle uk-box-shadow-large" width="120" height="120" src="{{ hospital.user.profile.avatar }}">
+                        {% endif %}
+                        <span class="uk-text-lead uk-text-bold">{{ hospital.name }}</span>
+                        <br>
+                        <br>
+                        <span class="uk-text-meta">
+                            {{ hospital.address }}
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
 {% endblock %}
