@@ -11,6 +11,12 @@ body {
 .site-content {
     flex: 1;
 }
+
+.closer p{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 @keyframes spinner {
     0% {
         transform: translate3d(-50%, -50%, 0) rotate(0deg);

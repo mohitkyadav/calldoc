@@ -6,14 +6,21 @@
 {% endblock %}
 
 {% block body %}
-    <div class="uk-container">
-        <div>
+    <div class="uk-container uk-margin-top">
+        <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
             {% if hospitals %}
-                <ul class="uk-list">
-                    {% for hospital in hospitals %}
-                        <li><a href="{{ hospital.get_url }}">hospital</a></li>
-                    {% endfor %}
-                </ul>
+                {% for hospital in hospitals %}
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body">
+                            <h3 class="uk-card-title"> <a href="{{ hospital.get_url }}">{{ hospital.name }}</a></h3>
+                            <p class="uk-text-bold"><a uk-icon="star"></a></p>
+                            <div class="closer">
+                                <p><a class="uk-text-bold" uk-icon="location"></a>{{ hospital.address }}</p>
+                                <p><strong>City:</strong> {{ hospital.city.display_name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             {% else %}
                 <h1 class="uk-text-center uk-text-danger">No hospitals found</h1>
             {% endif %}
