@@ -17,6 +17,7 @@ class Hospital(models.Model):
     slug = models.SlugField(unique=True, null=True, blank=True)
     state = models.ForeignKey(Region, null=True, blank=True, on_delete=models.PROTECT)
     city = models.ForeignKey(City, null=True, blank=True, on_delete=models.PROTECT)
+    rating = models.PositiveSmallIntegerField(default=3)
 
     def __str__(self):
         return self.name
