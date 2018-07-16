@@ -11,3 +11,11 @@ class HospitalHome(View):
         return render(request, 'hospital/profile.html', {
             'hospital': hospital,
         })
+
+
+class HospitalsAll(View):
+    def get(self, request):
+        hospitals = Hospital.objects.all()
+        return render(request, 'hospital/hospital-list.html', {
+            'hospitals': hospitals,
+        })
