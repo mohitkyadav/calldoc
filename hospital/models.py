@@ -15,8 +15,6 @@ class Hospital(models.Model):
     name = models.CharField(max_length=1000, null=True, blank=True)
     address = models.TextField(max_length=5000, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
-    state = models.ForeignKey(Region, null=True, blank=True, on_delete=models.PROTECT)
-    city = models.ForeignKey(City, null=True, blank=True, on_delete=models.PROTECT)
     rating = models.PositiveSmallIntegerField(default=3)
 
     def __str__(self):
