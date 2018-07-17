@@ -7,21 +7,43 @@
 
 {% block body %}
     <div class="uk-container uk-margin-top">
+        <div class="uk-margin-small uk-grid-match" uk-grid>
+            <div class="uk-inline uk-width-2-3@s">
+                <input class="uk-input" id="form-horizontal-text" type="text" placeholder="Enter your city...">
+            </div>
+            <div class="uk-inline uk-width-1-3@s">
+                <select class="uk-select" id="form-horizontal-select">
+                    <option value="0">search type</option>
+                    <option value="1">Hospitals</option>
+                    <option value="2">Doctors</option>
+                </select>
+            </div>
+        </div>
         <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
             {% if hospitals %}
                 {% for hospital in hospitals %}
                     <div>
-                        <div class="uk-card hover-shadow-card uk-border-rounded uk-card-body">
+                        <div class="uk-card hover-shadow-card uk-card-secondary uk-border-rounded uk-card-body">
                             <h3 class="uk-card-title"> <a class="uk-link-heading" href="{{ hospital.get_url }}">{{ hospital.name }}</a></h3>
                             <p>
                                 {% with ''|center:hospital.rating as range %}
                                     {% for _ in range %}
-                                        <span class="uk-text-bold" uk-icon="star"></span>
+                                        <span
+                                            {% if hospital.rating >= 3 %}
+                                                class="uk-text-bold uk-text-success"
+                                            {% elif hospital.rating >= 2 and hospital.rating < 3 %}
+                                                class="uk-text-bold uk-text-warning"
+                                            {% else %}
+                                                class="uk-text-bold"
+                                            {% endif %}
+
+                                            uk-icon="star">
+                                        </span>
                                     {% endfor %}
                                 {% endwith %}
                             </p>
                             <div class="closer">
-                                <p><a class="uk-text-bold" uk-icon="location"></a>{{ hospital.address }}</p>
+                                <p><span class="uk-text-bold uk-text-danger" uk-icon="location"></span>{{ hospital.address }}</p>
                                 <p><strong>City:</strong> {{ hospital.user.profile.city.display_name }}</p>
                             </div>
                         </div>
