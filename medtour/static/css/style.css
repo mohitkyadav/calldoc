@@ -54,6 +54,11 @@ body {
     will-change: transform;
 }
 
+.hover-shadow-card:hover {
+    box-shadow: 0 0 15px rgb(134, 97, 97);
+    transform: scale(1.01, 1.01);
+    transition: all 0.3s ease-in-out;
+}
 
 .hidden-on-large-display {
     display: none !important;
