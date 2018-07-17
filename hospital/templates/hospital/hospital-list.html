@@ -11,7 +11,7 @@
             {% if hospitals %}
                 {% for hospital in hospitals %}
                     <div>
-                        <div class="uk-card uk-card-secondary hover-shadow-card uk-border-rounded uk-card-body">
+                        <div class="uk-card hover-shadow-card uk-border-rounded uk-card-body">
                             <h3 class="uk-card-title"> <a class="uk-link-heading" href="{{ hospital.get_url }}">{{ hospital.name }}</a></h3>
                             <p>
                                 {% with ''|center:hospital.rating as range %}
