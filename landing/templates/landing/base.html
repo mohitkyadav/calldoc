@@ -83,7 +83,7 @@
 
                             {% if not user.is_authenticated %}
                                 <li><a href="{% url 'login' %}">Login <span uk-icon="icon: sign-in;"></span></a></li>
-                                <li><a href="#">Hospital sign up<span uk-icon="icon: sign-in;"></span></a></li>
+                                <li><a href="#hospital-sign" uk-toggle>Hospital Sign Up<span uk-icon="icon: sign-in;"></span></a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -134,6 +134,33 @@
 
             {% endblock %}
         </div>
+
+            <div id="hospital-sign" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <button class="uk-modal-close uk-align-right" type="button" uk-close></button>
+                <h2 class="uk-modal-title uk-margin-small-top">Hospital Sign Up</h2>
+                <form enctype="multipart/form-data" id="editForm" class="uk-table-responsive entry-input-form" action="#" method="post">
+                    <table class="uk-table">
+                        <thead>
+                            <tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="uk-text-bold">{{ form.name.label }}</td>
+                                <td>{{ form.name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="uk-text-bold">{{ form.address.label }}</td>
+                                <td>{{ form.address }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input class="uk-width-1-1 uk-button uk-button-primary uk-border-rounded" type="submit" value="Next" />
+                </form>
+            </div>
+        </div>
+
         <footer style="display: none">
             <div align="center" class="footer-wrapper uk-box-shadow-small uk-box-shadow-hover-xlarge">
                 <div class="uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-padding-small uk-padding-remove-left uk-padding-remove-right">

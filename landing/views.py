@@ -6,12 +6,14 @@ from django.shortcuts import render, redirect
 from django.views import View
 from social_django.models import UserSocialAuth
 
+from hospital.forms import HospitalForm
 from landing.models import Region, City
 from .forms import ProfileForm
 
 
 def land(request):
-    return render(request, 'landing/base.html')
+    form = HospitalForm()
+    return render(request, 'landing/base.html', {'form': form})
 
 
 class HomeView(View):
