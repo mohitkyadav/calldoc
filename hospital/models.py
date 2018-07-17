@@ -2,8 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
-from landing.models import Region, City
-
 
 class Hospital(models.Model):
     class Meta:
