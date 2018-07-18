@@ -7,18 +7,21 @@
 
 {% block body %}
     <div class="uk-container uk-margin-top">
-        <div class="uk-margin-small uk-grid-match" uk-grid>
-            <div class="uk-inline uk-width-2-3@s">
-                <input class="uk-input" id="search-box-city" type="text" placeholder="Enter your city..." data-suggest-url="{% url 'ajax_autocomplete' %}">
+        <form action="/hospital/list/" method="post" class="uk-margin-small uk-grid-match" uk-grid>
+            {% csrf_token %}
+            <div class="uk-inline uk-width-3-5@s">
+                <input class="uk-input" name="search_box_city" id="search_box_city" type="text" placeholder="Enter your city..." data-suggest-url="{% url 'ajax_autocomplete' %}"
+                {% if search_box_city_value %}
+                    value="{{ search_box_city_value }}"
+                {% endif %}>
             </div>
-            <div class="uk-inline uk-width-1-3@s">
-                <select class="uk-select" id="form-horizontal-select">
-                    <option value="0">Search Filter</option>
-                    <option value="1">Hospitals</option>
-                    <option value="2">Doctors</option>
-                </select>
+            <div class="uk-width-1-5@s">
+                <input class="uk-button uk-button-secondary uk-margin-small-bottom uk-border-rounded" type="reset" value="Clear"/>
             </div>
-        </div>
+            <div class="uk-width-1-5@s">
+                <input class="uk-button uk-button-primary uk-border-rounded uk-margin-small-bottom" type="submit" value="Submit" />
+            </div>
+        </form>
         <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
             {% if hospitals %}
                 {% for hospital in hospitals %}
@@ -56,7 +59,7 @@
     </div>
 
     <script>
-        $("#search-box-city").on('keyup', function(){
+        $("#search_box_city").on('keyup', function(e){
             let value = $(this).val();
             let url = $("#search-box-city").attr("data-suggest-url");
             $.ajax({
