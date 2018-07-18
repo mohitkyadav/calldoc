@@ -16,9 +16,6 @@
                 {% endif %}>
             </div>
             <div class="uk-width-1-5@s">
-                <input class="uk-button uk-button-secondary uk-margin-small-bottom uk-border-rounded" type="reset" value="Clear"/>
-            </div>
-            <div class="uk-width-1-5@s">
                 <input class="uk-button uk-button-primary uk-border-rounded uk-margin-small-bottom" type="submit" value="Submit" />
             </div>
         </form>
@@ -61,7 +58,7 @@
     <script>
         $("#search_box_city").on('keyup', function(e){
             let value = $(this).val();
-            let url = $("#search-box-city").attr("data-suggest-url");
+            let url = $("#search_box_city").attr("data-suggest-url");
             $.ajax({
                 url: url,
                 data: {
@@ -70,7 +67,7 @@
                 dataType: 'json',
                 success: function (data) {
                     var list = data.list;
-                    $("#search-box-city").autocomplete({
+                    $("#search_box_city").autocomplete({
                         autoFocus: true,
                         source: list,
                         minLength: 1
