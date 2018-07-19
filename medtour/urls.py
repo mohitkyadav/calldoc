@@ -4,6 +4,8 @@ from django.urls import path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 import landing.views
+from hospital import views
+
 admin.autodiscover()
 
 urlpatterns = [
@@ -19,5 +21,5 @@ urlpatterns = [
     path('ajax/load-states/', landing.views.load_state, name='ajax_load_states'),
     path('ajax/load-cities/', landing.views.load_city, name='ajax_load_cities'),
     path('ajax/autocomplete/', landing.views.autocomplete, name='ajax_autocomplete'),
-    url(r'^$', landing.views.land, name='land'),
+    url(r'^$', views.HospitalsAll.as_view(), name='land'),
 ]
