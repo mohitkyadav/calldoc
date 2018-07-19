@@ -74,11 +74,19 @@
                 }
             });
         });
+        $("#search_box_city").on("keydown",function search(e) {
+            if(e.keyCode == 13) {
+                filterHospital();
+            }
+        });
         $("#hospital-filter-button").click( function() {
+            filterHospital();
+        });
+        function filterHospital() {
             var query_string_city = encodeURI($("#search_box_city").val());
             var url = window.location.origin + window.location.pathname + '?q=' + query_string_city;
             window.location.assign(url);
-        });
+        }
     </script>
 {% endblock %}
 
