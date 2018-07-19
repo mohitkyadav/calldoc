@@ -7,8 +7,7 @@
 
 {% block body %}
     <div class="uk-container uk-margin-top">
-        <form action="/hospital/list/" method="post" class="uk-margin-small uk-grid-match" uk-grid>
-            {% csrf_token %}
+        <div action="/hospital/list/" method="post" class="uk-margin-small uk-grid-match" uk-grid>
             <div class="uk-inline uk-width-3-5@s">
                 <input class="uk-input" name="search_box_city" id="search_box_city" type="text" placeholder="Enter your city..." data-suggest-url="{% url 'ajax_autocomplete' %}"
                 {% if search_box_city_value %}
@@ -16,9 +15,9 @@
                 {% endif %}>
             </div>
             <div class="uk-width-1-5@s">
-                <input class="uk-button uk-button-primary uk-border-rounded uk-margin-small-bottom" type="submit" value="Submit" />
+                <a id="hospital-filter-button" class="uk-icon-link" uk-icon=" icon: search; ratio: 2;" href="#"></a>
             </div>
-        </form>
+        </div>
         <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
             {% if hospitals %}
                 {% for hospital in hospitals %}
@@ -74,6 +73,11 @@
                     });
                 }
             });
+        });
+        $("#hospital-filter-button").click( function() {
+            var query_string_city = encodeURI($("#search_box_city").val());
+            var url = window.location.origin + window.location.pathname + '?q=' + query_string_city;
+            window.location.assign(url);
         });
     </script>
 {% endblock %}
