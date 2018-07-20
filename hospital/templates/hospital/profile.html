@@ -30,16 +30,21 @@
         </div>
     </div>
     <hr>
-        <span class="uk-text-bold">Filter by Speciality: </span>
-        <select class="uk-select uk-width-auto" id="spec" name="spec_list" onChange="">
-          <option value="" selected="selected">---Select---</option>
-          {% for spec in specs %}
-            <option value="{{spec.id}}">{{spec.name}}</option>
-          {% endfor %}
-        </select>
+{#        <span class="uk-text-bold">Filter by Speciality: </span>#}
+{#        <select class="uk-select uk-width-auto" id="spec" name="spec_list" onChange="">#}
+{#          <option value="" selected="selected">---Select---</option>#}
+{#          {% for spec in specs %}#}
+{#            <option value="{{spec.id}}">{{spec.name}}</option>#}
+{#          {% endfor %}#}
+{#        </select>#}
+
+        <form method="get">
+            {{ filter.form.as_p }}
+            <button type="submit">Search</button>
+        </form>
     <hr>
-        {% for doctor in doctors %}
-            <div class="uk-card uk-card-default uk-width-1-4@m uk-border-rounded uk-card-hover">
+        {% for doctor in filter.qs %}
+            <div class="uk-card uk-card-default uk-width-1-4@m uk-border-rounded hover-shadow-card">
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
