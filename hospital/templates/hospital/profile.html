@@ -39,10 +39,18 @@
 {#        </select>#}
 
         <form method="get">
-            {{ filter.form.as_p }}
-            <button type="submit">Search</button>
+            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+              <span class="uk-text-bold">{{ filter.form.specialisation.label_tag }}</span>
+                {% for spec in filter.form.specialisation %}
+                  <label>
+                    {{ spec.tag }} {{ spec.choice_label }}
+                  </label>
+                {% endfor %}
+            </div>
+            <button type="submit" class="uk-icon-button" uk-icon="search"></button>
         </form>
     <hr>
+
         {% for doctor in filter.qs %}
             <div class="uk-card uk-card-default uk-width-1-4@m uk-border-rounded hover-shadow-card">
                 <div class="uk-card-header">
