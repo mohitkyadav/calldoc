@@ -84,7 +84,7 @@
         });
         function filterHospital() {
             var query_string_city = encodeURI($("#search_box_city").val());
-            var url = window.location.origin + window.location.pathname + '?q=' + query_string_city;
+            var url = window.location.origin + '/hospital/list/' + '?q=' + query_string_city;
             window.location.assign(url);
         }
     </script>
