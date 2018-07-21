@@ -8,31 +8,86 @@
 {% block body %}
     <div class="uk-container">
     <div class="uk-inline">
-        <img src="https://images8.alphacoders.com/617/617304.jpg" alt="">
-        <div class="uk-position-bottom uk-overlay uk-overlay-default uk-text-left">
+        <img src="https://cdn.masterani.me/wallpaper/0/63DCy6MIUW.jpg" alt="">
+        <div class="uk-position-bottom uk-overlay uk-overlay-default uk-text-left uk-padding-small">
 
             <div class="uk-margin-remove" uk-grid>
                 <div class="uk-width-1-1">
                     <div class="uk-width-1-1 uk-text-left uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
-                        {% if not hospital.user.profile.avatar %}
-                            {% if hospital.user.profile.gender == 'f' %}
-                                <img class="uk-border-circle uk-box-shadow-large" width="120" height="120" src="{% static 'images/female.png' %}">
-                            {% else %}
-                                <img class="uk-border-circle uk-box-shadow-large" width="120" height="120" src="{% static 'images/anon.png' %}">
-                            {% endif %}
-                        {% else %}
-                            <img class="uk-border-circle uk-box-shadow-large" width="120" height="120" src="{{ hospital.user.profile.avatar }}">
-                        {% endif %}
                         <span class="uk-text-lead uk-text-bold">{{ hospital.name }}</span>
                         <br>
-                        <br>
-                        <span class="uk-text-meta">
+                        <span>
                             {{ hospital.address }}
+                        </span>
+                        <br>
+                        <span class="uk-text-bold">Provides </span>
+                        <span>
+                            {{ hospital.get_all_spec }}
                         </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <hr>
+{#        <span class="uk-text-bold">Filter by Speciality: </span>#}
+{#        <select class="uk-select uk-width-auto" id="spec" name="spec_list" onChange="">#}
+{#          <option value="" selected="selected">---Select---</option>#}
+{#          {% for spec in specs %}#}
+{#            <option value="{{spec.id}}">{{spec.name}}</option>#}
+{#          {% endfor %}#}
+{#        </select>#}
+
+        <form method="get">
+            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+              <span class="uk-text-bold">{{ filter.form.specialisation.label_tag }}</span>
+                {% for spec in filter.form.specialisation %}
+                  <label>
+                    {{ spec.tag }} {{ spec.choice_label }}
+                  </label>
+                {% endfor %}
+            </div>
+            <button type="submit" class="uk-button uk-button-secondary uk-border-rounded">Apply filters <span uk-icon="search"></span></button>
+        </form>
+    <hr>
+
+        {% for doctor in filter.qs %}
+            <div class="uk-card uk-card-default uk-width-1-4@m uk-border-rounded hover-shadow-card">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img class="uk-border-circle" width="80" height="80" src="{{ doctor.user.profile.avatar }}">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 class="uk-card-title uk-margin-remove-bottom">{{ doctor.name }}</h3>
+                            <p class="uk-text-meta uk-margin-remove-top">{{ doctor.hospital }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body uk-padding-small">
+                    <p><span class="uk-text-bold">Specialisations: </span>{{ doctor.get_all_spec }}
+                        <br>
+                        <span class="uk-text-bold">Rating: </span>
+                        {% with ''|center:hospital.rating as range %}
+                            {% for _ in range %}
+                                <span
+                                    {% if hospital.rating >= 3 %}
+                                        class="uk-text-success"
+                                    {% elif hospital.rating >= 2 and hospital.rating < 3 %}
+                                        class="uk-text-warning"
+                                    {% else %}
+                                    {% endif %}
+                                    uk-icon="star">
+                                </span>
+                            {% endfor %}
+                        {% endwith %}
+                        <span>(10 Reviews)</span>
+                    </p>
+                </div>
+                <div class="uk-card-footer uk-text-button">
+                    <a href="#" class="uk-button uk-text-bold uk-button-text">Book an appointment</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
