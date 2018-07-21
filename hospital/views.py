@@ -20,6 +20,14 @@ class HospitalHome(View):
         })
 
 
+class DoctorHome(View):
+    def get(self, request, slug):
+        doctor = get_object_or_404(Doctor, slug=slug)
+        return render(request, 'hospital/doctor-profile.html', {
+            'doctor': doctor,
+        })
+
+
 class HospitalsAll(View):
     def get(self, request):
         search_box_city_value = None
