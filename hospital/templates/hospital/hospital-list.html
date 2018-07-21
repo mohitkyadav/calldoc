@@ -15,7 +15,7 @@
                 {% endif %}>
             </div>
             <div class="uk-width-1-5@s">
-                <a id="hospital-filter-button" class="uk-icon-link" uk-icon=" icon: search; ratio: 2;" href="#"></a>
+                <a id="hospital-filter-button" class="uk-button uk-border-rounded uk-padding-remove-left uk-padding-remove-right uk-button-secondary" href="#">search <span uk-icon=" icon: search;"></span></a>
             </div>
         </div>
         <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
@@ -77,11 +77,15 @@
         });
         $("#search_box_city").on("keydown",function search(e) {
             if(e.keyCode == 13) {
-                filterHospital();
+                if($("#search_box_city").val() != '') {
+                    filterHospital();
+                }
             }
         });
         $("#hospital-filter-button").click( function() {
-            filterHospital();
+            if($("#search_box_city").val() != '') {
+                filterHospital();
+            }
         });
         function filterHospital() {
             var query_string_city = encodeURI($("#search_box_city").val());
