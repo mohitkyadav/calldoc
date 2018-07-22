@@ -8,7 +8,7 @@
 {% block body %}
     <div class="uk-container">
     <div class="uk-inline">
-        <img src="https://cdn.masterani.me/wallpaper/0/63DCy6MIUW.jpg" alt="">
+        <img src="{% static 'images/cover-default.png' %}" alt="" class="hospital-cover">
         <div class="uk-position-bottom uk-overlay uk-overlay-default uk-text-left uk-padding-small">
 
             <div class="uk-margin-remove" uk-grid>
@@ -68,12 +68,12 @@
                     <p><span class="uk-text-bold">Specialisations: </span>{{ doctor.get_all_spec }}
                         <br>
                         <span class="uk-text-bold">Rating: </span>
-                        {% with ''|center:hospital.rating as range %}
+                        {% with ''|center:doctor.rating as range %}
                             {% for _ in range %}
                                 <span
-                                    {% if hospital.rating >= 3 %}
+                                    {% if doctor.rating >= 3 %}
                                         class="uk-text-success"
-                                    {% elif hospital.rating >= 2 and hospital.rating < 3 %}
+                                    {% elif doctor.rating >= 2 and doctor.rating < 3 %}
                                         class="uk-text-warning"
                                     {% else %}
                                     {% endif %}
