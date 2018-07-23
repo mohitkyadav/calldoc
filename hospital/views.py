@@ -39,6 +39,16 @@ class DoctorAppoint(View):
             'form': form,
         })
 
+    def post(self, request, slug):
+        doctor = get_object_or_404(Doctor, slug=slug)
+        doctors = Doctor.objects.filter(hospital=doctor.hospital)
+        form = AppointmentForm(request.POST)
+        print(form.is_valid())
+        return render(request, 'hospital/appointment.html', {
+            'doctor': doctor,
+            'form': form,
+        })
+
 
 class HospitalsAll(View):
     def get(self, request):

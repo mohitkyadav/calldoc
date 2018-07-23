@@ -3,10 +3,6 @@ from django import forms
 from .models import Hospital, Appointment
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
-
 class HospitalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -30,8 +26,9 @@ class AppointmentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.fields['doctor'].label = 'Doctor'
-        self.fields['doctor'].initial = kwargs.pop('doctor')
-        self.fields['doctor'].queryset = kwargs.pop('doctors')
+        if kwargs:
+            self.fields['doctor'].initial = kwargs.pop('doctor')
+            self.fields['doctor'].queryset = kwargs.pop('doctors')
         self.fields['start_date'].label = 'Start time'
         self.fields['end_date'].label = 'End time'
         self.fields['patients_remarks'].label = 'Remarks'
@@ -40,10 +37,10 @@ class AppointmentForm(forms.ModelForm):
             'class': 'uk-select'
         })
         self.fields['start_date'].widget.attrs.update({
-            'type': 'date'
+            'type': 'datetime-local'
         })
         self.fields['end_date'].widget.attrs.update({
-            'type': 'date'
+            'type': 'datetime-local'
         })
         self.fields['patients_remarks'].widget.attrs.update({
             'class': 'uk-input'
@@ -65,7 +62,3 @@ class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = {'doctor', 'start_date', 'end_date', 'patients_remarks'}
-        widgets = {
-            'start_date': DateInput(),
-            'end_date': DateInput(),
-        }
