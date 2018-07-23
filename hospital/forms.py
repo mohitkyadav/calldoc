@@ -49,6 +49,19 @@ class AppointmentForm(forms.ModelForm):
             'class': 'uk-input'
         })
 
+    def clean(self):
+        cleaned_data = super(AppointmentForm, self).clean()
+        doctor = cleaned_data.get('doctor')
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if not doctor:
+            raise forms.ValidationError("Doctor is a required field.")
+        if not start_date:
+            raise forms.ValidationError("Start date is a required field.")
+        if not end_date:
+            raise forms.ValidationError("End date is a required field.")
+        return cleaned_data
+
     class Meta:
         model = Appointment
         fields = {'doctor', 'start_date', 'end_date', 'patients_remarks'}
