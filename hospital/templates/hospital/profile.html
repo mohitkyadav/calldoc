@@ -85,7 +85,7 @@
                     </p>
                 </div>
                 <div class="uk-card-footer uk-text-button">
-                    <a href="#" class="uk-button uk-text-bold uk-button-text">Book an appointment</a>
+                    <a href="{% url 'hospital:appoint-doctor' doctor.slug %}" class="uk-button uk-text-bold uk-button-text">Book an appointment</a>
                 </div>
             </div>
         {% endfor %}

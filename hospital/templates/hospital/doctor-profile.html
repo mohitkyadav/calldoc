@@ -13,13 +13,15 @@
                     <div class="uk-inline">
                         <img src="{% static 'images/cover-default.png' %}" alt="" uk-cover>
                         <span class="uk-position-absolute uk-transform-center uk-badge uk-text-bold" style="left: 90%; top: 10%">verified</span>
-                        <canvas width="500" height="300"></canvas>
+                        <canvas width="450" height="300"></canvas>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card-body">
                         <h3 class="uk-card-title">{{ doctor }}</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                        <p>{{ doctor.get_all_spec }}</p>
+                        <a class="uk-button uk-button-secondary uk-border-rounded" href="{% url 'hospital:appoint-doctor' doctor.slug %}">Book an appointment</a> at
+                        <a class="uk-link-muted" href="{% url 'hospital:overview' doctor.hospital.slug %}">{{ doctor.hospital }}</a>
                     </div>
                 </div>
             </div>
