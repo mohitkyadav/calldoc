@@ -83,9 +83,9 @@
                                  </li>
                             {% endif %}
 
+                            <li><a href="{% url 'signup' %}">Hospital Sign Up<span uk-icon="icon: sign-in;"></span></a></li>
                             {% if not user.is_authenticated %}
                                 <li><a href="{% url 'login' %}">Login <span uk-icon="icon: sign-in;"></span></a></li>
-                                <li><a href="{% url 'signup' %}">Hospital Sign Up<span uk-icon="icon: sign-in;"></span></a></li>
                             {% endif %}
                         </ul>
                     </div>
