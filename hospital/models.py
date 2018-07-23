@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 
+from landing.models import Profile
+
 
 class Specialisation(models.Model):
     class Meta:
@@ -73,10 +75,36 @@ class Doctor(models.Model):
         return self.name
 
     def get_url(self):
-        return reverse('hospital:overview', args=[self.slug])
+        return reverse('hospital:doctor-home', args=[self.slug])
 
     def get_all_spec(self):
         specs = ""
         for spec in self.specialisation.all():
             specs += spec.name + ", "
         return specs[:-2]
+
+
+class Appointment(models.Model):
+    class Meta:
+        ordering = ('-start_date',)
+        verbose_name = 'Appointment'
+        verbose_name_plural = 'Appointments'
+
+    id = models.CharField(unique=True, default=uuid.uuid4,
+                          editable=False, max_length=50, primary_key=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, blank=True, null=True)
+    patient = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True)
+    start_date = models.DateTimeField(blank=True, null=True)
+    end_date = models.DateTimeField(blank=True, null=True)
+    patients_remarks = models.TextField(blank=True, null=True)
+    doctors_remarks = models.TextField(blank=True, null=True)
+    approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.id)
+
+    def get_start_date(self):
+        return self.start_date.date()
+
+    def get_end_date(self):
+        return self.end_date.date()

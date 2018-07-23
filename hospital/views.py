@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
 from hospital.filters import DoctorSpecFilter
+from hospital.forms import AppointmentForm
 from landing.models import City
 from .models import Hospital, Doctor
 
@@ -31,8 +32,10 @@ class DoctorHome(View):
 class DoctorAppoint(View):
     def get(self, request, slug):
         doctor = get_object_or_404(Doctor, slug=slug)
+        form = AppointmentForm(doctor=doctor)
         return render(request, 'hospital/appointment.html', {
             'doctor': doctor,
+            'form': form,
         })
 
 

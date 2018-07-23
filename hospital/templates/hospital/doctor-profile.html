@@ -21,7 +21,7 @@
                         <h3 class="uk-card-title">{{ doctor }}</h3>
                         <p>{{ doctor.get_all_spec }}</p>
                         <a class="uk-button uk-button-secondary uk-border-rounded" href="{% url 'hospital:appoint-doctor' doctor.slug %}">Book an appointment</a> at
-                        <a class="uk-link-muted" href="{% url 'hospital:overview' doctor.hospital.slug %}">{{ doctor.hospital }}</a>
+                        <a class="uk-link-muted" href="{{ doctor.hospital.get_url }}">{{ doctor.hospital }}</a>
                     </div>
                 </div>
             </div>

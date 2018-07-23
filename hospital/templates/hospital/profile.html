@@ -59,7 +59,7 @@
                             <img class="uk-border-circle" width="80" height="80" src="{{ doctor.user.profile.avatar }}">
                         </div>
                         <div class="uk-width-expand">
-                            <h3 class="uk-card-title uk-margin-remove-bottom"><a class="uk-link-heading" href="{% url 'hospital:doctor-home' doctor.slug %}">{{ doctor.name }}</a></h3>
+                            <h3 class="uk-card-title uk-margin-remove-bottom"><a class="uk-link-heading" href="{{ doctor.get_url }}">{{ doctor.name }}</a></h3>
                             <p class="uk-text-meta uk-margin-remove-top">{{ doctor.hospital }}</p>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     </p>
                 </div>
                 <div class="uk-card-footer uk-text-button">
-                    <a href="{% url 'hospital:appoint-doctor' doctor.slug %}" class="uk-button uk-text-bold uk-button-text">Book an appointment</a>
+                    <a href="{{ doctor.get_url }}" class="uk-button uk-text-bold uk-button-text">Book an appointment</a>
                 </div>
             </div>
         {% endfor %}
