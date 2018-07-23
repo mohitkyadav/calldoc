@@ -31,6 +31,7 @@ class AppointmentForm(forms.ModelForm):
         super().__init__()
         self.fields['doctor'].label = 'Doctor'
         self.fields['doctor'].initial = kwargs.pop('doctor')
+        self.fields['doctor'].queryset = kwargs.pop('doctors')
         self.fields['start_date'].label = 'Start time'
         self.fields['end_date'].label = 'End time'
         self.fields['patients_remarks'].label = 'Remarks'

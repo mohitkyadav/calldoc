@@ -32,7 +32,8 @@ class DoctorHome(View):
 class DoctorAppoint(View):
     def get(self, request, slug):
         doctor = get_object_or_404(Doctor, slug=slug)
-        form = AppointmentForm(doctor=doctor)
+        doctors = Doctor.objects.filter(hospital=doctor.hospital)
+        form = AppointmentForm(doctor=doctor, doctors=doctors)
         return render(request, 'hospital/appointment.html', {
             'doctor': doctor,
             'form': form,
