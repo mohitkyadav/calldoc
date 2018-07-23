@@ -72,7 +72,8 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = {'dob', 'gender', 'mail_notifications_allowed', 'newsletter', 'beta_user', 'use_gravtar', 'country', 'state', 'city'}
+        fields = {'dob', 'gender', 'mail_notifications_allowed', 'newsletter', 'beta_user', 'use_gravtar', 'country',
+                  'state', 'city'}
         widgets = {
             'dob': DateInput(),
         }
