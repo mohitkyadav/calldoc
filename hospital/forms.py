@@ -1,33 +1,39 @@
 import datetime
 
 from datetimewidget.widgets import DateTimeWidget
-from django import forms
 from django.forms import ModelForm
 
 from .models import Hospital, Appointment
+from django import forms
+from django.contrib.auth.models import User
+from django.forms import CheckboxSelectMultiple
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
-
-class HospitalForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__()
+class HospitalForm(forms.ModelForm):
+    def __init__(self, profile, *args, **kwargs):
+        super(HospitalForm, self).__init__(*args, **kwargs)
+        self.fields['user'].queryset = User.objects.filter(username=profile.user.username)
         self.fields['name'].label = 'Name'
         self.fields['address'].label = 'Address'
 
         self.fields['name'].widget.attrs.update({
-            'class': 'uk-text'
+            'class': ' uk-textarea uk-width-auto'
+        })
+
+        self.fields['user'].widget.attrs.update({
+            'class': 'uk-select uk-width-auto'
         })
 
         self.fields['address'].widget.attrs.update({
-            'class': 'uk-text'
+            'class': ' uk-textarea uk-width-auto'
         })
 
     class Meta:
         model = Hospital
-        fields = {'name', 'address'}
+        exclude = {'rating', 'slug'}
+        widgets = {
+            'specialisation': CheckboxSelectMultiple()
+        }
 
 
 class AppointmentForm(ModelForm):
