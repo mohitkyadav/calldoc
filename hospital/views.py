@@ -47,6 +47,7 @@ class DoctorAppoint(View):
         if form.is_valid():
             form_cleaned = form.clean()
             print(form_cleaned)
+            form.save()
         else:
             print(request.POST)
         return render(request, 'hospital/appointment.html', {

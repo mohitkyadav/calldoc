@@ -42,7 +42,7 @@ class AppointmentForm(forms.ModelForm):
         self.fields['patients_remarks'].label = 'Remarks'
 
         self.fields['doctor'].widget.attrs.update({
-            'class': 'uk-select'
+            'class': 'uk-width-auto uk-select'
         })
         self.fields['start_date'].widget.attrs.update({
             'class': 'uk-width-auto'
@@ -51,7 +51,7 @@ class AppointmentForm(forms.ModelForm):
             'class': 'uk-width-auto'
         })
         self.fields['patients_remarks'].widget.attrs.update({
-            'class': 'uk-input'
+            'class': 'uk-width-auto uk-input'
         })
 
     def clean(self):
