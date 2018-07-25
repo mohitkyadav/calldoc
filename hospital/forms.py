@@ -1,3 +1,4 @@
+from datetimewidget.widgets import DateTimeWidget
 from django import forms
 from django.forms import DateField, TimeField
 
@@ -29,8 +30,6 @@ class HospitalForm(forms.ModelForm):
 
 class AppointmentForm(forms.ModelForm):
     date = DateField()
-    start_time = TimeField()
-    end_time = TimeField()
 
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -38,22 +37,18 @@ class AppointmentForm(forms.ModelForm):
         if kwargs:
             self.fields['doctor'].initial = kwargs.pop('doctor')
             self.fields['doctor'].queryset = kwargs.pop('doctors')
-        self.fields['start_time'].label = 'Start time'
-        self.fields['end_time'].label = 'End time'
-        self.fields['date'].label = 'Appointment Date'
+        self.fields['start_date'].label = 'Start time'
+        self.fields['end_date'].label = 'End time'
         self.fields['patients_remarks'].label = 'Remarks'
 
         self.fields['doctor'].widget.attrs.update({
             'class': 'uk-select'
         })
-        self.fields['date'].widget.attrs.update({
-            'type': 'date'
+        self.fields['start_date'].widget.attrs.update({
+            'class': 'uk-width-auto'
         })
-        self.fields['start_time'].widget.attrs.update({
-            'type': 'time'
-        })
-        self.fields['end_time'].widget.attrs.update({
-            'type': 'time'
+        self.fields['end_date'].widget.attrs.update({
+            'class': 'uk-width-auto'
         })
         self.fields['patients_remarks'].widget.attrs.update({
             'class': 'uk-input'
@@ -62,8 +57,8 @@ class AppointmentForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(AppointmentForm, self).clean()
         doctor = cleaned_data.get('doctor')
-        start_time = cleaned_data.get('start_time')
-        end_time = cleaned_data.get('end_time')
+        start_time = cleaned_data.get('start_date')
+        end_time = cleaned_data.get('end_date')
         if not doctor:
             raise forms.ValidationError("Doctor is a required field.")
         if start_time and end_time:
@@ -78,14 +73,21 @@ class AppointmentForm(forms.ModelForm):
             self._errors['end_time'] = self.error_class([msg])
         return cleaned_data
 
-    def save(self):
+    def save(self, **kwargs):
         instance = super(AppointmentForm, self).save(commit=False)
         instance.save()
         return instance
 
     class Meta:
         model = Appointment
-        fields = {'doctor', 'patients_remarks'}
+        fields = {'doctor', 'patients_remarks', 'start_date', 'end_date'}
+        dateTimeOptions = {
+            'format': 'dd/mm/yyyy HH:ii P',
+            'autoclose': True,
+            'showMeridian': True
+        }
         widgets = {
-            'date': DateInput()
+            'date': DateInput(),
+            'start_date': DateTimeWidget(options=dateTimeOptions),
+            'end_date': DateTimeWidget(options=dateTimeOptions),
         }
