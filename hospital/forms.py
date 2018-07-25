@@ -29,8 +29,6 @@ class HospitalForm(forms.ModelForm):
 
 
 class AppointmentForm(forms.ModelForm):
-    date = DateField()
-
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.fields['doctor'].label = 'Doctor'
@@ -87,7 +85,6 @@ class AppointmentForm(forms.ModelForm):
             'showMeridian': True
         }
         widgets = {
-            'date': DateInput(),
             'start_date': DateTimeWidget(options=dateTimeOptions),
             'end_date': DateTimeWidget(options=dateTimeOptions),
         }
