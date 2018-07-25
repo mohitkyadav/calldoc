@@ -49,45 +49,48 @@
             </div>
             <button type="submit" class="uk-button uk-button-secondary uk-border-rounded">Apply filters <span uk-icon="search"></span></button>
         </form>
-    <hr>
-
-        {% for doctor in filter.qs %}
-            <div class="uk-card uk-card-default uk-width-1-4@m uk-border-rounded hover-shadow-card">
-                <div class="uk-card-header">
-                    <div class="uk-grid-small uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                            <img class="uk-border-circle" width="80" height="80" src="{{ doctor.user.profile.avatar }}">
-                        </div>
-                        <div class="uk-width-expand">
-                            <h3 class="uk-card-title uk-margin-remove-bottom"><a class="uk-link-heading" href="{{ doctor.get_url }}">{{ doctor.name }}</a></h3>
-                            <p class="uk-text-meta uk-margin-remove-top">{{ doctor.hospital }}</p>
+        <hr>
+        <div class="uk-width-1-1" uk-grid>
+            {% for doctor in filter.qs %}
+                <div class="uk-width-1-2@l">
+                    <div class="uk-card uk-card-default uk-border-rounded hover-shadow-card">
+                    <div class="uk-card-header">
+                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                            <div class="uk-width-auto">
+                                <img class="uk-border-circle" width="80" height="80" src="{{ doctor.user.profile.avatar }}">
+                            </div>
+                            <div class="uk-width-expand">
+                                <h3 class="uk-card-title uk-margin-remove-bottom"><a class="uk-link-heading" href="{{ doctor.get_url }}">{{ doctor.name }}</a></h3>
+                                <p class="uk-text-meta uk-margin-remove-top">{{ doctor.hospital }}</p>
+                            </div>
                         </div>
                     </div>
+                    <div class="uk-card-body uk-padding-small">
+                        <p><span class="uk-text-bold">Specialisations: </span>{{ doctor.get_all_spec }}
+                            <br>
+                            <span class="uk-text-bold">Rating: </span>
+                            {% with ''|center:doctor.rating as range %}
+                                {% for _ in range %}
+                                    <span
+                                        {% if doctor.rating >= 3 %}
+                                            class="uk-text-success"
+                                        {% elif doctor.rating >= 2 and doctor.rating < 3 %}
+                                            class="uk-text-warning"
+                                        {% else %}
+                                        {% endif %}
+                                        uk-icon="star">
+                                    </span>
+                                {% endfor %}
+                            {% endwith %}
+                            <span>(10 Reviews)</span>
+                        </p>
+                    </div>
+                    <div class="uk-card-footer uk-text-button">
+                        <a href="{{ doctor.get_url }}" class="uk-button uk-text-bold uk-button-text">Book an appointment</a>
+                    </div>
                 </div>
-                <div class="uk-card-body uk-padding-small">
-                    <p><span class="uk-text-bold">Specialisations: </span>{{ doctor.get_all_spec }}
-                        <br>
-                        <span class="uk-text-bold">Rating: </span>
-                        {% with ''|center:doctor.rating as range %}
-                            {% for _ in range %}
-                                <span
-                                    {% if doctor.rating >= 3 %}
-                                        class="uk-text-success"
-                                    {% elif doctor.rating >= 2 and doctor.rating < 3 %}
-                                        class="uk-text-warning"
-                                    {% else %}
-                                    {% endif %}
-                                    uk-icon="star">
-                                </span>
-                            {% endfor %}
-                        {% endwith %}
-                        <span>(10 Reviews)</span>
-                    </p>
                 </div>
-                <div class="uk-card-footer uk-text-button">
-                    <a href="{{ doctor.get_url }}" class="uk-button uk-text-bold uk-button-text">Book an appointment</a>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

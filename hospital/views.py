@@ -44,6 +44,11 @@ class DoctorAppoint(View):
         doctors = Doctor.objects.filter(hospital=doctor.hospital)
         form = AppointmentForm(request.POST)
         print(form.is_valid())
+        if form.is_valid():
+            form_cleaned = form.clean()
+            print(form_cleaned)
+        else:
+            print(request.POST)
         return render(request, 'hospital/appointment.html', {
             'doctor': doctor,
             'form': form,
