@@ -10,30 +10,9 @@
         <div class="uk-overflow-auto uk-height-max-large">
              <form enctype="multipart/form-data" class="uk-table-responsive entry-input-form" action="#" method="post" novalidate>
                 {% csrf_token %}
-                <table class="uk-table">
-                    <thead>
-                        <tr>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="uk-text-bold">{{ form.doctor.label }}</td>
-                            <td>{{ form.doctor }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="uk-text-bold">{{ form.date.label }}</td>
-                            <td>{{ form.date }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="uk-text-bold">{{ form.patients_remarks.label }}</td>
-                            <td>{{ form.patients_remarks }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <input class="uk-width-1-1 uk-button uk-button-secondary uk-margin-small-bottom uk-border-rounded" type="reset" value="Clear all changes"/>
-                <input class="uk-width-1-1 uk-button uk-button-primary uk-border-rounded" type="submit" value="Submit" />
+                {{ form.as_p }}
+                <input class="uk-width-auto uk-button uk-button-secondary uk-margin-small uk-align-center uk-border-rounded" type="reset" value="Clear changes"/>
+                <input class="uk-width-auto uk-button uk-button-primary uk-margin-small uk-align-center uk-border-rounded" type="submit" value="Submit" />
             </form>
         </div>
     </div>
