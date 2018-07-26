@@ -1,0 +1,62 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+
+{% block title %}
+    Doctor Profile | MedTour
+{% endblock %}
+
+{% block body %}
+    <div class="uk-container uk-margin-medium-top">
+        <div>
+            <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+                <div class="uk-card-media-left uk-cover-container uk-width-1-3@s">
+                    <div class="uk-inline">
+                        <img src="{% static 'images/cover-default.png' %}" alt="" uk-cover>
+                        <span class="uk-position-absolute uk-transform-center uk-badge uk-text-bold" style="left: 90%; top: 10%">verified</span>
+                        <canvas width="450" height="300"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card-body">
+                        <h3 class="uk-card-title">{{ doctor }}</h3>
+                        <p>{{ doctor.get_all_spec }}</p>
+                        <a class="uk-button uk-button-secondary uk-border-rounded" href="{% url 'hospital:appoint-doctor' doctor.slug %}">Book an appointment</a> at
+                        <a class="uk-link-muted" href="{{ doctor.hospital.get_url }}">{{ doctor.hospital }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="uk-width-1-1@m uk-margin-medium-top">
+                <ul class="uk-child-width-expand uk-width-1-1@l uk-text-center uk-border-rounded uk-subnav uk-subnav-pill uk-margin-auto" uk-switcher="animation: uk-animation-slide-top-small, uk-animation-slide-top-medium; duration: 200;">
+                    <li class="uk-active uk-padding-remove uk-text-center"><a href="#">Profile Overview</a></li>
+                    <li class="uk-padding-remove-right uk-padding-remove uk-text-center"><a href="#">Photos</a></li>
+                    <li class="uk-padding-remove-right uk-padding-remove uk-text-center"><a href="#">Reviews</a></li>
+                </ul>
+                <ul class="uk-switcher uk-width-1-1@l">
+                    <li class="uk-active uk-width-1-1@l uk-padding-remove">
+                        <div class="uk-width-1-1">
+                            <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-text-center uk-card-body uk-align-center">
+                               lu
+                            </div>
+                        </div>
+                    </li>
+                    <li class="uk-width-1-1@l uk-padding-remove">
+                        <div class="uk-width-1-1">
+                            <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-card-body">
+                               yu
+                            </div>
+                        </div>
+                    </li>
+                    <li class="uk-width-1-1@l uk-padding-remove">
+                        <div class="uk-width-1-1">
+                            <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-card-body">
+                               katon
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

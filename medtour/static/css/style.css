@@ -73,6 +73,11 @@ body {
     box-shadow: 0 0 15px gray;
 }
 
+.hospital-cover {
+    object-fit: cover;
+    width: 100%;
+}
+
 @media only screen and (max-width: 960px) {
     .hidden-on-large-display {
         display: block !important;

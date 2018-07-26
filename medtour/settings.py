@@ -23,7 +23,7 @@ PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'medtour/static/js', 'servicewo
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'CHANGE_ME!!!! (P.S. the SECRET_KEY environment variable will be used, if set, instead).'
+SECRET_KEY = config('SKEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'pwa',
     'widget_tweaks',
     'cities_light',
+    'datetimewidget',
 ]
 
 MIDDLEWARE = [
@@ -190,7 +191,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('G_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('G_SKEY')
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 

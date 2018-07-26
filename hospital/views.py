@@ -1,7 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views import View
 
 from hospital.filters import DoctorSpecFilter
+from hospital.forms import AppointmentForm
 from landing.models import City
 from .models import Hospital, Doctor
 
@@ -17,6 +20,43 @@ class HospitalHome(View):
             'specs': specs,
             'hospital': hospital,
             'filter': doctors_filter,
+        })
+
+
+class DoctorHome(View):
+    def get(self, request, slug):
+        doctor = get_object_or_404(Doctor, slug=slug)
+        return render(request, 'hospital/doctor-profile.html', {
+            'doctor': doctor,
+        })
+
+
+class DoctorAppoint(View):
+    def get(self, request, slug):
+        doctor = get_object_or_404(Doctor, slug=slug)
+        doctors = Doctor.objects.filter(hospital=doctor.hospital)
+        form = AppointmentForm(doctor=doctor, doctors=doctors)
+        return render(request, 'hospital/appointment.html', {
+            'doctor': doctor,
+            'form': form,
+        })
+
+    def post(self, request, slug):
+        doctor = get_object_or_404(Doctor, slug=slug)
+        doctors = Doctor.objects.filter(hospital=doctor.hospital)
+        form = AppointmentForm()
+        print(form.is_valid())
+        if form.is_valid():
+            form.save()
+            return redirect(DoctorAppoint.as_view())
+        else:
+            form = AppointmentForm(doctor=doctor, doctors=doctors)
+            form.save(commit=True)
+            print(request.POST)
+        print(form)
+        return render(request, 'hospital/appointment.html', {
+            'doctor': doctor,
+            'form': form,
         })
 
 
