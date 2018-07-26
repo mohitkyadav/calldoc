@@ -29,11 +29,12 @@
                             <td class="uk-text-bold">{{ form.end_date.label }}</td>
                             <td>{{ form.end_date }}</td>
                         </tr>
-
                         <tr>
                             <td class="uk-text-bold">{{ form.patients_remarks.label }}</td>
                             <td>{{ form.patients_remarks }}</td>
                         </tr>
+
+                        <p class="uk-form-danger">{{ form.errors }} {{ form.non_field_errors }}</p>
                     </tbody>
                 </table>
                 <input class="uk-width-auto uk-button uk-button-secondary uk-margin-small uk-align-center uk-border-rounded" type="reset" value="Clear changes"/>

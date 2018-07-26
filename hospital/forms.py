@@ -1,6 +1,8 @@
+import datetime
+
 from datetimewidget.widgets import DateTimeWidget
 from django import forms
-from django.forms import DateField, TimeField
+from django.forms import ModelForm
 
 from .models import Hospital, Appointment
 
@@ -9,7 +11,7 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class HospitalForm(forms.ModelForm):
+class HospitalForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.fields['name'].label = 'Name'
@@ -28,8 +30,8 @@ class HospitalForm(forms.ModelForm):
         fields = {'name', 'address'}
 
 
-class AppointmentForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+class AppointmentForm(ModelForm):
+    def __init__(self, **kwargs):
         super().__init__()
         self.fields['doctor'].label = 'Doctor'
         if kwargs:
@@ -43,10 +45,10 @@ class AppointmentForm(forms.ModelForm):
             'class': 'uk-width-auto uk-select'
         })
         self.fields['start_date'].widget.attrs.update({
-            'class': 'uk-width-auto'
+            'class': 'uk-width-auto uk-input'
         })
         self.fields['end_date'].widget.attrs.update({
-            'class': 'uk-width-auto'
+            'class': 'uk-width-auto uk-input'
         })
         self.fields['patients_remarks'].widget.attrs.update({
             'class': 'uk-width-auto uk-input'
@@ -82,7 +84,9 @@ class AppointmentForm(forms.ModelForm):
         dateTimeOptions = {
             'format': 'dd/mm/yyyy HH:ii P',
             'autoclose': True,
-            'showMeridian': True
+            'showMeridian': True,
+            'startDate': str(datetime.datetime.today().date()),
+            'endDate': str(datetime.datetime.today().date() + datetime.timedelta(7)),
         }
         widgets = {
             'start_date': DateTimeWidget(options=dateTimeOptions),

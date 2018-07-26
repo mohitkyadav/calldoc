@@ -94,8 +94,9 @@ class Appointment(models.Model):
                           editable=False, max_length=50, primary_key=True)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, blank=True, null=True)
     patient = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True)
-    start_date = models.DateTimeField(auto_now=False, blank=True, null=True)
-    end_date = models.DateTimeField(auto_now=False, blank=True, null=True)
+    start_date = models.DateTimeField(auto_now=False, blank=True, null=True, help_text="You can choose dates from now")
+    end_date = models.DateTimeField(auto_now=False, blank=True, null=True, help_text="You can choose appointment "
+                                                                                     "duration as maximum of 7 days")
     patients_remarks = models.TextField(blank=True, null=True)
     doctors_remarks = models.TextField(blank=True, null=True)
     approved = models.BooleanField(default=False)

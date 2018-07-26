@@ -1,4 +1,6 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views import View
 
 from hospital.filters import DoctorSpecFilter
@@ -42,15 +44,16 @@ class DoctorAppoint(View):
     def post(self, request, slug):
         doctor = get_object_or_404(Doctor, slug=slug)
         doctors = Doctor.objects.filter(hospital=doctor.hospital)
-        form = AppointmentForm(request.POST)
+        form = AppointmentForm()
         print(form.is_valid())
         if form.is_valid():
-            form_cleaned = form.clean()
             form.save()
+            return redirect(DoctorAppoint.as_view())
         else:
-            form = AppointmentForm(request.POST, doctor=doctor, doctors=doctors)
-            form.save()
+            form = AppointmentForm(doctor=doctor, doctors=doctors)
+            form.save(commit=True)
             print(request.POST)
+        print(form)
         return render(request, 'hospital/appointment.html', {
             'doctor': doctor,
             'form': form,
