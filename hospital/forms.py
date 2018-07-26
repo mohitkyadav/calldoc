@@ -13,15 +13,22 @@ class HospitalForm(forms.ModelForm):
     def __init__(self, profile, *args, **kwargs):
         super(HospitalForm, self).__init__(*args, **kwargs)
         self.fields['user'].queryset = User.objects.filter(username=profile.user.username)
-        self.fields['name'].label = 'Name'
-        self.fields['address'].label = 'Address'
+        self.fields['user'].initial = User.objects.get(username=profile.user.username)
+        self.fields['slug'].initial = User.objects.get(username=profile.user.username).username
+        self.fields['name'].label = 'Hospital Name'
+        self.fields['address'].label = 'Hospital Address'
+        self.fields['slug'].label = ''
 
         self.fields['name'].widget.attrs.update({
-            'class': ' uk-textarea uk-width-auto'
+            'class': 'uk-width-auto'
+        })
+
+        self.fields['slug'].widget.attrs.update({
+            'class': 'uk-hidden'
         })
 
         self.fields['user'].widget.attrs.update({
-            'class': 'uk-select uk-width-auto'
+            'class': 'uk-input uk-disabled uk-width-auto'
         })
 
         self.fields['address'].widget.attrs.update({
@@ -30,7 +37,7 @@ class HospitalForm(forms.ModelForm):
 
     class Meta:
         model = Hospital
-        exclude = {'rating', 'slug'}
+        exclude = {'rating', 'verified'}
         widgets = {
             'specialisation': CheckboxSelectMultiple()
         }

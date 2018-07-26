@@ -1,11 +1,9 @@
-from audioop import reverse
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm, UserCreationForm
 from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from social_django.models import UserSocialAuth
@@ -25,6 +23,7 @@ def signup(request):
     current_profile = Profile.objects.get(user=request.user)
     form = HospitalForm(current_profile, request.POST or None)
     if form.is_valid():
+        form.save()
         return redirect('home')
     return render(request, 'registration/signup.html', {'form': form})
 
