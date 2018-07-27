@@ -1,8 +1,6 @@
 import datetime
-
 from datetimewidget.widgets import DateTimeWidget
 from django.forms import ModelForm
-
 from .models import Hospital, Appointment
 from django import forms
 from django.contrib.auth.models import User
@@ -14,13 +12,23 @@ class HospitalForm(forms.ModelForm):
         super(HospitalForm, self).__init__(*args, **kwargs)
         self.fields['user'].queryset = User.objects.filter(username=profile.user.username)
         self.fields['user'].initial = User.objects.get(username=profile.user.username)
-        self.fields['slug'].initial = User.objects.get(username=profile.user.username).username
+        self.fields['slug'].initial = 'hospital-' + str(User.objects.get(username=profile.user.username).username)
         self.fields['name'].label = 'Hospital Name'
         self.fields['address'].label = 'Hospital Address'
         self.fields['slug'].label = ''
 
         self.fields['name'].widget.attrs.update({
             'class': 'uk-width-auto'
+        })
+
+        self.fields['email'].widget.attrs.update({
+            'class': 'uk-width-auto',
+            'placeholder': 'hospital@example.com'
+        })
+
+        self.fields['phone_number'].widget.attrs.update({
+            'class': 'uk-width-auto',
+            'placeholder': '+911234567890'
         })
 
         self.fields['slug'].widget.attrs.update({
@@ -32,7 +40,8 @@ class HospitalForm(forms.ModelForm):
         })
 
         self.fields['address'].widget.attrs.update({
-            'class': ' uk-textarea uk-width-auto'
+            'class': ' uk-textarea uk-width-auto',
+            'placeholder': 'Provide detailed addresss here'
         })
 
     class Meta:

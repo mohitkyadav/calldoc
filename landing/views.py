@@ -7,6 +7,7 @@ from django.views import View
 from social_django.models import UserSocialAuth
 
 from hospital.forms import HospitalForm
+from hospital.models import Doctor
 from landing.models import Region, City, Profile
 from .forms import ProfileForm
 
@@ -28,7 +29,11 @@ def signup(request):
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'landing/home.html')
+        doctors = None
+        if request.user.hospital:
+            hospital = request.user.hospital
+            doctors = Doctor.objects.filter(hospital=hospital)
+        return render(request, 'landing/home.html', {'doctors': doctors})
 
 
 # only4 testing

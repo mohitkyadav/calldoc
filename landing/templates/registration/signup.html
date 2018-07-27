@@ -18,13 +18,15 @@
                     {% for field in form %}
                         <tr>
                             <td class="uk-text-bold">{{ field.label }}</td>
-                            <td>{{ field }}</td>
-                            {% if field.help_text %}
-                              <small class="uk-text-meta">{{ field.help_text }}</small>
-                            {% endif %}
-                            {% for error in field.errors %}
-                              <p class="uk-text-danger">{{ error }}</p>
-                            {% endfor %}
+                            <td>
+                                {{ field }}
+                                {% if field.help_text %}
+                                  <p class="uk-text-warning">{{ field.help_text }}</p>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                  <p class="uk-text-danger">{{ error }}</p>
+                                {% endfor %}
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
