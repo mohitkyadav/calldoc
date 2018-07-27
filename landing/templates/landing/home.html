@@ -1,8 +1,94 @@
 {% extends 'landing/base.html' %}
 {% block title %}
-    MedTour | Home
+    {% if user.hospital %}
+        Dashboard | {{ user.hospital.name }}
+    {% else %}
+        MedTour | Home
+    {% endif %}
 {% endblock %}
 {% block body %}
-    <p class="uk-text-bold uk-text-lead uk-text-center uk-padding-small">Hello {{ user.username }}!</p>
-    <hr class="hidden-on-small-display">
+    {% if user.hospital %}
+        <h2 class="uk-padding-small uk-text-center uk-text-bold">Dashboard</h2>
+        <h3 class="uk-text-lead uk-text-bold uk-text-center">{{ user.hospital.name }}</h3>
+        <div class="uk-text-center" id="details-hospital">
+            {% if user.hospital.phone_number %}
+                <p><a href="tel:{{ user.hospital.phone_number }}" class="uk-icon-button" uk-icon="receiver"></a> {{ user.hospital.phone_number }}</p>
+            {% endif %}
+
+            {% if user.hospital.email %}
+                <p><a href="mailto:{{ user.hospital.email }}" class="uk-icon-button" uk-icon="mail"></a> {{ user.hospital.email }}</p>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="uk-child-width-expand@s" uk-grid>
+            <div class="uk-card uk-card-hover uk-margin-left uk-card-default uk-card-body">
+                <h3 class="uk-card-title uk-text-bold">Doctors</h3>
+                <hr>
+                <ul class="uk-list uk-list-divider">
+                    {% for doctor in doctors %}
+                        <li>
+                            <img class="uk-border-circle" width="30" height="30" src="{{ doctor.user.profile.avatar }}">
+                            <span>  </span>
+                            <a href="{{ doctor.get_url }}" class="uk-text-bold uk-button-text">{{ doctor.name }}</a>
+                            <span>      </span>
+                            {% with ''|center:doctor.rating as range %}
+                                {% for _ in range %}
+                                    <span
+                                        {% if doctor.rating >= 3 %}
+                                            class="uk-text-success"
+                                        {% elif doctor.rating >= 2 and doctor.rating < 3 %}
+                                            class="uk-text-warning"
+                                        {% else %}
+                                        {% endif %}
+                                        uk-icon="star">
+                                    </span>
+                                {% endfor %}
+                            {% endwith %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+            </div>
+
+            <div class="uk-card uk-card-hover uk-margin-left uk-card-default uk-card-body">
+                <h3 class="uk-card-title uk-text-bold">Appointments</h3>
+                <hr>
+                <ul class="uk-list uk-list-divider">
+                    <li>List item 1</li>
+                    <li>List </li>
+                    <li>List item 3</li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+
+    {% else %}
+        <h2 class="uk-padding-small uk-text-center uk-text-bold">Dashboard</h2>
+        <hr>
+        <div class="uk-child-width-expand@s" uk-grid>
+            <div class="uk-card uk-card-hover uk-margin-left uk-card-default uk-card-body">
+                <h3 class="uk-card-title uk-text-bold">Pending Appointments</h3>
+                <hr>
+                <ul class="uk-list uk-list-divider">
+                    {% for doctor in doctors %}
+                        <li>List item 1</li>
+                        <li>List </li>
+                        <li>List item 3</li>
+                    {% endfor %}
+                </ul>
+                <hr>
+            </div>
+
+            <div class="uk-card uk-card-hover uk-margin-left uk-card-default uk-card-body">
+                <h3 class="uk-card-title uk-text-bold">Previous Appointments</h3>
+                <hr>
+                <ul class="uk-list uk-list-divider">
+                    <li>List item 1</li>
+                    <li>List </li>
+                    <li>List item 3</li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

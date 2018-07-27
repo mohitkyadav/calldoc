@@ -23,7 +23,7 @@ class Specialisation(models.Model):
 
 class Hospital(models.Model):
     class Meta:
-        ordering = ('name',)
+        ordering = ('-rating',)
         verbose_name = 'Hospital'
         verbose_name_plural = 'Hospitals'
 
@@ -36,10 +36,15 @@ class Hospital(models.Model):
         MinValueValidator(1),
     ])
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                 message="Phone number must be entered in the format:\\"
-                                         " '+919999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+                                 message="Phone number must be entered in the format:"
+                                         " '+919999999999'.")
+    email = models.EmailField(blank=True, help_text="Please enter valid email address, it will be used for "
+                                                    "verification.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, help_text="Please enter "
+                                                                                                   "valid phone "
+                                                                                                   "number.")
     specialisation = models.ManyToManyField(Specialisation, related_name='speciality_of_hospital')
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

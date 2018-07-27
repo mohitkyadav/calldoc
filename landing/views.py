@@ -1,5 +1,5 @@
-from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm, UserCreationForm
+from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -7,18 +7,33 @@ from django.views import View
 from social_django.models import UserSocialAuth
 
 from hospital.forms import HospitalForm
-from landing.models import Region, City
+from hospital.models import Doctor
+from landing.models import Region, City, Profile
 from .forms import ProfileForm
 
 
 def land(request):
-    form = HospitalForm()
-    return render(request, 'landing/base.html', {'form': form})
+    return render(request, 'landing/base.html')
+
+
+def signup(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    current_profile = Profile.objects.get(user=request.user)
+    form = HospitalForm(current_profile, request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'landing/home.html')
+        doctors = None
+        if request.user.hospital:
+            hospital = request.user.hospital
+            doctors = Doctor.objects.filter(hospital=hospital)
+        return render(request, 'landing/home.html', {'doctors': doctors})
 
 
 # only4 testing

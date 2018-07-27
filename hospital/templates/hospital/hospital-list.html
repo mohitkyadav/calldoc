@@ -45,7 +45,13 @@
                                 <p><span class="uk-text-bold uk-text-danger" uk-icon="location"></span>{{ hospital.address }}</p>
                                 <p><strong>City:</strong> {{ hospital.user.profile.city.display_name }}</p>
                             </div>
-                            <p><a href="tel:{{ hospital.phone_number }}" class="uk-icon-button" uk-icon="receiver"></a> {{ hospital.phone_number }}</p>
+                            {% if hospital.phone_number %}
+                                <p><a href="tel:{{ hospital.phone_number }}" class="uk-icon-button" uk-icon="receiver"></a> {{ hospital.phone_number }}</p>
+                            {% endif %}
+
+                            {% if hospital.email %}
+                                <p><a href="mailto:{{ hospital.email }}" class="uk-icon-button" uk-icon="mail"></a> {{ hospital.email }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}

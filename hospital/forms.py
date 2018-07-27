@@ -1,33 +1,55 @@
 import datetime
-
 from datetimewidget.widgets import DateTimeWidget
-from django import forms
 from django.forms import ModelForm
-
 from .models import Hospital, Appointment
+from django import forms
+from django.contrib.auth.models import User
+from django.forms import CheckboxSelectMultiple
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
-
-class HospitalForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-        self.fields['name'].label = 'Name'
-        self.fields['address'].label = 'Address'
+class HospitalForm(forms.ModelForm):
+    def __init__(self, profile, *args, **kwargs):
+        super(HospitalForm, self).__init__(*args, **kwargs)
+        self.fields['user'].queryset = User.objects.filter(username=profile.user.username)
+        self.fields['user'].initial = User.objects.get(username=profile.user.username)
+        self.fields['slug'].initial = 'hospital-' + str(User.objects.get(username=profile.user.username).username)
+        self.fields['name'].label = 'Hospital Name'
+        self.fields['address'].label = 'Hospital Address'
+        self.fields['slug'].label = ''
 
         self.fields['name'].widget.attrs.update({
-            'class': 'uk-text'
+            'class': 'uk-width-auto'
+        })
+
+        self.fields['email'].widget.attrs.update({
+            'class': 'uk-width-auto',
+            'placeholder': 'hospital@example.com'
+        })
+
+        self.fields['phone_number'].widget.attrs.update({
+            'class': 'uk-width-auto',
+            'placeholder': '+911234567890'
+        })
+
+        self.fields['slug'].widget.attrs.update({
+            'class': 'uk-hidden'
+        })
+
+        self.fields['user'].widget.attrs.update({
+            'class': 'uk-input uk-disabled uk-width-auto'
         })
 
         self.fields['address'].widget.attrs.update({
-            'class': 'uk-text'
+            'class': ' uk-textarea uk-width-auto',
+            'placeholder': 'Provide detailed addresss here'
         })
 
     class Meta:
         model = Hospital
-        fields = {'name', 'address'}
+        exclude = {'rating', 'verified'}
+        widgets = {
+            'specialisation': CheckboxSelectMultiple()
+        }
 
 
 class AppointmentForm(ModelForm):
