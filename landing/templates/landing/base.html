@@ -59,7 +59,7 @@
                                 <li class="uk-active"><a href="/admin">Admin</a></li>
                             {% endif %}
                             {% if not user.hospital %}
-                                <li><a href="{% url 'signup' %}">Hospital Sign Up<span uk-icon="icon: plus-circle;"></span></a></li>
+                                <li><a href="{% url 'signup' %}"><span uk-icon="icon: plus-circle;"></span> Hospital Sign Up</a></li>
                             {% endif %}
                             {% if user.is_authenticated %}
                                 <li class="uk-active">
@@ -128,7 +128,7 @@
                             <li class="uk-active"><a href="{% url 'login' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-in;"></span> Login</a></li>
                         {% endif %}
                         {% if not user.hospital %}
-                            <li><a href="{% url 'signup' %}">Hospital Sign Up<span uk-icon="icon: plus-circle;"></span></a></li>
+                            <li><a href="{% url 'signup' %}"><span class="uk-margin-small-right" uk-icon="icon: plus-circle;"> Hospital Sign Up</span></a></li>
                         {% endif %}
                     </ul>
                 </div>
