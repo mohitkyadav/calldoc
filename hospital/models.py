@@ -109,7 +109,7 @@ class Appointment(models.Model):
     approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.doctor.name + "-" + self.patient.user.first_name)
 
     def get_start_date(self):
         return self.start_date.date()

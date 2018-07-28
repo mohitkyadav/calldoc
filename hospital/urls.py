@@ -1,8 +1,9 @@
+from attr.filters import include
 from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 from hospital import views
 
 urlpatterns = [
+    url(r'^datetimepicker/', include('datetimepicker.urls')),
     url(r'^home/(?P<slug>.+)$', views.HospitalHome.as_view(), name='overview'),
     url(r'^doctors/(?P<slug>.+)$', views.DoctorHome.as_view(), name='doctor-home'),
     url(r'^appoint/doctor/(?P<slug>.+)$', views.appoint_doctor, name='appoint-doctor'),
