@@ -1,11 +1,9 @@
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
 from django.views import View
-
 from hospital.filters import DoctorSpecFilter
 from hospital.forms import AppointmentForm
-from landing.models import City
+from landing.models import City, Profile
 from .models import Hospital, Doctor
 
 
@@ -31,33 +29,18 @@ class DoctorHome(View):
         })
 
 
-class DoctorAppoint(View):
-    def get(self, request, slug):
-        doctor = get_object_or_404(Doctor, slug=slug)
-        doctors = Doctor.objects.filter(hospital=doctor.hospital)
-        form = AppointmentForm(doctor=doctor, doctors=doctors)
-        return render(request, 'hospital/appointment.html', {
-            'doctor': doctor,
-            'form': form,
-        })
-
-    def post(self, request, slug):
-        doctor = get_object_or_404(Doctor, slug=slug)
-        doctors = Doctor.objects.filter(hospital=doctor.hospital)
-        form = AppointmentForm()
-        print(form.is_valid())
-        if form.is_valid():
-            form.save()
-            return redirect(DoctorAppoint.as_view())
-        else:
-            form = AppointmentForm(doctor=doctor, doctors=doctors)
-            form.save(commit=True)
-            print(request.POST)
-        print(form)
-        return render(request, 'hospital/appointment.html', {
-            'doctor': doctor,
-            'form': form,
-        })
+@login_required
+def appoint_doctor(request, slug):
+    form = AppointmentForm(request.POST or None)
+    print(form.is_valid())
+    if form.is_valid():
+        formwa = form.save(commit=False)
+        formwa.doctor = Doctor.objects.get(slug=slug)
+        formwa.patient = Profile.objects.get(user=request.user)
+        form.save()
+        return redirect('home')
+    print(request.POST)
+    return render(request, 'hospital/appointment.html', {'form': form})
 
 
 class HospitalsAll(View):

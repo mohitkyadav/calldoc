@@ -97,17 +97,19 @@ class Appointment(models.Model):
 
     id = models.CharField(unique=True, default=uuid.uuid4,
                           editable=False, max_length=50, primary_key=True)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, blank=True, null=True)
-    patient = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True)
-    start_date = models.DateTimeField(auto_now=False, blank=True, null=True, help_text="You can choose dates from now")
-    end_date = models.DateTimeField(auto_now=False, blank=True, null=True, help_text="You can choose appointment "
-                                                                                     "duration as maximum of 7 days")
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True)
+    patient = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    start_date = models.DateTimeField(blank=True, null=True,
+                                      help_text="You can choose dates from now")
+    end_date = models.DateTimeField(blank=True, null=True,
+                                    help_text="You can choose appointment "
+                                              "duration as maximum of 7 days")
     patients_remarks = models.TextField(blank=True, null=True)
     doctors_remarks = models.TextField(blank=True, null=True)
     approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.doctor.name + "-" + self.patient.user.first_name)
 
     def get_start_date(self):
         return self.start_date.date()
