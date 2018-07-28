@@ -54,12 +54,12 @@
                     <div class="uk-navbar-right hidden-on-small-display uk-text-bold uk-text-large uk-margin-right">
                         <ul class="uk-navbar-nav">
                             <li class="uk-active"><a href="{% url 'home' %}">Home</a></li>
-                            <li class="uk-active"><a href="{% url 'hospital:list-hospitals' %}" class="uk-text-danger"><span class="uk-margin-small-right  uk-text-danger" uk-icon="icon: lifesaver;"></span>Hospitals</a></li>
+                            <li class="uk-active"><a href="{% url 'hospital:list-hospitals' %}" class="uk-text-danger"><span class="uk-margin-small-right uk-text-danger" uk-icon="icon: lifesaver;"></span>Hospitals</a></li>
                             {% if user.is_superuser %}
                                 <li class="uk-active"><a href="/admin">Admin</a></li>
                             {% endif %}
                             {% if not user.hospital %}
-                                <li><a href="{% url 'signup' %}"><span uk-icon="icon: plus-circle;"></span> Hospital Sign Up</a></li>
+                                <li><a href="{% url 'signup' %}"><span class="uk-margin-small-right" uk-icon="icon: plus-circle;"></span>Hospital Sign Up</a></li>
                             {% endif %}
                             {% if user.is_authenticated %}
                                 <li class="uk-active">
