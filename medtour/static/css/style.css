@@ -60,7 +60,7 @@ body {
 
 .hover-shadow-card:hover {
     box-shadow: 0 0 15px rgb(88, 88, 88);
-    transform: scale(1.01, 1.01);
+    transform: scale(1.03, 1.03);
     transition: all 0.3s ease-in-out;
 }
 

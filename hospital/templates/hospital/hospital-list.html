@@ -22,36 +22,41 @@
             {% if hospitals %}
                 {% for hospital in hospitals %}
                     <div>
-                        <div class="uk-card hover-shadow-card uk-card-secondary uk-padding-small uk-border-rounded uk-card-body">
+                        <div class="uk-card hover-shadow-card uk-card-secondary uk-padding-small uk-border-rounded">
                             <h3 class="uk-card-title"> <a class="uk-link-heading" href="{{ hospital.get_url }}">{{ hospital.name }}</a></h3>
-                            <p>
-                                {% with ''|center:hospital.rating as range %}
-                                    {% for _ in range %}
-                                        <span
-                                            {% if hospital.rating >= 3 %}
-                                                class="uk-text-bold uk-text-success"
-                                            {% elif hospital.rating >= 2 and hospital.rating < 3 %}
-                                                class="uk-text-bold uk-text-warning"
-                                            {% else %}
-                                                class="uk-text-bold"
-                                            {% endif %}
+                            <div class="uk-card-body uk-padding-remove">
+                                <p>
+                                    {% with ''|center:hospital.rating as range %}
+                                        {% for _ in range %}
+                                            <span
+                                                {% if hospital.rating >= 3 %}
+                                                    class="uk-text-bold uk-text-success"
+                                                {% elif hospital.rating >= 2 and hospital.rating < 3 %}
+                                                    class="uk-text-bold uk-text-warning"
+                                                {% else %}
+                                                    class="uk-text-bold"
+                                                {% endif %}
 
-                                            uk-icon="star">
-                                        </span>
-                                    {% endfor %}
-                                {% endwith %}
-                            </p>
-                            <div class="closer">
-                                <p><span class="uk-text-bold uk-text-danger" uk-icon="location"></span>{{ hospital.address }}</p>
-                                <p><strong>City:</strong> {{ hospital.user.profile.city.display_name }}</p>
+                                                uk-icon="star">
+                                            </span>
+                                        {% endfor %}
+                                    {% endwith %}
+                                </p>
+                                <div class="closer">
+                                    <p><span class="uk-text-bold uk-text-danger uk-margin-small-right" uk-icon="location"></span>{{ hospital.address }}</p>
+                                    <div class="uk-margin-small-top uk-padding-remove"><p><strong>City:</strong> {{ hospital.user.profile.city.display_name }}</p></div>
+                                </div>
                             </div>
-                            {% if hospital.phone_number %}
-                                <p><a href="tel:{{ hospital.phone_number }}" class="uk-icon-button" uk-icon="receiver"></a> {{ hospital.phone_number }}</p>
-                            {% endif %}
+                            <hr>
+                            <div class="uk-card-footer uk-padding-remove uk-margin-small-top">
+                                {% if hospital.phone_number %}
+                                    <p><a href="tel:{{ hospital.phone_number }}" class="uk-icon-button" uk-icon="receiver"></a> {{ hospital.phone_number }}</p>
+                                {% endif %}
 
-                            {% if hospital.email %}
-                                <p><a href="mailto:{{ hospital.email }}" class="uk-icon-button" uk-icon="mail"></a> {{ hospital.email }}</p>
-                            {% endif %}
+                                {% if hospital.email %}
+                                    <p><a href="mailto:{{ hospital.email }}" class="uk-icon-button" uk-icon="mail"></a> {{ hospital.email }}</p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
