@@ -27,7 +27,7 @@
                         </thead>
                         <tbody>
                             {% for appointment in appointments %}
-                                <tr href="#{{ appointment.id }}appointment-modal" uk-toggle>
+                                <tr style="cursor: pointer" href="#{{ appointment.id }}appointment-modal" uk-toggle>
                                     <td>
                                         <img class="uk-border-circle" width="30" height="30" src="{{ appointment.doctor.user.profile.avatar_small }}">
                                         <span> </span>
@@ -83,8 +83,8 @@
                                             {% endif %}
                                         </div>
                                         <div class="uk-modal-footer uk-text-right">
-                                            <button class="uk-button uk-button-secondary" type="button">Reject</button>
-                                            <button class="uk-button uk-button-primary" type="button">Approve</button>
+                                            <button class="uk-button uk-button-secondary" onclick="editAppointment('{% url 'hospital:appointment-reject' appointment.id %}')" type="button">Reject</button>
+                                            <button class="uk-button uk-button-primary" onclick="editAppointment('{% url 'hospital:appointment-approve' appointment.id %}')" type="button">Approve</button>
                                         </div>
                                     </div>
                                 </div>
@@ -95,4 +95,9 @@
             </div>
         </div>
     </div>
+    <script>
+        function editAppointment(url) {
+            window.location = window.location.origin + url;
+        }
+    </script>
 {% endblock %}

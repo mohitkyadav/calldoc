@@ -18,6 +18,36 @@ class AppointmentOperations(View):
         })
 
 
+class AppointmentApprove(View):
+    def get(self, request, id):
+        hospital = request.user.hospital
+        doctors = Doctor.objects.filter(hospital=hospital)
+        appointments = Appointment.objects.filter(doctor__in=doctors)
+        appointment = get_object_or_404(Appointment, id=id)
+        appointment.approved = True
+        appointment.rejected = False
+        appointment.save()
+        return render(request, 'hospital/appointments-list.html', {
+            'hospital': hospital,
+            'appointments': appointments,
+        })
+
+
+class AppointmentReject(View):
+    def get(self, request, id):
+        hospital = request.user.hospital
+        doctors = Doctor.objects.filter(hospital=hospital)
+        appointments = Appointment.objects.filter(doctor__in=doctors)
+        appointment = get_object_or_404(Appointment, id=id)
+        appointment.rejected = True
+        appointment.approved = False
+        appointment.save()
+        return render(request, 'hospital/appointments-list.html', {
+            'hospital': hospital,
+            'appointments': appointments,
+        })
+
+
 class HospitalHome(View):
     def get(self, request, slug):
         hospital = get_object_or_404(Hospital, slug=slug)
