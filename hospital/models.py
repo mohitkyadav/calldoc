@@ -73,7 +73,7 @@ class Doctor(models.Model):
         MaxValueValidator(5),
         MinValueValidator(1),
     ])
-    hospital = models.ForeignKey(Hospital, related_name='hospital', on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, related_name='doctor', on_delete=models.CASCADE)
     specialisation = models.ManyToManyField(Specialisation, related_name='speciality')
 
     def __str__(self):
@@ -107,6 +107,8 @@ class Appointment(models.Model):
     patients_remarks = models.TextField(blank=True, null=True)
     doctors_remarks = models.TextField(blank=True, null=True)
     approved = models.BooleanField(default=False)
+    rejected = models.BooleanField(default=False)
+    rejection_cause = models.TextField(max_length=20000, blank=True, null=True)
 
     def __str__(self):
         return str(self.doctor.name + "-" + self.patient.user.first_name)

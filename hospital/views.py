@@ -4,7 +4,18 @@ from django.views import View
 from hospital.filters import DoctorSpecFilter
 from hospital.forms import AppointmentForm
 from landing.models import City, Profile
-from .models import Hospital, Doctor
+from .models import Hospital, Doctor, Appointment
+
+
+class AppointmentOperations(View):
+    def get(self, request):
+        hospital = request.user.hospital
+        doctors = Doctor.objects.filter(hospital=hospital)
+        appointments = Appointment.objects.filter(doctor__in=doctors)
+        return render(request, 'hospital/appointments-list.html', {
+            'hospital': hospital,
+            'appointments': appointments,
+        })
 
 
 class HospitalHome(View):

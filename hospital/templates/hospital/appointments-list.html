@@ -1,0 +1,72 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+{% block title %}
+    {% if user.hospital %}
+        Dashboard | {{ user.hospital.name }}
+    {% else %}
+        MedTour | Appointments
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <div class="uk-container uk-padding-small">
+        <div class="uk-width-1-1 uk-margin-remove" uk-grid>
+            <div class="uk-card uk-width-1-1 uk-card-default uk-card-hover">
+                <div class="uk-card-header">
+                    <h2>Appointments at {{ hospital }}</h2>
+                </div>
+                <div class="uk-card-body"></div>
+                    <table class="uk-table uk-table-responsive uk-table-hover uk-table-divider">
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Patient</th>
+                                <th>Remark</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                            <tr>
+                                <td>
+                                    <img class="uk-border-circle" width="30" height="30" src="{{ appointment.doctor.user.profile.avatar_small }}">
+                                    <span> </span>
+                                    <a href="{{ appointment.doctor.get_url }}" class="uk-text-bold uk-button uk-button-text">{{ appointment.doctor.name }}</a>
+                                </td>
+                                <td>
+                                    {% if appointment.patient.user.profile.avatar %}
+                                        <img src="{{ appointment.patient.user.profile.avatar_small }}" class="uk-border-circle" width="30" height="30">
+                                    {% else %}
+                                        {% if appointment.patient.user.profile.gender == 'f' %}
+                                            <img src="{% static 'images/female.png' %}" class="uk-border-circle" width="30" height="30">
+                                        {% else %}
+                                            <img src="{% static 'images/anon.png' %}" class="uk-border-circle" width="30" height="30">
+                                        {% endif %}
+                                    {% endif %}
+                                    <span> </span>
+                                    <a class="uk-text-bold uk-button uk-button-text">{{ appointment.patient.user.first_name }}</a>
+                                </td>
+                                <td>{{ appointment.patients_remarks }}</td>
+                                <td>
+                                    {% if appointment.start_date or appointment.end_date %}
+                                        {{ appointment.start_date }} to {{ appointment.end_date }}
+                                    {% else %}
+                                        Not Available
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if not appointment.approved %}
+                                        <span class="uk-badge uk-label-warning uk-padding-small">Pending</span>
+                                    {% else %}
+                                        <span class="uk-badge uk-label-success uk-padding-small">Approved</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
