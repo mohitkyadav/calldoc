@@ -61,8 +61,10 @@
                             {% if not user.hospital %}
                                 <li><a href="{% url 'signup' %}"><span class="uk-margin-small-right" uk-icon="icon: plus-circle;"></span>Hospital Sign Up</a></li>
                             {% endif %}
-                            <li class="uk-active"><a href="{% url 'hospital:appointment-list' %}">Appointments</a></li>
                             {% if user.is_authenticated %}
+                            {% if user.hospital %}
+                                <li class="uk-active"><a href="{% url 'hospital:appointment-list' %}">Appointments</a></li>
+                            {% endif %}
                                 <li class="uk-active">
                                     <a href="#">
                                         {% if user.profile.avatar %}
@@ -120,9 +122,9 @@
                             </form>
                         </div>
                         <li><a href="{% url 'home' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Home</a></li>
-                        <li><a href="{% url 'hospital:appointment-list' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Appointments</a></li>
                         <li><a href="{% url 'hospital:list-hospitals' %}" class=""><span class="uk-margin-small-right  uk-text-danger" uk-icon="icon: lifesaver;"></span>Hospitals</a></li>
                         {% if user.is_authenticated %}
+                            <li><a href="{% url 'hospital:appointment-list' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Appointments</a></li>
                             <li><a href="{% url 'overview' %}"><span class="uk-margin-small-right" uk-icon="icon: happy;"></span> Profile</a></li>
                             <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Set Password</a></li>
                             <li><a href="{% url 'logout' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-out;"></span> Logout</a></li>
