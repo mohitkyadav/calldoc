@@ -7,7 +7,7 @@ from django.views import View
 from social_django.models import UserSocialAuth
 
 from hospital.forms import HospitalForm
-from hospital.models import Doctor, Appointment
+from hospital.models import Doctor, Appointment, Hospital
 from landing.models import Region, City, Profile
 from .forms import ProfileForm
 
@@ -31,10 +31,13 @@ class HomeView(View):
     def get(self, request):
         doctors = None
         hospital_appointments = None
-        if request.user.hospital:
-            hospital = request.user.hospital
-            doctors = Doctor.objects.filter(hospital=hospital)
-            hospital_appointments = Appointment.objects.filter(doctor__in=doctors)
+        try:
+            if request.user.hospital:
+                hospital = request.user.hospital
+                doctors = Doctor.objects.filter(hospital=hospital)
+                hospital_appointments = Appointment.objects.filter(doctor__in=doctors)
+        except Hospital.DoesNotExist:
+            pass
         patient_appointments = Appointment.objects.filter(patient__user=request.user) or None
         return render(request, 'landing/home.html', {'doctors': doctors,
                                                      'happs': hospital_appointments,
