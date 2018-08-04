@@ -71,6 +71,7 @@
                                             <h2 class="uk-modal-title">Appointment Description</h2>
                                         </div>
                                         <div class="uk-modal-body">
+                                            <h3 class="uk-text-meta">Age: {{ appointment.patient.user.profile.get_age }} Sex: {{ appointment.patient.user.profile.get_gender_display }}</h3>
                                             <p>{{ appointment.patients_remarks }}</p>
                                             <br>
                                             Current Status :

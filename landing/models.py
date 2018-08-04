@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -60,6 +62,10 @@ class Profile(models.Model):
     def get_fullname(self):
         full_name = '%s %s' % (self.user.first_name, self.user.last_name)
         return full_name.strip()
+
+    def get_age(self):
+        today = date.today()
+        return today.year - self.dob.year - ((today.month, today.day) < (self.dob.month, self.dob.day))
 
 
 @receiver(post_save, sender=User)
