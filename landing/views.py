@@ -36,10 +36,13 @@ class HomeView(View):
                 hospital = request.user.hospital
                 doctors = Doctor.objects.filter(hospital=hospital)
                 hospital_appointments = Appointment.objects.filter(doctor__in=doctors)
+                return render(request, 'landing/home.html', {'doctors': doctors,
+                                                             'happs': hospital_appointments,
+                                                             })
         except Hospital.DoesNotExist:
             pass
         patient_appointments = Appointment.objects.filter(patient__user=request.user) or None
-        return render(request, 'landing/home.html', {'doctors': doctors,
+        return render(request, 'landing/patient_home.html', {'doctors': doctors,
                                                      'happs': hospital_appointments,
                                                      'papps': patient_appointments,
                                                      })
@@ -138,7 +141,6 @@ def autocomplete(request):
         for i in queryset:
             if len(suggestions) < 10:
                 suggestions.append(i.display_name)
-        print(suggestions)
         data = {
             'list': suggestions,
         }
