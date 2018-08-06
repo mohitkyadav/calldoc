@@ -65,7 +65,8 @@ class Profile(models.Model):
 
     def get_age(self):
         today = date.today()
-        return today.year - self.dob.year - ((today.month, today.day) < (self.dob.month, self.dob.day))
+        if self.dob:
+            return today.year - self.dob.year - ((today.month, today.day) < (self.dob.month, self.dob.day))
 
 
 @receiver(post_save, sender=User)
