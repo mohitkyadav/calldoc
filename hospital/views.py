@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views import View
 from hospital.filters import DoctorSpecFilter
 from hospital.forms import AppointmentForm
@@ -23,14 +24,11 @@ class AppointmentApprove(View):
         hospital = request.user.hospital
         doctors = Doctor.objects.filter(hospital=hospital)
         appointments = Appointment.objects.filter(doctor__in=doctors)
-        appointment = get_object_or_404(Appointment, id=id)
+        appointment = get_object_or_404(appointments, id=id)
         appointment.approved = True
         appointment.rejected = False
         appointment.save()
-        return render(request, 'hospital/appointments-list.html', {
-            'hospital': hospital,
-            'appointments': appointments,
-        })
+        return redirect(reverse('hospital:appointment-list', args=[]))
 
 
 class AppointmentReject(View):
@@ -38,14 +36,11 @@ class AppointmentReject(View):
         hospital = request.user.hospital
         doctors = Doctor.objects.filter(hospital=hospital)
         appointments = Appointment.objects.filter(doctor__in=doctors)
-        appointment = get_object_or_404(Appointment, id=id)
+        appointment = get_object_or_404(appointments, id=id)
         appointment.rejected = True
         appointment.approved = False
         appointment.save()
-        return render(request, 'hospital/appointments-list.html', {
-            'hospital': hospital,
-            'appointments': appointments,
-        })
+        return redirect(reverse('hospital:appointment-list', args=[]))
 
 
 class HospitalHome(View):
