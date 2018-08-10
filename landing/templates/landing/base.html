@@ -83,6 +83,7 @@
                                             <hr>
                                             <li><a href="{% url 'overview' %}"><span uk-icon="icon: happy;"></span> Profile</a></li>
                                             <li><a href="{% url 'password' %}"><span uk-icon="icon: pencil;"></span> Change Password</a></li>
+                                            <li><a href="{% url 'username' %}"><span uk-icon="icon: pencil;"></span> Change Username</a></li>
                                             <li><a href="{% url 'logout' %}"><span uk-icon="icon: sign-out;"></span> Logout</a></li>
                                         </ul>
                                     </div>
@@ -126,7 +127,8 @@
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'hospital:appointment-list' %}"><span class="uk-margin-small-right" uk-icon="icon: home;"></span> Appointments</a></li>
                             <li><a href="{% url 'overview' %}"><span class="uk-margin-small-right" uk-icon="icon: happy;"></span> Profile</a></li>
-                            <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Set Password</a></li>
+                            <li><a href="{% url 'password' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Change Password</a></li>
+                            <li><a href="{% url 'username' %}"><span class="uk-margin-small-right" uk-icon="icon: pencil;"></span> Change Username</a></li>
                             <li><a href="{% url 'logout' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-out;"></span> Logout</a></li>
                         {% else %}
                             <li class="uk-active"><a href="{% url 'login' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-in;"></span> Login</a></li>

@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^signup/$', landing.views.signup, name='signup'),
     url(r'^account/overview/$', login_required(landing.views.AccountOverview.as_view()), name='overview'),
     url(r'^settings/password/$', login_required(landing.views.PasswordChangeView.as_view()), name='password'),
+    url(r'^settings/username/$', login_required(landing.views.change_username), name='username'),
     path('admin/', admin.site.urls),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),

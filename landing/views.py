@@ -1,19 +1,40 @@
-from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm, UserCreationForm
-from django.contrib.auth import update_session_auth_hash, authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from social_django.models import UserSocialAuth
-
 from hospital.forms import HospitalForm
 from hospital.models import Doctor, Appointment, Hospital
 from landing.models import Region, City, Profile
-from .forms import ProfileForm
+from .forms import ProfileForm, UsernameForm
 
 
 def land(request):
     return render(request, 'landing/base.html')
+
+
+@login_required
+def change_username(request):
+    form = UsernameForm(request.POST, instance=request.user)
+    if form.is_valid():
+        temp = form.save(commit=False)
+        username_available = User.objects.filter(username=temp.username)
+        print(username_available)
+        if len(username_available) is 0:
+            form.save()
+            messages.success(request, 'Your username was successfully updated!')
+            update_session_auth_hash(request, request.user)
+            return redirect('username')
+        else:
+            messages.error(request, 'Username is already taken, please try another one.')
+            return redirect('username')
+    else:
+        messages.error(request, 'Username is already taken, please try another one.')
+    return render(request, 'landing/username.html', {'form': form})
 
 
 def signup(request):

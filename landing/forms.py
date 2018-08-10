@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 
 from .models import Profile, Region, City
 
@@ -77,3 +78,17 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'dob': DateInput(),
         }
+
+
+class UsernameForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UsernameForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = 'New Username'
+        self.fields['username'].widget.attrs.update({
+            'class': 'uk-input uk-width-auto',
+            'placeholder': 'New Username'
+        })
+
+    class Meta:
+        model = User
+        fields = {'username'}
