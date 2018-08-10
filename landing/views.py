@@ -36,23 +36,6 @@ class ChangeUsername(View):
         return render(request, 'landing/username.html', {'form': form})
 
 
-@login_required
-def change_username(request):
-    form = UsernameForm(request.POST, instance=request.user)
-    if request.POST:
-        if form.is_valid():
-            temp = UsernameForm(request.POST, instance=request.user)
-            temp = temp.save(commit=False)
-            temp.save()
-            messages.success(request, 'Your username was successfully updated!')
-            update_session_auth_hash(request, request.user)
-            return redirect('username')
-        else:
-            print('joijojij')
-            messages.error(request, 'Username is already taken, please try another one.')
-    return render(request, 'landing/username.html', {'form': form})
-
-
 def signup(request):
     if not request.user.is_authenticated:
         return redirect('login')
