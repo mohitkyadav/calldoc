@@ -17,23 +17,39 @@ def land(request):
     return render(request, 'landing/base.html')
 
 
-@login_required
-def change_username(request):
-    form = UsernameForm(request.POST, instance=request.user)
-    if form.is_valid():
-        temp = form.save(commit=False)
-        username_available = User.objects.filter(username=temp.username)
-        print(username_available)
-        if len(username_available) is 0:
+class ChangeUsername(View):
+    def get(self, request):
+        form = UsernameForm(instance=request.user)
+        return render(request, 'landing/username.html', {'form': form})
+
+    def post(self, request):
+        form = UsernameForm(request.POST, request.user)
+        if form.is_valid():
+            form = UsernameForm(request.POST, instance=request.user)
             form.save()
             messages.success(request, 'Your username was successfully updated!')
             update_session_auth_hash(request, request.user)
             return redirect('username')
         else:
+            print(request.user.username)
             messages.error(request, 'Username is already taken, please try another one.')
+        return render(request, 'landing/username.html', {'form': form})
+
+
+@login_required
+def change_username(request):
+    form = UsernameForm(request.POST, instance=request.user)
+    if request.POST:
+        if form.is_valid():
+            temp = UsernameForm(request.POST, instance=request.user)
+            temp = temp.save(commit=False)
+            temp.save()
+            messages.success(request, 'Your username was successfully updated!')
+            update_session_auth_hash(request, request.user)
             return redirect('username')
-    else:
-        messages.error(request, 'Username is already taken, please try another one.')
+        else:
+            print('joijojij')
+            messages.error(request, 'Username is already taken, please try another one.')
     return render(request, 'landing/username.html', {'form': form})
 
 
