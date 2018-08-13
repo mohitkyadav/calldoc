@@ -8,4 +8,4 @@ class ProfileInstanceAdmin(admin.ModelAdmin):
     list_display = ('user', 'gender', 'dob', 'city')
 
 
-admin.site.register(Profile, Profile)
+admin.site.register(Profile, ProfileInstanceAdmin)
