@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -37,13 +37,18 @@ class ChangeUsername(View):
 
 
 def signup(request):
+    form = HospitalForm(request.POST or None)
     if not request.user.is_authenticated:
-        return redirect('login')
-    current_profile = Profile.objects.get(user=request.user)
-    form = HospitalForm(current_profile, request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('home')
+        form = HospitalForm(request.POST or None)
+        if form.is_valid():
+            temp = form.save(commit=False)
+            username = temp.cleaned_username
+            user = User.objects.create(username=username, password='test')
+            temp.user = user.profile
+            user = authenticate(username=username, password='test')
+            login(request, user)
+            form.save()
+            return redirect('home')
     return render(request, 'registration/signup.html', {'form': form})
 
 

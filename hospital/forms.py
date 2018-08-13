@@ -7,14 +7,14 @@ from django.forms import CheckboxSelectMultiple
 
 
 class HospitalForm(forms.ModelForm):
-    def __init__(self, profile, *args, **kwargs):
+    username = forms.CharField()
+
+    def __init__(self, *args, **kwargs):
         super(HospitalForm, self).__init__(*args, **kwargs)
-        self.fields['user'].queryset = User.objects.filter(username=profile.user.username)
-        self.fields['user'].initial = User.objects.get(username=profile.user.username)
-        self.fields['slug'].initial = 'hospital-' + str(User.objects.get(username=profile.user.username).username)
         self.fields['name'].label = 'Hospital Name'
         self.fields['address'].label = 'Hospital Address'
         self.fields['slug'].label = ''
+        self.fields['username'].label = 'Enter Username Handle'
 
         self.fields['name'].widget.attrs.update({
             'class': 'uk-width-auto'
@@ -34,8 +34,8 @@ class HospitalForm(forms.ModelForm):
             'class': 'uk-hidden'
         })
 
-        self.fields['user'].widget.attrs.update({
-            'class': 'uk-input uk-disabled uk-width-auto'
+        self.fields['username'].widget.attrs.update({
+            'class': 'uk-input uk-width-auto'
         })
 
         self.fields['address'].widget.attrs.update({
@@ -45,10 +45,17 @@ class HospitalForm(forms.ModelForm):
 
     class Meta:
         model = Hospital
-        exclude = {'rating', 'verified'}
+        exclude = {'rating', 'verified', 'user'}
         widgets = {
             'specialisation': CheckboxSelectMultiple()
         }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        return username
+
+    def save(self, commit=True):
+        return super(HospitalForm, self).save(commit=commit)
 
 
 class AppointmentForm(forms.ModelForm):
