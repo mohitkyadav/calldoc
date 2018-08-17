@@ -38,17 +38,16 @@ class ChangeUsername(View):
 
 def signup(request):
     form = HospitalForm(request.POST or None)
-    if not request.user.is_authenticated:
-        form = HospitalForm(request.POST or None)
-        if form.is_valid():
-            temp = form.save(commit=False)
-            username = temp.cleaned_username
-            user = User.objects.create(username=username, password='test')
-            temp.user = user.profile
-            user = authenticate(username=username, password='test')
-            login(request, user)
-            form.save()
-            return redirect('home')
+    print(form.is_valid())
+    if form.is_valid():
+        temp = form.save(commit=False)
+        username = temp.username
+        user = User.objects.create(username=username, password='test')
+        temp.user = user.profile
+        user = authenticate(username=username, password='test')
+        login(request, user)
+        form.save()
+        return redirect('home')
     return render(request, 'registration/signup.html', {'form': form})
 
 
