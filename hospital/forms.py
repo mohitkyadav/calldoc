@@ -7,7 +7,7 @@ from django.forms import CheckboxSelectMultiple
 
 
 class HospitalForm(forms.ModelForm):
-    username = forms.CharField()
+    username = forms.CharField(max_length=20, min_length=3)
 
     def __init__(self, *args, **kwargs):
         super(HospitalForm, self).__init__(*args, **kwargs)

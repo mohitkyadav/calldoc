@@ -1,5 +1,4 @@
 from datetime import date
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -55,6 +54,7 @@ class Profile(models.Model):
     country = models.ForeignKey(Country, null=True, blank=True, on_delete=models.PROTECT)
     state = models.ForeignKey(Region, null=True, blank=True, on_delete=models.PROTECT)
     city = models.ForeignKey(City, null=True, blank=True, on_delete=models.PROTECT)
+    email_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.first_name

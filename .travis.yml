@@ -22,6 +22,11 @@ env:
   -G_KEY=123456test
   -G_SKEY=123456test
   -SKEY=MKYabcdAR2AM
+  -EMAIL_USE_TLS=True
+  -EMAIL_HOST=smtp.2am.com
+  -EMAIL_HOST_USER=gmail@2amdev.com
+  -EMAIL_HOST_PASSWORD=password
+  -EMAIL_PORT=7894
 
 install:
   - pip install -r requirements.txt
