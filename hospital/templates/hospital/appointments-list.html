@@ -29,7 +29,6 @@
                             {% for appointment in appointments %}
                                 <tr style="cursor: pointer" href="#{{ appointment.id }}appointment-modal" uk-toggle>
                                     <td>
-                                        {{ appointment.id }}
                                         <img class="uk-border-circle" width="30" height="30" src="{{ appointment.doctor.user.profile.avatar_small }}">
                                         <span> </span>
                                         <a href="{{ appointment.doctor.get_url }}" class="uk-text-bold uk-button uk-button-text">{{ appointment.doctor.name }}</a>

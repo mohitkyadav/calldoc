@@ -1,61 +1,7 @@
 import datetime
 from datetimewidget.widgets import DateTimeWidget
-from .models import Hospital, Appointment
+from .models import Appointment
 from django import forms
-from django.contrib.auth.models import User
-from django.forms import CheckboxSelectMultiple
-
-
-class HospitalForm(forms.ModelForm):
-    username = forms.CharField(max_length=20, min_length=3)
-
-    def __init__(self, *args, **kwargs):
-        super(HospitalForm, self).__init__(*args, **kwargs)
-        self.fields['name'].label = 'Hospital Name'
-        self.fields['address'].label = 'Hospital Address'
-        self.fields['slug'].label = ''
-        self.fields['username'].label = 'Enter Username Handle'
-
-        self.fields['name'].widget.attrs.update({
-            'class': 'uk-width-auto'
-        })
-
-        self.fields['email'].widget.attrs.update({
-            'class': 'uk-width-auto',
-            'placeholder': 'hospital@example.com'
-        })
-
-        self.fields['phone_number'].widget.attrs.update({
-            'class': 'uk-width-auto',
-            'placeholder': '+911234567890'
-        })
-
-        self.fields['slug'].widget.attrs.update({
-            'class': 'uk-hidden'
-        })
-
-        self.fields['username'].widget.attrs.update({
-            'class': 'uk-input uk-width-auto'
-        })
-
-        self.fields['address'].widget.attrs.update({
-            'class': ' uk-textarea uk-width-auto',
-            'placeholder': 'Provide detailed addresss here'
-        })
-
-    class Meta:
-        model = Hospital
-        exclude = {'rating', 'verified', 'user'}
-        widgets = {
-            'specialisation': CheckboxSelectMultiple()
-        }
-
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        return username
-
-    def save(self, commit=True):
-        return super(HospitalForm, self).save(commit=commit)
 
 
 class AppointmentForm(forms.ModelForm):

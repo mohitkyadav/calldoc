@@ -36,6 +36,9 @@
                     {% if twitter_login or facebook_login or google_login %}
                     <hr>
                     {% endif %}
+                    {% if user.hospital %}
+                        <a class="uk-button-text" href="{{ user.hospital.get_url }}">View Public Profile</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="uk-width-2-3@m uk-margin-medium-top">
