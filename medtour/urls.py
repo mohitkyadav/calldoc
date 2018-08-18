@@ -24,4 +24,7 @@ urlpatterns = [
     path('ajax/load-cities/', landing.views.load_city, name='ajax_load_cities'),
     path('ajax/autocomplete/', landing.views.autocomplete, name='ajax_autocomplete'),
     url(r'^$', views.HospitalsAll.as_view(), name='land'),
+    url(r'^account_activation_sent/$', landing.views.account_activation_sent, name='account_activation_sent'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        landing.views.activate, name='activate'),
 ]

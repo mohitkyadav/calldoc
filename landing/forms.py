@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from .models import Profile, Region, City
@@ -6,6 +7,16 @@ from .models import Profile, Region, City
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
+
+class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(label="Hospital Name", max_length=30, required=False, help_text='Enter Hospital Name '
+                                                                                                 'here')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'password1', 'password2')
 
 
 class ProfileForm(forms.ModelForm):
