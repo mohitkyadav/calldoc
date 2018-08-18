@@ -16,11 +16,26 @@ from hospital.models import Doctor, Appointment, Hospital
 from landing.models import Region, City, Profile
 from landing.tokens import account_activation_token
 from medtour import settings
-from .forms import ProfileForm, UsernameForm, SignUpForm
+from .forms import ProfileForm, UsernameForm, SignUpForm, HospitalForm
 
 
 def land(request):
     return render(request, 'landing/base.html')
+
+
+class CompleteHospitalProfile(View):
+    def get(self, request):
+        form = HospitalForm(instance=request.user.hospital)
+        return render(request, 'landing/hospital_profile_complete.html', {'form': form})
+
+    def post(self, request):
+        form = HospitalForm(request.POST, instance=request.user.hospital)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect('home')
+        else:
+            return render(request, 'landing/hospital_profile_complete.html', {'form': form})
 
 
 class ChangeUsername(View):
@@ -53,8 +68,9 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
+        hospital = Hospital(user=user).save()
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        return redirect('home')
+        return redirect('complete_hospital_profile')
     else:
         return render(request, 'registration/account_activation_invalid.html')
 

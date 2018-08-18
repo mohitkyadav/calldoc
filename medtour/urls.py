@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^account_activation_sent/$', landing.views.account_activation_sent, name='account_activation_sent'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         landing.views.activate, name='activate'),
+    url(r'^complete/profile/$', login_required(landing.views.CompleteHospitalProfile.as_view()),
+        name='complete_hospital_profile'),
 ]

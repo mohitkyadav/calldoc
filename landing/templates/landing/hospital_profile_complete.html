@@ -1,0 +1,43 @@
+{% extends 'landing/base.html' %}
+{% block title %}
+    Complete Hospital Profile
+{% endblock %}
+{% block body %}
+    <div class="uk-container uk-margin-medium-top">
+        <form class="uk-table-responsive uk-background-secondary uk-box-shadow-large uk-padding-small" action="#" method="post">
+            <h2 class="uk-text-success">Complete your hospital profile</h2>
+            <hr>
+            {% csrf_token %}
+            <table class="uk-table uk-card-secondary">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="uk-text-bold">{{ form.name.label }}</td>
+                        <td>{{ form.name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-bold">{{ form.address.label }}</td>
+                        <td>{{ form.address }}</td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-bold">{{ form.slug.label }}</td>
+                        <td>{{ form.slug }}</td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-bold">{{ form.phone_number.label }}</td>
+                        <td>{{ form.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-bold">{{ form.specialisation.label }}</td>
+                        <td>{{ form.specialisation }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <input class="uk-width-1-1 uk-button uk-button-primary uk-margin-small-bottom uk-border-rounded" type="submit" value="Submit" />
+            <input class="uk-width-1-1 uk-button uk-button-secondary  uk-border-rounded" type="reset" value="Clear all changes"/>
+        </form>
+    </div>
+{% endblock %}

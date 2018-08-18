@@ -1,12 +1,52 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import CheckboxSelectMultiple
 
+from hospital.models import Hospital
 from .models import Profile, Region, City
 
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
+
+class HospitalForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(HospitalForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = 'Hospital Name'
+        self.fields['address'].label = 'Hospital Address'
+        self.fields['slug'].label = ''
+        self.fields['specialisation'].label = 'Specialisations'
+
+        self.fields['name'].widget.attrs.update({
+            'class': 'uk-width-auto uk-input'
+        })
+
+        self.fields['phone_number'].widget.attrs.update({
+            'class': 'uk-width-auto  uk-input',
+            'placeholder': '+911234567890'
+        })
+
+        self.fields['slug'].widget.attrs.update({
+            'class': 'uk-hidden'
+        })
+
+        self.fields['address'].widget.attrs.update({
+            'class': ' uk-textarea uk-width-auto  uk-input',
+            'placeholder': 'Provide detailed addresss here'
+        })
+
+    class Meta:
+        model = Hospital
+        exclude = {'rating', 'verified', 'user', 'email'}
+        widgets = {
+            'specialisation': CheckboxSelectMultiple()
+        }
+
+    def save(self, commit=True):
+        return super(HospitalForm, self).save(commit=commit)
 
 
 class SignUpForm(UserCreationForm):
