@@ -64,6 +64,7 @@
                             {% if user.is_authenticated %}
                             {% if user.hospital %}
                                 <li class="uk-active"><a href="{% url 'hospital:appointment-list' %}">Appointments</a></li>
+                                <li class="uk-active"><a href="{% url 'complete_hospital_profile' %}">Edit Profile</a></li>
                             {% endif %}
                                 <li class="uk-active">
                                     <a href="#">
