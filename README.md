@@ -23,14 +23,6 @@ $ python manage.py migrate
 $ python manage.py runserver
 ```
 
-## Auth
-
-Admin Credentials are:
-```
-Username: test
-Password: test1234
-```
-
 ## Deployment
 
 Check [here](https://arcane-shore-58046.herokuapp.com)
