@@ -47,7 +47,7 @@ class Hospital(models.Model):
     verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.user.first_name
 
     def get_url(self):
         return reverse('hospital:overview', args=[self.slug])

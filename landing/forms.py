@@ -25,7 +25,7 @@ class HospitalForm(forms.ModelForm):
         })
 
         self.fields['slug'].widget.attrs.update({
-            'class': 'uk-width-auto uk-input'
+            'class': 'uk-width-auto uk-input uk-disabled'
         })
 
         self.fields['phone_number'].widget.attrs.update({
@@ -34,8 +34,10 @@ class HospitalForm(forms.ModelForm):
         })
 
         self.fields['address'].widget.attrs.update({
-            'class': ' uk-textarea uk-width-auto  uk-input',
-            'placeholder': 'Provide detailed addresss here'
+            'class': ' uk-textarea uk-input',
+            'placeholder': 'Provide detailed address here',
+            # Disabled Grammarly like addons
+            'data-gramm_editor': False,
         })
 
     class Meta:

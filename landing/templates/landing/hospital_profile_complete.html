@@ -4,14 +4,14 @@
 {% endblock %}
 {% block body %}
     <div class="uk-container uk-margin-medium-top">
-        <form class="uk-table-responsive uk-background-secondary uk-box-shadow-large uk-padding-small" action="#" method="post">
-            <h2 class="uk-text-success">Complete your hospital profile</h2>
+        <form class="uk-table-responsive uk-align-center uk-border-rounded uk-width-1-2@m uk-box-shadow-large uk-padding-small" action="#" method="post">
+            <h2 class="uk-text-success uk-text-center">Complete your Hospital Profile</h2>
             <hr>
             {% if messages %}
                 {% for message in messages %}
                     <h5 {% if message.tags %}
                         {% if message.tags == "error" %}
-                            class="uk-text-danger"
+                            class="uk-text-danger uk-text-center"
                         {% else %}
                             class="uk-text-{{ message.tags }}"
                         {% endif %}
@@ -20,7 +20,7 @@
             {% endif %}
 
             {% csrf_token %}
-            <table class="uk-table uk-card-secondary">
+            <table class="uk-table">
                 <thead>
                     <tr>
                     </tr>
@@ -48,8 +48,11 @@
                     </tr>
                 </tbody>
             </table>
-            <input class="uk-width-1-1 uk-button uk-button-primary uk-margin-small-bottom uk-border-rounded" type="submit" value="Submit" />
-            <input class="uk-width-1-1 uk-button uk-button-secondary  uk-border-rounded" type="reset" value="Clear all changes"/>
+            <p class="uk-align-center uk-text-center">
+                <input class="uk-button uk-button-primary uk-border-rounded" type="submit" value="Submit" />
+                <input class="uk-button uk-button-danger uk-margin-left uk-border-rounded" type="reset" value="Clear all changes"/>
+            </p>
         </form>
     </div>
 {% endblock %}
+
