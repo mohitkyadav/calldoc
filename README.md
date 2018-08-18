@@ -1,12 +1,11 @@
-# medtour
+<p align='center'> <img src="medtour/static/icons/bone.png" align="center" width="150"></p>
 
-[<img src="medtour/static/icons/bone.png" align="right" width="100">](https://arcane-shore-58046.herokuapp.com)
+<h1 align="center">MedTour</h1>
+<h4 align="center">Django based Medical Tourism Application</h4>
 
-[![Build Status](https://travis-ci.com/mohitkyadav/calldoc.svg?token=pLJkWav1wbnbGfoLfZtG&branch=master)](https://travis-ci.com/mohitkyadav/calldoc)
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/makes-people-smile.svg)](http://forthebadge.com)
+<p align="center">
+<img src="https://travis-ci.com/mohitkyadav/calldoc.svg?token=pLJkWav1wbnbGfoLfZtG&branch=master" align="center">
 
-Medical Tourism Application
 
 ## Installation
 
