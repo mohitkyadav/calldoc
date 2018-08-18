@@ -17,20 +17,20 @@ class HospitalForm(forms.ModelForm):
         super(HospitalForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = 'Hospital Name'
         self.fields['address'].label = 'Hospital Address'
-        self.fields['slug'].label = ''
+        self.fields['slug'].label = 'Choose your slug'
         self.fields['specialisation'].label = 'Specialisations'
 
         self.fields['name'].widget.attrs.update({
             'class': 'uk-width-auto uk-input'
         })
 
+        self.fields['slug'].widget.attrs.update({
+            'class': 'uk-width-auto uk-input'
+        })
+
         self.fields['phone_number'].widget.attrs.update({
             'class': 'uk-width-auto  uk-input',
             'placeholder': '+911234567890'
-        })
-
-        self.fields['slug'].widget.attrs.update({
-            'class': 'uk-hidden'
         })
 
         self.fields['address'].widget.attrs.update({

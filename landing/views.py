@@ -35,6 +35,7 @@ class CompleteHospitalProfile(View):
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('home')
         else:
+            messages.error(request, 'Slug is already taken, please try another one.')
             return render(request, 'landing/hospital_profile_complete.html', {'form': form})
 
 

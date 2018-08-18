@@ -7,6 +7,18 @@
         <form class="uk-table-responsive uk-background-secondary uk-box-shadow-large uk-padding-small" action="#" method="post">
             <h2 class="uk-text-success">Complete your hospital profile</h2>
             <hr>
+            {% if messages %}
+                {% for message in messages %}
+                    <h5 {% if message.tags %}
+                        {% if message.tags == "error" %}
+                            class="uk-text-danger"
+                        {% else %}
+                            class="uk-text-{{ message.tags }}"
+                        {% endif %}
+                    {% endif %}>{{ message }}</h5>
+                {% endfor %}
+            {% endif %}
+
             {% csrf_token %}
             <table class="uk-table uk-card-secondary">
                 <thead>
