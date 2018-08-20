@@ -69,11 +69,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        hospital = Hospital(user=user).save()
-        hospital.email = user.email
-        hospital.name = user.first_name
-        hospital.slug = user.username
-        hospital.save()
+        hospital = Hospital(user=user, email=user.email, name=user.first_name, slug=user.username).save()
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('complete_hospital_profile')
     else:
