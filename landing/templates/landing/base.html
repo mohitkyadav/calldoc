@@ -70,6 +70,8 @@
                                     <a href="#">
                                         {% if user.profile.avatar %}
                                             <img src="{{ user.profile.avatar_small }}" class="uk-border-circle" width="40" height="40">
+                                        {% elif user.hospital %}
+                                            <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{% static 'images/hospital-default-avtar.png' %}">
                                         {% else %}
                                             {% if user.profile.gender == 'f' %}
                                                 <img src="{% static 'images/female.png' %}" class="uk-border-circle" width="40" height="40">
@@ -107,6 +109,8 @@
                     {% if user.is_authenticated %}
                         {% if user.profile.avatar %}
                             <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{{ user.profile.avatar_small }}">
+                        {% elif user.hospital %}
+                                <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{% static 'images/hospital-default-avtar.png' %}">
                         {% else %}
                             {% if user.profile.gender == 'f' %}
                                 <img class="uk-border-circle uk-margin-small-right" width="50" height="50" src="{% static 'images/female.png' %}">

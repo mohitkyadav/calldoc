@@ -12,7 +12,9 @@
                 <div class="uk-card uk-card-default uk-card-hover uk-width-1-1 uk-text-center uk-card-body uk-align-center uk-margin-medium-top uk-margin-auto-bottom">
                     <div class="uk-width-auto uk-margin-remove uk-align-center">
                         {% if not user.profile.avatar %}
-                            {% if user.profile.gender == 'f' %}
+                            {% if user.hospital %}
+                                <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/hospital-default-avtar.png' %}">
+                            {% elif user.profile.gender == 'f' %}
                                 <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/female.png' %}">
                             {% else %}
                                 <img class="uk-border-circle uk-box-shadow-large" width="160" height="160" src="{% static 'images/anon.png' %}">

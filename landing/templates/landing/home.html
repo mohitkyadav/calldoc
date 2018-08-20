@@ -85,6 +85,8 @@
                                 <td>
                                     {% if happ.patient.user.profile.avatar %}
                                         <img src="{{ happ.patient.user.profile.avatar_small }}" class="uk-border-circle" width="30" height="30">
+                                    {% elif user.hospital %}
+                                        <img src="{% static 'images/hospital-default-avtar.png' %}" class="uk-border-circle" width="30" height="30">
                                     {% else %}
                                         {% if happ.patient.user.profile.gender == 'f' %}
                                             <img src="{% static 'images/female.png' %}" class="uk-border-circle" width="30" height="30">
