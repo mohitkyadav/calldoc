@@ -25,6 +25,6 @@ $ python manage.py runserver
 
 ## Deployment
 
-Check [here](https://arcane-shore-58046.herokuapp.com)
+Check [here](https://medtour.herokuapp.com)
 
 <p align="center"> Made from scratch with ❤ by 2AM Developers </p>
