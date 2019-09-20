@@ -151,34 +151,21 @@
 
             {% endblock %}
         </div>
-
-        <footer style="display: none">
-            <div align="center" class="footer-wrapper uk-box-shadow-small uk-box-shadow-hover-xlarge">
-                <div class="uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-padding-small uk-padding-remove-left uk-padding-remove-right">
-                    <span class="uk-text-bold uk-text-small">
-                        <hr>
-                        <span uk-icon="icon: code;"></span> by 2AM Developers
-                    </span>
-                </div>
-            </div>
-        </footer>
     </body>
     <script>
         var spinner = document.getElementById("spinner");
-        var footer = document.getElementsByTagName("footer")[0];
         var site_content = document.getElementsByClassName("site-content")[0];
-        footer.style.display = "none";
         site_content.style.display = "none";
 
         document.onreadystatechange = () => {
           if (document.readyState === 'complete') {
             // document ready
             spinner.style.display = "none";
-            footer.style.display = "block";
             site_content.style.display = "block";
           }
         };
     </script>
+    
     <script>
         $("#search-box-large").on('keyup', function(){
             let value = $(this).val();
